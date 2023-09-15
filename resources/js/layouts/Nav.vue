@@ -149,11 +149,8 @@
 import axios from '@/plugins/axios'
 
 const logout  = () => {
-    localStorage.removeItem('user')
       return new Promise((resolve, reject) => {
         axios.post('/logout').then((response) => {
-            // const ability = useAppAbility()
-            // ability.update({})
             localStorage.removeItem('user')
             localStorage.removeItem('accessToken')
             resolve('Success')

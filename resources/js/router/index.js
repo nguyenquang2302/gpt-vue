@@ -17,7 +17,7 @@ import Login from '../layouts/Login.vue'
 const routes =  [
     {
         path: "/",
-        name: "Home",
+        name: "Globals",
         component: Globals
     },
     {

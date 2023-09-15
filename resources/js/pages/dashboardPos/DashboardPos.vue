@@ -12,7 +12,7 @@
                                 <hr>
                                 <div class="dropdown" bis_skin_checked="1">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         Bộ Lọc
                                     </button>

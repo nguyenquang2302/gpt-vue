@@ -8,16 +8,16 @@ import  '../plugins/datatables-buttons/css/buttons.bootstrap4.min.css'
 
 import '../dist/css/adminlte.min.css'
 import 'vue3-easy-data-table/dist/style.css'
-// import  '../plugins/select2/css/select2.min.css'
 import  '../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'
 import "vue-select/dist/vue-select.css";
 
 import '../plugins/jquery/jquery.min.js'
+
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
+
 // import '../plugins/bootstrap/js/bootstrap.bundle.min.js'
 // import '../dist/js/adminlte.min.js'
-
-// import '../plugins/select2/js/select2.full.min.js'
-
 import '../dist/css/customize.css'
 
 import 'vue3-toastify/dist/index.css'
@@ -29,6 +29,7 @@ import VueNumberFormat from 'vue-number-format'
 let app = createApp(App)
 app.use(VueNumberFormat, {prefix: '', decimal: '.', thousand: '.,'})
 app.use(router)
+
 app.use(createPinia())
 app.component('EasyDataTable', Vue3EasyDataTable)
 app.component("v-select", VueSelect)

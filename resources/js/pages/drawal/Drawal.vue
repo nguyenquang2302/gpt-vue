@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="text-right col-md-6">
-                            <button class="card-header-action" data-toggle="modal" data-target="#modal-add-new">
+                            <button class="card-header-action" data-bs-toggle="modal" data-bs-target="#modal-add-new">
                                 <i class="fa fa-plus"></i> Thêm </button>
                         </div>
                     </div>
@@ -44,14 +44,14 @@
                         <template #item-operation="item">
                             <div class="operation-wrapper">
                                 <i class="fa fa-eye operation-icon" title="Chỉnh sửa"  @click="askEdit(item)"
-                                    data-toggle="modal" data-target="#modal-show"></i>
+                                    data-bs-toggle="modal" data-bs-target="#modal-show"></i>
 
                                 <i class="fa fa-edit operation-icon" title="Chỉnh sửa" v-if="!item.isDone" @click="askEdit(item)"
-                                    data-toggle="modal" data-target="#modal-edit"></i>
+                                    data-bs-toggle="modal" data-bs-target="#modal-edit"></i>
                                 <i class="fa fa-trash operation-icon text-danger" v-if="!item.isDone && userLogin.type=='admin'" @click="askDelete(item)" 
-                                    data-toggle="modal" title="Xoá Thẻ KH" data-target="#modal-delete"></i>
+                                    data-bs-toggle="modal" title="Xoá Thẻ KH" data-bs-target="#modal-delete"></i>
                                 <i class="fas fa-sync operation-icon text-danger" v-if="item.isDone" @click="asReDone(item)"
-                                    data-toggle="modal" title="Cho phép sửa/xoá" data-target="#modal-reDone"></i>
+                                    data-bs-toggle="modal" title="Cho phép sửa/xoá" data-bs-target="#modal-reDone"></i>
                             </div>
                         </template>
                     </EasyDataTable>
@@ -64,7 +64,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">KHÁCH HÀNG</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -312,7 +312,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                             tiền sẽ rút :<br>
                                             <span  class="total_money_transfer">{{ formatPrice(userDataAddNew.money_drawal) }}</span>
@@ -341,7 +341,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Xoá Thẻ KH </h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
@@ -352,7 +352,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default closeModalDelete"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionDelete()">Đồng
                                             ý</button>
                                     </div>
@@ -367,7 +367,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Cho phép sửa lại </h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
@@ -378,7 +378,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default closeModalReDone"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionReDone()">Đồng
                                             ý</button>
                                     </div>
@@ -395,7 +395,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Sửa giao dịch</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -608,7 +608,7 @@
 
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền sẽ rút :<br>
                                                 <span  class="total_money_transfer">{{ formatPrice(userData.money) }}</span>
@@ -638,7 +638,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Xem giao dịch</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -846,7 +846,7 @@
 
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền sẽ rút :<br>
                                                 <span  class="total_money_transfer">{{ formatPrice(userData.money) }}</span>

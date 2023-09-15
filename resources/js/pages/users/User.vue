@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-actions text-right">
-                        <button class="card-header-action"  data-toggle="modal" data-target="#modal-add-new" ><i class="fa fa-plus"></i> Thêm </button>
+                        <button class="card-header-action"  data-bs-toggle="modal" data-bs-target="#modal-add-new" ><i class="fa fa-plus"></i> Thêm </button>
                     </div>
                 </div>
                 <div class="content">
@@ -15,13 +15,13 @@
                         table-class-name="customize-table">
                         <template #item-operation="item">
                             <div class="operation-wrapper">
-                                <i class="fa fa-edit operation-icon" @click="askEdit(item)" data-toggle="modal"
-                                    data-target="#modal-edit"></i>
+                                <i class="fa fa-edit operation-icon" @click="askEdit(item)" data-bs-toggle="modal"
+                                    data-bs-target="#modal-edit"></i>
                                 
-                                <i class="fa fa-bell operation-icon" @click="askChangePass(item)" data-toggle="modal"
-                                    data-target="#modal-change-pass"></i>
-                                <i class="fa fa-trash operation-icon text-danger" @click="askDelete(item)" data-toggle="modal"
-                                    data-target="#modal-delete"></i>
+                                <i class="fa fa-bell operation-icon" @click="askChangePass(item)" data-bs-toggle="modal"
+                                    data-bs-target="#modal-change-pass"></i>
+                                <i class="fa fa-trash operation-icon text-danger" @click="askDelete(item)" data-bs-toggle="modal"
+                                    data-bs-target="#modal-delete"></i>
                                 
                             </div>
                         </template>
@@ -36,7 +36,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Cập nhật tài khoản</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -186,7 +186,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionCreate()">Đồng
                                             ý</button>
                                     </div>
@@ -203,7 +203,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Xoá tài khoản</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default closeModalDelete"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionDelete()">Đồng
                                             ý</button>
                                     </div>
@@ -233,7 +233,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Cập nhật tài khoản</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -373,7 +373,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalEdit"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
                                             ý</button>
                                     </div>
@@ -389,7 +389,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Thay đổi mật khâủ</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -419,7 +419,7 @@
 
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalChangePass"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionChangePass()">Đồng
                                             ý</button>
                                     </div>

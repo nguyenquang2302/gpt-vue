@@ -19,8 +19,8 @@
                 </div>
                 <div class="card-body">
                         <div class="justify-content-between">
-                            <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked === '') ? 'btn-primary' : 'btn-default']" data-dismiss="modal" @click="setSearchValue('')"> Tất cả </button>
-                            <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked == true) ? 'btn-primary' : 'btn-default']" data-dismiss="modal" @click="setSearchValue(true)"> Xác nhận </button>
+                            <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked === '') ? 'btn-primary' : 'btn-default']" data-bs-dismiss="modal" @click="setSearchValue('')"> Tất cả </button>
+                            <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked == true) ? 'btn-primary' : 'btn-default']" data-bs-dismiss="modal" @click="setSearchValue(true)"> Xác nhận </button>
                             <button type="button"  class="btn " :class="[(searchValue.isChecked === false) ? 'btn-primary' : 'btn-default']" @click="setSearchValue(false)" > Chưa xác nhận</button>
                         </div>
                     <EasyDataTable v-model:server-options="serverOptions" :server-items-length="serverItemsLength"
@@ -55,10 +55,10 @@
                         
                         <template #item-operation="item">
                             <div class="operation-wrapper">
-                                <i class="fa fa-eye operation-icon" title="Xem" @click="askEdit(item)" data-toggle="modal"
-                                    data-target="#modal-view"></i>
-                                <i class="fa fa-edit operation-icon" v-show="!item.isChecked" title="Chỉnh sửa" @click="askEdit(item)" data-toggle="modal"
-                                    data-target="#modal-edit"></i>
+                                <i class="fa fa-eye operation-icon" title="Xem" @click="askEdit(item)" data-bs-toggle="modal"
+                                    data-bs-target="#modal-view"></i>
+                                <i class="fa fa-edit operation-icon" v-show="!item.isChecked" title="Chỉnh sửa" @click="askEdit(item)" data-bs-toggle="modal"
+                                    data-bs-target="#modal-edit"></i>
                                     
                             </div>
                         </template>
@@ -74,7 +74,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Chỉnh sửa GD</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -202,7 +202,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalEdit"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
                                             ý</button>
                                     </div>
@@ -220,7 +220,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">XEM giao dịch</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -349,7 +349,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalEdit"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                     </div>
                                 </div>
                             </div>

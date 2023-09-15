@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="text-right col-md-6">
-                            <button class="card-header-action" data-toggle="modal" data-target="#modal-add-new"><i
+                            <button class="card-header-action" data-bs-toggle="modal" data-bs-target="#modal-add-new"><i
                                     class="fa fa-plus"></i> Thêm </button>
                         </div>
                     </div>
@@ -24,8 +24,8 @@
                 <div class="card-body">
 
                     <div class="justify-content-between">
-                        <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked === '') ? 'btn-primary' : 'btn-default']" data-dismiss="modal" @click="setSearchValue('')"> Tất cả </button>
-                        <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked == true) ? 'btn-primary' : 'btn-default']" data-dismiss="modal" @click="setSearchValue(true)"> Dư </button>
+                        <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked === '') ? 'btn-primary' : 'btn-default']" data-bs-dismiss="modal" @click="setSearchValue('')"> Tất cả </button>
+                        <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked == true) ? 'btn-primary' : 'btn-default']" data-bs-dismiss="modal" @click="setSearchValue(true)"> Dư </button>
                         <button type="button"  class="btn " :class="[(searchValue.isChecked === false) ? 'btn-primary' : 'btn-default']" @click="setSearchValue(false)" > Nợ</button>
                     </div>
 
@@ -42,14 +42,14 @@
 
                         <template #item-operation="item">
                             <div class="operation-wrapper">
-                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa" @click="askEdit(item)" data-toggle="modal"
-                                    data-target="#modal-view"></i>
-                                <i class="fa fa-edit operation-icon" title="Chỉnh sửa" @click="askEdit(item)" data-toggle="modal"
-                                    data-target="#modal-edit"></i>
+                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa" @click="askEdit(item)" data-bs-toggle="modal"
+                                    data-bs-target="#modal-view"></i>
+                                <i class="fa fa-edit operation-icon" title="Chỉnh sửa" @click="askEdit(item)" data-bs-toggle="modal"
+                                    data-bs-target="#modal-edit"></i>
                                 <i class="fa fa-trash operation-icon text-danger" @click="askDelete(item)" v-if="userLogin.type=='admin'"
-                                    data-toggle="modal" title="Xoá KH" data-target="#modal-delete"></i>
+                                    data-bs-toggle="modal" title="Xoá KH" data-bs-target="#modal-delete"></i>
                                     <i class="fa fa-plus operation-icon text-info" title="Thêm thẻ KH" @click="askAddCard(item)"
-                                    data-toggle="modal" data-target="#modal-add-customer-card"></i>
+                                    data-bs-toggle="modal" data-bs-target="#modal-add-customer-card"></i>
                                     <router-link
                                         :to="{
                                             name: 'CustomerCard',
@@ -58,7 +58,7 @@
                                             }
                                         }">
                                         <i class="fa fa-credit-card operation-icon text-info" title="Thẻ Khách hàng" @click="askAddCard(item)"
-                                        data-toggle="modal" data-target="#modal-add-customer-card"></i>
+                                        data-bs-toggle="modal" data-bs-target="#modal-add-customer-card"></i>
                                     </router-link>
 
                                     <router-link
@@ -69,7 +69,7 @@
                                             }
                                         }">
                                         <i class="fa fa-download operation-icon text-info" title="Rút tiền"
-                                        data-toggle="modal" data-target="#modal-add-customer-card"></i>
+                                        data-bs-toggle="modal" data-bs-target="#modal-add-customer-card"></i>
                                     </router-link>
                                     
                                     <router-link
@@ -80,7 +80,7 @@
                                             }
                                         }">
                                         <i class="fa  fa-upload operation-icon text-info" title="Đáo hạn"
-                                        data-toggle="modal" data-target="#modal-add-customer-card"></i>
+                                        data-bs-toggle="modal" data-bs-target="#modal-add-customer-card"></i>
                                     </router-link>
                                     
                             </div>
@@ -95,7 +95,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Thêm mới tài khoản</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -176,7 +176,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionCreate()">Đồng
                                             ý</button>
                                     </div>
@@ -194,7 +194,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Xoá tài khoản</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
@@ -206,7 +206,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default closeModalDelete"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionDelete()">Đồng
                                             ý</button>
                                     </div>
@@ -224,7 +224,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Chỉnh sửa KH</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -305,7 +305,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalEdit"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
                                             ý</button>
                                     </div>
@@ -322,7 +322,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Xem Thông tin KH</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -403,7 +403,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalEdit"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                     </div>
                                 </div>
                             </div>
@@ -415,7 +415,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Thêm Thẻ KHÁCH HÀNG</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -504,7 +504,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
-                                            data-dismiss="modal">Huỷ</button>
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionCardCreate()">Đồng
                                             ý</button>
                                     </div>

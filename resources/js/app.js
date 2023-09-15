@@ -13,8 +13,8 @@ import  '../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'
 import "vue-select/dist/vue-select.css";
 
 import '../plugins/jquery/jquery.min.js'
-import '../plugins/bootstrap/js/bootstrap.bundle.min.js'
-import '../dist/js/adminlte.min.js'
+// import '../plugins/bootstrap/js/bootstrap.bundle.min.js'
+// import '../dist/js/adminlte.min.js'
 
 // import '../plugins/select2/js/select2.full.min.js'
 

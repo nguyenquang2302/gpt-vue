@@ -9,5 +9,7 @@
 <body class="hold-transition sidebar-mini">
 	<div id="app"></div>
 	@vite('resources/js/app.js')
+	<script src="{{ asset('../dist/js/jquery.min.js') }}"></script>
+	<script src="{{ asset('../dist/js/adminlte.min.js') }}"></script>
 </body>
 </html>

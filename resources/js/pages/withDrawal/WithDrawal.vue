@@ -43,7 +43,7 @@
 
                         <template #item-operation="item">
                             <div class="operation-wrapper">
-                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa"  @click="askEdit(item)"
+                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa"  @click="askShow(item)"
                                     data-bs-toggle="modal" data-bs-target="#modal-show"></i>
                                 <i class="fa fa-edit operation-icon" title="Chỉnh sửa" v-if="!item.isDone" @click="askEdit(item)"
                                     data-bs-toggle="modal" data-bs-target="#modal-edit"></i>
@@ -617,7 +617,7 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default CloseModalCreate"
+                                        <button type="button" class="btn btn-default CloseModalEdit"
                                             data-bs-dismiss="modal">Huỷ</button>
                                             
                                         <button type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
@@ -651,7 +651,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <div>{{ userData.name }}</div>
+                                                <div>{{ userDataShow.name }}</div>
                                             </div>
                                         </div>
                                         <hr>
@@ -661,7 +661,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input readonly disabled type="number" v-model="userData.stt" name="name" class="form-control"
+                                                <input readonly disabled type="number" v-model="userDataShow.stt" name="name" class="form-control"
                                                     placeholder="stt" maxlength="100" required />
                                             </div>
                                         </div>
@@ -672,7 +672,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input readonly disabled type="text" v-model="userData.name" name="name" class="form-control"
+                                                <input readonly disabled type="text" v-model="userDataShow.name" name="name" class="form-control"
                                                     placeholder="Nhập tên gd" maxlength="100" required />
                                             </div>
                                         </div>
@@ -683,7 +683,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select readonly disabled v-model="userData.user_fee_id" :options="globalStore.listUser"
+                                                <v-select readonly disabled v-model="userDataShow.user_fee_id" :options="globalStore.listUser"
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
@@ -694,7 +694,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly disabled :class="'form-control'"
-                                                    v-model:value="userData.money_withdrawal"
+                                                    v-model:value="userDataShow.money_withdrawal"
                                                     :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -706,7 +706,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueNumberFormat readonly disabled :class="'form-control'" v-model:value="userData.fee_ship"
+                                                <VueNumberFormat readonly disabled :class="'form-control'" v-model:value="userDataShow.fee_ship"
                                                     :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -717,7 +717,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueNumberFormat readonly disabled :class="'form-control'" v-model:value="userData.fee_user"
+                                                <VueNumberFormat readonly disabled :class="'form-control'" v-model:value="userDataShow.fee_user"
                                                     :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -730,7 +730,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly disabled :class="'form-control'"
-                                                    v-model:value="userData.fee_customer"
+                                                    v-model:value="userDataShow.fee_customer"
                                                     :options="{ precision: 2, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -743,7 +743,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly disabled :class="'form-control'"
-                                                    v-model:value="userData.fee_money_customer"
+                                                    v-model:value="userDataShow.fee_money_customer"
                                                     :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -755,7 +755,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker readonly disabled v-model="userData.datetime" :enable-time-picker="false"
+                                                <VueDatePicker readonly disabled v-model="userDataShow.datetime" :enable-time-picker="false"
                                                     :clearable="false" :month-change-on-scroll="false" :format="formatDate"
                                                     :timezone="'Asia/Novosibirsk'" auto-apply />
 
@@ -768,7 +768,7 @@
                                             </div>
                                         </div>
                                         <hr>
-                                        <div v-for="(detail, loop) in userData.details">
+                                        <div v-for="(detail, loop) in userDataShow.details">
                                             <div class="col-md-12">
                                                 <hr>
                                             </div>
@@ -852,18 +852,18 @@
                                         
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền Đáo hạn :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(userData.money_withdrawal) }}</span>
+                                                <span  class="total_money_transfer">{{ formatPrice(userDataShow.money_withdrawal) }}</span>
 
                                             </div>
 
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền cần nạp :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(sumTotalDetail(userData)) }}</span>
+                                                <span  class="total_money_transfer">{{ formatPrice(sumTotalDetail(userDataShow)) }}</span>
 
                                             </div>
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền cần rút :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(sumTotalDetailDrawal(userData)) }}</span>
+                                                <span  class="total_money_transfer">{{ formatPrice(sumTotalDetailDrawal(userDataShow)) }}</span>
 
                                             </div>
                                             
@@ -905,6 +905,8 @@ import Datepicker from 'vue3-datepicker'
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import jquery from 'jquery';
+
 
 const dateTime = (value) => {
     return moment(value).utc().format("DD/MM/YYYY");
@@ -960,7 +962,9 @@ const idDelete = ref(0);
 const idReDone = ref(0);
 const isPopupEdit = ref(false);
 const idEdit = ref(0);
+const idShow = ref(0);
 const userData = ref({ ...objDefault })
+const userDataShow = ref({ ...objDefault })
 const userDataAddNew = ref({ ...objDefault })
 userDataAddNew.value.customer_id = parseInt(route.query.customer_id ?? 0);
 const useCardStore = useCustomerCardListStore()
@@ -992,6 +996,14 @@ const askEdit = dataInfo => {
     idEdit.value = dataInfo.id
     useWithDrawalStore.fetchWithDrawal(idEdit.value).then(({ data }) => {
         userData.value = data.withdrawal
+    }).catch(error => {
+        toast.error(error.message);
+    })
+}
+const askShow = dataInfo => {
+    idShow.value = dataInfo.id
+    useWithDrawalStore.fetchWithDrawal(idShow.value).then(({ data }) => {
+        userDataShow.value = data.withdrawal
     }).catch(error => {
         toast.error(error.message);
     })
@@ -1044,7 +1056,7 @@ const actionReDone = () => {
         idReDone.value = 0
         toast.success('Cho phép sửa lại thành công');
         loading.value = true;
-        $('.closeModalReDone').click()
+        jquery('.closeModalReDone').click()
         fetchAll()
 
     }).catch(({ response }) => {
@@ -1059,7 +1071,7 @@ const actionDelete = () => {
         idDelete.value = 0
         toast.success('Xóa thành công');
         loading.value = true;
-        $('.closeModalDelete').click()
+        jquery('.closeModalDelete').click()
         fetchAll()
 
     }).catch(({ response }) => {
@@ -1074,7 +1086,7 @@ const actionUpdate = () => {
     useWithDrawalStore.updateData(userData.value).then(response => {
         loading.value = true
         toast.success(response.data.message)
-        $('.CloseModalEdit').click()
+        jquery('.CloseModalEdit').click()
         fetchAll()
     }).catch(({ response }) => {
         toast.error(response.data.message);
@@ -1085,7 +1097,7 @@ const actionCreate = () => {
     useWithDrawalStore.addWithDrawal(userDataAddNew.value).then(response => {
         loading.value = true
         toast.success(response.data.message)
-        $('.CloseModalCreate').click()
+        jquery('.CloseModalCreate').click()
         fetchAll()
     }).catch(({ response }) => {
         toast.error(response.data.message);
@@ -1102,23 +1114,26 @@ const removeItem =(obj,loop) => {
     obj.details.splice(obj.details.indexOf(loop),1)
 }
 const sumTotalDetail = (data) => {
-    const total = ref(0)
-    data.details.forEach(element => {
-        total.value += element.money
-    });
-    return data.money_withdrawal - total.value 
+    let total = 0;
+    if(data.details.length > 0) {
+         data.details.forEach(element => {
+            total = total + element.money;
+        });
+    }
+    return total;
+
 }
 
 const sumTotalDetailDrawal = (data) => {
-    const total = ref(0)
+    let total = 0
     data.details.forEach(element => {
-        total.value += element.money
+        total += element.money
     });
-    const total_drawal = ref(0)
+    let total_drawal = 0
     data.details.forEach(element => {
-        total_drawal.value += element.money_drawal
+        total_drawal += element.money_drawal
     });
-    return total.value  - total_drawal.value
+    return total  - total_drawal
 }
 
 fetchAll()

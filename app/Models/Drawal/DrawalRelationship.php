@@ -40,6 +40,12 @@ trait DrawalRelationship
     {
         return $this->hasMany(DrawalDetail::class,'drawal_id','id');
     }
+
+    public function details()
+    {
+        return $this->hasMany(DrawalDetail::class,'drawal_id','id');
+    }
+
     public function branch()
     {
         return $this->belongsTo(Branch::class);

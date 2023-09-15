@@ -372,6 +372,7 @@ import { useHistoryListStore } from '@/pages/history/useHistoryListStore'
 import { toast } from 'vue3-toastify';
 import { useGlobalStore } from '@/store/globalStore'
 import moment from "moment";
+import jquery from 'jquery';
 
 
 const formatPrice = (value) => {
@@ -469,7 +470,7 @@ const actionUpdate = () => {
     useStore.updateData(userData.value).then(response => {
         loading.value = true
         toast.success(response.data.msg)
-        $('.CloseModalEdit').click()
+        jquery('.CloseModalEdit').click()
         fetchAll()
     }).catch(({ response }) => {
         toast.error(response.data.message);

@@ -87,11 +87,10 @@ class DrawalController
      */
     public function show(Drawal $drawal)
     {
-        $drawal->details = $drawal->drawalDetail;
+        $drawal->details = $drawal->drawalDetail->toArray();
         return response([
-            'drawal' => $drawal
+            'drawal' =>  $drawal
         ], Response::HTTP_OK);
-        
             
     }
     /**

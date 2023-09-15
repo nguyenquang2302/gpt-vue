@@ -43,7 +43,7 @@
 
                         <template #item-operation="item">
                             <div class="operation-wrapper">
-                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa"  @click="askEdit(item)"
+                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa"  @click="askShow(item)"
                                     data-bs-toggle="modal" data-bs-target="#modal-show"></i>
 
                                 <i class="fa fa-edit operation-icon" title="Chỉnh sửa" v-if="!item.isDone" @click="askEdit(item)"
@@ -340,14 +340,14 @@
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Xoá Thẻ KH </h4>
+                                        <h4 class="modal-title">Xoá GD </h4>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group row text-center">
-                                            <p> Bạn chắc chắn muốn xoá Thẻ <br> ID : {{ idDelete }} </p>
+                                            <p> Bạn chắc chắn muốn xoá GD <br> ID : {{ idDelete }} </p>
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
@@ -391,7 +391,7 @@
                     <div>
                         <div class="modal right fade" id="modal-edit"
                             aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog" v-if="userData">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Sửa giao dịch</h4>
@@ -611,13 +611,13 @@
                                             data-bs-dismiss="modal">Huỷ</button>
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền sẽ rút :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(userData.money) }}</span>
+                                                <span  class="total_money_transfer">{{ formatPrice(userData.money_drawal) }}</span>
 
                                             </div>
 
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền cần rút :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(sumTotalDetail(userData)) }}</span>
+                                                <span  class="total_money_transfer"> {{ sumTotalDetail(userData)  }}</span>
 
                                             </div>
                                         <button type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
@@ -635,7 +635,7 @@
                         <div class="modal right fade" id="modal-show"
                             aria-hidden="true">
                             <div class="modal-dialog">
-                                <div class="modal-content">
+                                <div class="modal-content" v-if="userData">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Xem giao dịch</h4>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
@@ -651,7 +651,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <div>{{ userData.name }}</div>
+                                                <div>{{ userDataShow.name }}</div>
                                             </div>
                                         </div>
                                         <hr>
@@ -661,7 +661,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input readonly type="number" v-model="userData.stt" name="name" class="form-control"
+                                                <input readonly type="number" v-model="userDataShow.stt" name="name" class="form-control"
                                                     placeholder="stt" maxlength="100" required />
                                             </div>
                                         </div>
@@ -672,7 +672,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input readonly type="text" v-model="userData.name" name="name" class="form-control"
+                                                <input readonly type="text" v-model="userDataShow.name" name="name" class="form-control"
                                                     placeholder="Nhập tên gd" maxlength="100" required />
                                             </div>
                                         </div>
@@ -683,7 +683,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser"
+                                                <v-select v-model="userDataShow.user_fee_id" :options="globalStore.listUser"
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
@@ -694,7 +694,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly  :class="'form-control'"
-                                                    v-model:value="userData.money_drawal"
+                                                    v-model:value="userDataShow.money_drawal"
                                                     :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -706,7 +706,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueNumberFormat readonly :class="'form-control'" v-model:value="userData.fee_ship"
+                                                <VueNumberFormat readonly :class="'form-control'" v-model:value="userDataShow.fee_ship"
                                                     :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -717,7 +717,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueNumberFormat readonly :class="'form-control'" v-model:value="userData.fee_user"
+                                                <VueNumberFormat readonly :class="'form-control'" v-model:value="userDataShow.fee_user"
                                                     :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -730,7 +730,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly :class="'form-control'"
-                                                    v-model:value="userData.fee_customer"
+                                                    v-model:value="userDataShow.fee_customer"
                                                     :options="{ precision: 2, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -743,7 +743,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly :class="'form-control'"
-                                                    v-model:value="userData.fee_money_customer"
+                                                    v-model:value="userDataShow.fee_money_customer"
                                                     :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -756,7 +756,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker readonly disabled v-model="userData.datetime" :enable-time-picker="false"
+                                                <VueDatePicker readonly disabled v-model="userDataShow.datetime" :enable-time-picker="false"
                                                     :clearable="false" :month-change-on-scroll="false" :format="formatDate"
                                                     :timezone="'Asia/Novosibirsk'" auto-apply />
 
@@ -769,7 +769,7 @@
                                             </div>
                                         </div>
                                         <hr>
-                                        <div v-for="(detail, loop) in userData.details">
+                                        <div v-for="(detail, loop) in userDataShow.details">
                                             <div class="col-md-12">
                                                 <hr>
                                             </div>
@@ -849,18 +849,18 @@
                                             data-bs-dismiss="modal">Huỷ</button>
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền sẽ rút :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(userData.money) }}</span>
+                                                <span  class="total_money_transfer">{{ formatPrice(userDataShow.money_drawal) }}</span>
 
                                             </div>
 
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                                tiền cần rút :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(sumTotalDetail(userData)) }}</span>
+                                                tiền cần rút :{{ sumTotalDetail(userDataShow)  }}<br>
+                                                <span  class="total_money_transfer"></span>
 
                                             </div>
                                     </div>
-                                    <div class="modal-footer justify-content-between" v-if="!userData.isDone">
-                                        <button type="button" class="btn btn-primary"  @click="actionVerify(userData.id)">Xác nhận GIAO DỊCH</button>
+                                    <div class="modal-footer justify-content-between" v-if="!userDataShow.isDone">
+                                        <button type="button" class="btn btn-primary"  @click="actionVerify(userDataShow.id)">Xác nhận GIAO DỊCH</button>
                                     </div>
                                 </div>
                             </div>
@@ -948,7 +948,9 @@ const idDelete = ref(0);
 const idReDone = ref(0);
 const isPopupEdit = ref(false);
 const idEdit = ref(0);
+const idShow = ref(0);
 const userData = ref({ ...objDefault })
+const userDataShow = ref({ ...objDefault })
 const userDataAddNew = ref({ ...objDefault })
 userDataAddNew.value.customer_id = parseInt(route.query.customer_id ?? 0);
 const useCardStore = useCustomerCardListStore()
@@ -980,6 +982,14 @@ const askEdit = dataInfo => {
     idEdit.value = dataInfo.id
     useDrawalStore.fetchDrawal(idEdit.value).then(({ data }) => {
         userData.value = data.drawal
+    }).catch(error => {
+        toast.error(error.message);
+    })
+}
+const askShow = dataInfo => {
+    idShow.value = dataInfo.id
+    useDrawalStore.fetchDrawal(idShow.value).then(({ data }) => {
+        userDataShow.value = data.drawal
     }).catch(error => {
         toast.error(error.message);
     })
@@ -1090,19 +1100,20 @@ const removeItem =(obj,loop) => {
     obj.details.splice(obj.details.indexOf(loop),1)
 }
 const sumTotalDetail = (data) => {
-    const total = ref(0)
-    data.details.forEach(element => {
-        total.value += element.money
-    });
-    return data.money_drawal-total.value 
+    let total = 0;
+    if(data.details.length > 0) {
+         data.details.forEach(element => {
+            total = total + element.money;
+        });
+    }
+   
+    return formatPrice(data.money_drawal-total )
 }
-
 fetchAll()
 globalStore.fetchListBank()
 globalStore.fetchListUser()
 globalStore.fetchListPos()
 const timer = ref(1500)
-
 
 watch(serverOptions, (value, value2) => {
     if (value != value2) {
@@ -1130,7 +1141,6 @@ watch(searchValue, async (newQuestion, oldQuestion) => {
 
 const userDataAddNewWatch = ref({ ...objDefault })
 watch(userDataAddNew, (value) => {
-    console.log(value, userDataAddNewWatch.value)
     if (value.money_drawal != userDataAddNewWatch.value.money_drawal
         || value.fee_customer != userDataAddNewWatch.value.fee_customer
         || value.fee_ship != userDataAddNewWatch.value.fee_ship) {

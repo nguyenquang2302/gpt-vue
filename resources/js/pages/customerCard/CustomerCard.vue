@@ -407,6 +407,8 @@ import { useCustomerCardListStore } from '@/pages/customerCard/useCustomerCardLi
 import { toast } from 'vue3-toastify';
 import { useGlobalStore } from '@/store/globalStore'
 import { useRoute } from 'vue-router';
+import jquery from 'jquery';
+
 const route = useRoute();
 const userLogin  = JSON.parse(localStorage.getItem('user'))
 const formatPrice = (value) => {
@@ -460,7 +462,7 @@ const idEdit = ref(0);
 const userData = ref({ ...objDefault })
 const userDataAddNew = ref({ ...objDefault })
 userDataAddNew.value.customer_id = route.query.customer_id ?? '';
-const useCardStore = useCustomerCardListStore()
+const useCustomerCardStore = useCustomerCardListStore()
 const globalStore = useGlobalStore()
 const searchValue = ref()
 const showDetail = dataInfo => {
@@ -475,7 +477,7 @@ const askDelete = dataInfo => {
 const askEdit = dataInfo => {
     isPopupEdit.value = true
     idEdit.value = dataInfo.id
-    useCardStore.fetchCustomerCard(idEdit.value).then(({ data }) => {
+    useCustomerCardStore.fetchCustomerCard(idEdit.value).then(({ data }) => {
         userData.value = data.customer_card
     }).catch(error => {
         // toast.error(error.message);
@@ -485,7 +487,7 @@ const askEdit = dataInfo => {
 
 const fetchAll = () => {
     loading.value = true;
-    useCardStore.fetchCustomerCards(serverOptions.value, searchValue.value,route.query.customer_id).then(({ data }) => {
+    useCustomerCardStore.fetchCustomerCards(serverOptions.value, searchValue.value,route.query.customer_id).then(({ data }) => {
         serverItemsLength.value = data.customer_cards.total
         loading.value = false;
         items.value = data.customer_cards.data
@@ -499,11 +501,11 @@ const fetchAll = () => {
 
 const actionDelete = () => {
     loading.value = false;
-    useCardStore.deleteData(idDelete.value).then(response => {
+    useCustomerCardStore.deleteData(idDelete.value).then(response => {
         idDelete.value = 0
         toast.success('Xóa thành công');
         loading.value = true;
-        $('.closeModalDelete').click()
+        jquery('.closeModalDelete').click()
         fetchAll()
 
     }).catch(({ response }) => {
@@ -514,10 +516,11 @@ const actionDelete = () => {
 }
 const actionUpdate = () => {
     loading.value = false;
-    useCardStore.updateData(userData.value).then(response => {
+    useCustomerCardStore.updateData(userData.value).then(response => {
         loading.value = true
+        jquery('.CloseModalEdit').click()
+        console.log(response.data)
         toast.success(response.data.msg)
-        $('.CloseModalEdit').click()
         fetchAll()
     }).catch(({ response }) => {
         toast.error(response.data.message);
@@ -525,10 +528,10 @@ const actionUpdate = () => {
 }
 const actionCreate = () => {
     loading.value = false;
-    useCardStore.addCustomerCard(userDataAddNew.value).then(response => {
+    useCustomerCardStore.addCustomerCard(userDataAddNew.value).then(response => {
         loading.value = true
         toast.success(response.data.msg)
-        $('.CloseModalCreate').click()
+        jquery('.CloseModalCreate').click()
         fetchAll()
     }).catch(({ response }) => {
         toast.error(response.data.message);

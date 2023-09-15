@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import router from './router/index.js'
 import App from './layouts/App.vue'
+
 import '../plugins/fontawesome-free/css/all.min.css'
 import  '../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'
 import  '../plugins/datatables-responsive/css/responsive.bootstrap4.min.css'
@@ -16,8 +17,8 @@ import '../plugins/jquery/jquery.min.js'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 
-// import '../plugins/bootstrap/js/bootstrap.bundle.min.js'
-// import '../dist/js/adminlte.min.js'
+// import '../plugins/bootstrap/js/bootstrap.bundle.js'
+import '../dist/js/adminlte.js'
 import '../dist/css/customize.css'
 
 import 'vue3-toastify/dist/index.css'

@@ -265,7 +265,6 @@ const formatDate = (date) => {
 const times = ref({ '0': '', '1': '', '2': '' })
 const userLogin = JSON.parse(localStorage.getItem('user'))
 
-
 const loading = ref(false)
 const useStore = useGlobalListStore()
 const globalStore = useGlobalStore()

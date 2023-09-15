@@ -17,71 +17,73 @@ import Login from '../layouts/Login.vue'
 const routes =  [
     {
         path: "/",
-        name: "Globals",
-        component: Globals
+        component: Home,
+        children :[
+            {
+                path:"/user",
+                name: "User",
+                component: User
+            }
+            ,
+            {
+                path:"/customer",
+                name: "Customer",
+                component: Customer
+            },
+            {
+                path:"/customer-cards",
+                name: "CustomerCard",
+                component: CustomerCard
+            },
+            {
+                path:"/drawals",
+                name: "Drawals",
+                component: Drawals
+            }
+            ,
+            {
+                path:"/withdrawals",
+                name: "WithDrawals",
+                component: WithDrawals
+            },
+            {
+                path:"/transactions",
+                name: "Transaction",
+                component: Transactions
+            },
+            {
+                path:"/expenses",
+                name: "Expense",
+                component: Expenses
+            },
+            {
+                path:"/history",
+                name: "History",
+                component: Historys
+            },
+            {
+                path:"/dashboard-pos",
+                name: "DashboardPos",
+                component: DashboardPos
+            },
+            {
+                path:"/globals",
+                name: "Global",
+                component: Globals
+            },
+            {
+                path:"/global-details",
+                name: "GlobalDetail",
+                component: GlobalDetails
+            }
+        ]
     },
     {
         path:"/login",
         name: "Login",
         component: Login
     },
-    {
-        path:"/user",
-        name: "User",
-        component: User
-    }
-    ,
-    {
-        path:"/customer",
-        name: "Customer",
-        component: Customer
-    },
-    {
-        path:"/customer-cards",
-        name: "CustomerCard",
-        component: CustomerCard
-    },
-    {
-        path:"/drawals",
-        name: "Drawals",
-        component: Drawals
-    }
-    ,
-    {
-        path:"/withdrawals",
-        name: "WithDrawals",
-        component: WithDrawals
-    },
-    {
-        path:"/transactions",
-        name: "Transaction",
-        component: Transactions
-    },
-    {
-        path:"/expenses",
-        name: "Expense",
-        component: Expenses
-    },
-    {
-        path:"/history",
-        name: "History",
-        component: Historys
-    },
-    {
-        path:"/dashboard-pos",
-        name: "DashboardPos",
-        component: DashboardPos
-    },
-    {
-        path:"/globals",
-        name: "Global",
-        component: Globals
-    },
-    {
-        path:"/global-details",
-        name: "GlobalDetail",
-        component: GlobalDetails
-    }
+    
 ]
 
 let router = createRouter({

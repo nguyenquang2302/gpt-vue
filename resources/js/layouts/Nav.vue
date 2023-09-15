@@ -147,9 +147,10 @@
 
 <script setup>
 import axios from '@/plugins/axios'
-
+import router from '@/router'
 const logout  = () => {
       return new Promise((resolve, reject) => {
+        router.push('/login');
         axios.post('/logout').then((response) => {
             localStorage.removeItem('user')
             localStorage.removeItem('accessToken')

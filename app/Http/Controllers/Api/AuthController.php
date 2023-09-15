@@ -14,15 +14,18 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        if (auth()->attempt($request->all())) {
-            $access_token = auth()->user()->createToken('authToken');
+        $user = User::where('email', $request->email)->first();
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return response([
-                'user' => auth()->user()->toArray(),
-                'access_token' => $access_token->accessToken,
-                'token' => $access_token->plainTextToken
-            ], Response::HTTP_OK);
+                'message' => 'This User does not exist'
+            ], Response::HTTP_UNAUTHORIZED);
         }
 
+            $access_token = $user->createToken('authToken');
+            return response([
+                'user' => $user->toArray(),
+                'access_token' => $access_token->plainTextToken
+            ], Response::HTTP_OK);
 
         return response([
             'message' => 'This User does not exist'
@@ -61,9 +64,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $tokenid = \Str::before(request()->bearertoken(), '|');
-        auth()->user()->tokens()->where('id', $tokenid )->delete();
-            return response([
-            ], Response::HTTP_OK);
+        auth()->user()->currentAccessToken()->delete();
+
+        // $tokenid = \Str::before(request()->bearertoken(), '|');
+        // auth()->user()->tokens()->where('id', $tokenid )->delete();
+        //     return response([
+        //     ], Response::HTTP_OK);
     }
 }

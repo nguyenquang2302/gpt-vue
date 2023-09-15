@@ -1,12 +1,24 @@
 <template>
-    <div>
-        <h4>Hello, This is user page</h4>
-        <p>We are Sun*</p>
+    <div v-if =userLogin>
+      <div class="wrapper">
+        <!-- Navbar -->
+        <Nav></Nav>
+        <Sidebar></Sidebar>
+      </div>
+      <div >
+        <div >
+          <router-view></router-view>
+        </div>
+      </div>
     </div>
-</template>
-
-<script>
-    export default {
-        name: 'Home'
-    }
-</script>
+    <div v-else>
+      <div class="login-page">
+      <router-view></router-view>
+    </div>
+    </div>
+  </template>
+  <script setup>
+  import Nav  from '@/layouts/Nav.vue'
+  import Sidebar  from '@/layouts/Sidebar.vue'
+  const userLogin  = JSON.parse(localStorage.getItem('user'))
+  </script>

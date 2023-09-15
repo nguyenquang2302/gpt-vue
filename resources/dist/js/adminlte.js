@@ -4,8 +4,8 @@
  * Licensed under MIT (https://github.com/ColorlibHQ/AdminLTE/blob/master/LICENSE)
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'jquery'], factory) :
+  // typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery')) :
+  // typeof define === 'function' && define.amd ? define(['exports', 'jquery'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.adminlte = {}, global.jQuery));
 })(this, (function (exports, $) { 'use strict';
 

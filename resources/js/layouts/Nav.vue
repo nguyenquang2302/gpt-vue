@@ -152,12 +152,13 @@ const logout  = () => {
     localStorage.removeItem('user')
       return new Promise((resolve, reject) => {
         axios.post('/logout').then((response) => {
-            this.accessToken = null
             // const ability = useAppAbility()
             // ability.update({})
             localStorage.removeItem('user')
             localStorage.removeItem('accessToken')
             resolve('Success')
+            router.push('/login');
+
         }).catch(error => reject(error))
       })
     }

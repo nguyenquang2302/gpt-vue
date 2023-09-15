@@ -3,11 +3,9 @@
  * Copyright 2014-2022 Colorlib <https://colorlib.com>
  * Licensed under MIT (https://github.com/ColorlibHQ/AdminLTE/blob/master/LICENSE)
  */
-(function (global, factory) {
-  // typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery')) :
-  // typeof define === 'function' && define.amd ? define(['exports', 'jquery'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.adminlte = {}, global.jQuery));
-})(this, (function (exports, $) { 'use strict';
+ 'use strict';
+import jQuery from "jquery";
+window.jQuery = window.$ = jQuery;
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -3065,5 +3063,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
 //# sourceMappingURL=adminlte.js.map

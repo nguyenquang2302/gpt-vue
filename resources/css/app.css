@@ -1,0 +1,124 @@
+.operation-wrapper .operation-icon {
+    width: 20px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+.operation-wrapper .operation-icon:hover {
+    width: 20px;
+    cursor: pointer;
+    color: red
+}
+.customize-table {
+  --easy-table-border: 1px solid #445269;
+  --easy-table-row-border: 1px solid #445269;
+
+  --easy-table-header-font-size: 14px;
+  --easy-table-header-height: 50px;
+  --easy-table-header-font-color: rebeccapurple;
+  --easy-table-header-background-color: #cfcfcf;
+
+  --easy-table-header-item-padding: 10px 15px;
+
+  --easy-table-body-even-row-font-color: #fff;
+  --easy-table-body-even-row-background-color: #4c5d7a;
+
+  --easy-table-body-row-font-color: #111111;
+  --easy-table-body-row-background-color: #cfcfcf;
+  --easy-table-body-row-height: 50px;
+  --easy-table-body-row-font-size: 14px;
+
+  --easy-table-body-row-hover-font-color: #40b80d;
+  --easy-table-body-row-hover-background-color: #red;
+
+  --easy-table-body-item-padding: 10px 15px;
+
+  --easy-table-footer-background-color: #cfcfcf;
+  --easy-table-footer-font-color: #111111;
+  --easy-table-footer-font-size: 14px;
+  --easy-table-footer-padding: 0px 10px;
+  --easy-table-footer-height: 50px;
+
+  --easy-table-rows-per-page-selector-width: 70px;
+  --easy-table-rows-per-page-selector-option-padding: 10px;
+  --easy-table-rows-per-page-selector-z-index: 1;
+
+
+  --easy-table-scrollbar-track-color: #cfcfcf;
+  --easy-table-scrollbar-color: #cfcfcf;
+  --easy-table-scrollbar-thumb-color: #4c5d7a;;
+  --easy-table-scrollbar-corner-color: #cfcfcf;
+
+  --easy-table-loading-mask-background-color: #cfcfcf;
+  
+}
+
+/*******************************
+* MODAL AS LEFT/RIGHT SIDEBAR
+* Add "left" or "right" in modal parent div, after class="modal".
+* Get free snippets on bootpen.com
+*******************************/
+	.modal.left .modal-dialog,
+	.modal.right .modal-dialog {
+		position: fixed;
+		margin: auto;
+		width: 500px;
+		height: 100%;
+		-webkit-transform: translate3d(0%, 0, 0);
+		    -ms-transform: translate3d(0%, 0, 0);
+		     -o-transform: translate3d(0%, 0, 0);
+		        transform: translate3d(0%, 0, 0);
+	}
+
+	.modal.left .modal-content,
+	.modal.right .modal-content {
+		height: 100%;
+		overflow-y: auto;
+	}
+	
+	.modal.left .modal-body,
+	.modal.right .modal-body {
+		padding: 15px 15px 80px;
+	}
+
+/*Left*/
+	.modal.left.fade .modal-dialog{
+		left: -320px;
+		-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+		        transition: opacity 0.3s linear, left 0.3s ease-out;
+	}
+	
+	.modal.left.fade.in .modal-dialog{
+		left: 0;
+	}
+        
+/*Right*/
+	.modal.right.fade .modal-dialog {
+		right: -500px;
+		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+		        transition: opacity 0.3s linear, right 0.3s ease-out;
+	}
+	.show.modal.right.fade {
+		display: block;
+	}
+	.show.modal.right.fade .modal-dialog {
+		right: 0;
+	}
+
+/* ----- MODAL STYLE ----- */
+	.modal-content {
+		border-radius: 0;
+		border: none;
+	}
+
+	.modal-header {
+		border-bottom-color: #EEEEEE;
+		background-color: #FAFAFA;
+	}
+	.check-box-customize {
+		padding-left: 25px;
+    	padding-top: 6px;
+	}

@@ -7,6 +7,7 @@ use App\Models\Branch\Branch;
 use App\Models\FundCategory\FundCategory;
 use App\Models\Pos\Pos;
 use Carbon\Carbon;
+use Exception;
 use HoangPhi\VietnamMap\Models\Province;
 use HoangPhi\VietnamMap\Models\District;
 use HoangPhi\VietnamMap\Models\Ward;
@@ -144,9 +145,10 @@ class CommandCheckController
                 'message' => 'Kiêm  tiền  thành công',
             ], Response::HTTP_OK);
             
-        } catch (\Throwable $th) {
+        } catch (Exception $exception) {
             return response([
                 'message' => 'Có lỗi xảy ra',
+                'th' => $exception->getMessage()
             ], Response::HTTP_GATEWAY_TIMEOUT);
         }
 

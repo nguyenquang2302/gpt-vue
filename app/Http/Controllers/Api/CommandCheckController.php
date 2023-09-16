@@ -119,6 +119,7 @@ class CommandCheckController
             $time_check_pos_back_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_pos_back);
             $time_check_bank_log_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_bank_log);
             $time_check_mb_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_mb);
+            dd($time_check_pos_back_carbon,$time_check_bank_log_carbon,$time_check_mb_carbon);
         } else {
             $time_check_pos_back_carbon = Carbon::now()->subHour(5) ;
         }
@@ -126,6 +127,7 @@ class CommandCheckController
         $caculator_pos_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
         $caculator_mb_minutes = $time_check_bank_log_carbon->diffInMinutes($now);
         $caculator_banklog_minutes = $time_check_mb_carbon->diffInMinutes($now);
+
         if ($caculator_pos_minutes <= 5 || $caculator_mb_minutes <= 5 || $caculator_banklog_minutes <=5 ) {
             $max = ($caculator_pos_minutes > $caculator_mb_minutes)?$caculator_pos_minutes:$caculator_mb_minutes;
             $max = ($max > $caculator_banklog_minutes)?$max:$caculator_banklog_minutes;

@@ -67,8 +67,11 @@ class CustomerController
         return response([
             'customers' => Customer::query()->select('id', 'name', 'phone')
             ->when($request->input('search'), function ($query, $search) {
+                $slug_name =  \Str::slug($search);
                 $query->where('name', 'like', '%' . $search . '%')
-                    ->OrWhere('phone', 'like', '%' . $search . '%');
+                    ->OrWhere('phone', 'like', '%' . $search . '%')
+                    ->OrWhere('slug', 'like', '%' . $slug_name . '%');
+
             })->get()
         ], Response::HTTP_OK);
     }

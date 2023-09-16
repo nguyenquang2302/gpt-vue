@@ -57,8 +57,7 @@
                                                 customer_id: item.id
                                             }
                                         }">
-                                        <i class="fa fa-credit-card operation-icon text-info" title="Thẻ Khách hàng" @click="askAddCard(item)"
-                                        data-bs-toggle="modal" data-bs-target="#modal-add-customer-card"></i>
+                                        <i class="fa fa-credit-card operation-icon text-info" title="Thẻ Khách hàng" ></i>
                                     </router-link>
 
                                     <router-link
@@ -68,19 +67,17 @@
                                                 customer_id: item.id
                                             }
                                         }">
-                                        <i class="fa fa-download operation-icon text-info" title="Rút tiền"
-                                        data-bs-toggle="modal" data-bs-target="#modal-add-customer-card"></i>
+                                        <i class="fa fa-download operation-icon text-info" ></i>
                                     </router-link>
                                     
                                     <router-link
                                         :to="{
-                                            name: 'Drawals',
+                                            name: 'Withdrawal',
                                             query: {
                                                 customer_id: item.id
                                             }
                                         }">
-                                        <i class="fa  fa-upload operation-icon text-info" title="Đáo hạn"
-                                        data-bs-toggle="modal" data-bs-target="#modal-add-customer-card"></i>
+                                        <i class="fa  fa-upload operation-icon text-info" title="Đáo hạn"></i>
                                     </router-link>
                                     
                             </div>

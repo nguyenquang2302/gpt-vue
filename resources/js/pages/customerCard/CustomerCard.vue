@@ -135,7 +135,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <v-select  v-model="userDataAddNew.bank_id" :options="globalStore.listBank"
-                                                    label="name" :reduce="bank => bank.id"></v-select>
+                                                    label="shortName" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
 
@@ -271,7 +271,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <v-select  v-model="userData.bank_id" :options="globalStore.listBank"
-                                                    label="name" :reduce="bank => bank.id"></v-select>
+                                                    label="shortName" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
 
@@ -376,7 +376,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <v-select readonly disabled  v-model="userData.bank_id" :options="globalStore.listBank"
-                                                    label="name" :reduce="bank => bank.id"></v-select>
+                                                    label="shortName" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
 

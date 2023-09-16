@@ -1140,7 +1140,7 @@ const sumTotalDetail = (data) => {
         });
     }
    
-    return formatPrice(data.money_drawal-total )
+    return formatPrice(data.money - total +data.fee_money_customer )
 }
 fetchAll()
 globalStore.fetchListBank()

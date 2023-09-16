@@ -16,8 +16,8 @@
                             </div>
                         </div>
                         <div class="text-right col-md-6">
-                            <button class="card-header-action" data-bs-toggle="modal" data-bs-target="#modal-add-new">
-                                <i class="fa fa-plus"></i> Thêm </button>
+                            <button class="card-header-action" data-bs-toggle="modal" data-bs-target="#modal-add-new" @click="fetchCustomerFirst">
+                                <i class="fa fa-plus"></i> Thêm</button>
                         </div>
                     </div>
                 </div>
@@ -77,9 +77,9 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.customer_id" :options="customerSearch"
+                                                <v-select v-model="userDataAddNew.customer_id" :options="customerSearch" :filterable="false"
                                                     label="name_phone" :reduce="customer => customer.id"
-                                                    @search="fetchCustomer" @search:focus="fetchCustomer"></v-select>
+                                                    @search="fetchCustomer" @search:focus="fetchCustomer" @option:selected="selectedCustomer"></v-select>
                                             </div>
                                         </div>
 
@@ -113,7 +113,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.user_fee_id"
+                                                <v-select v-model="userDataAddNew.user_fee_id"  :filterable="false"
                                                     :options="globalStore.listUser" label="name"
                                                     :reduce="customer => customer.id"></v-select>
                                             </div>
@@ -126,7 +126,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.money_drawal"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -139,7 +139,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.fee_ship"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.fee_user"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -164,7 +164,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.fee_customer"
-                                                    :options="{ precision: 2, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -177,7 +177,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.fee_money_customer"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -188,7 +188,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.bank_id" :options="globalStore.listBank"
+                                                <v-select v-model="userDataAddNew.bank_id" :options="globalStore.listBank"  :filterable="false"
                                                     label="shortName" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
@@ -252,7 +252,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.customer_card_id" :options="listCards"
+                                                        <v-select v-model="detail.customer_card_id" :options="listCards"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -263,7 +263,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"
+                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -278,7 +278,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.money"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -295,7 +295,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.group_bill"
-                                                                    :options="{ precision: 3, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 3, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -440,7 +440,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser"
+                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser"  :filterable="false"
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
@@ -452,7 +452,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userData.money_drawal"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -464,7 +464,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'" v-model:value="userData.fee_ship"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -475,7 +475,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'" v-model:value="userData.fee_user"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -488,7 +488,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userData.fee_customer"
-                                                    :options="{ precision: 2, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -501,7 +501,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userData.fee_money_customer"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -545,7 +545,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.customer_card_id" :options="listCards"
+                                                        <v-select v-model="detail.customer_card_id" :options="listCards"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -556,7 +556,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"
+                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -571,7 +571,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.money"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -588,7 +588,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.group_bill"
-                                                                    :options="{ precision: 3, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 3, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -683,7 +683,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataShow.user_fee_id" :options="globalStore.listUser"
+                                                <v-select v-model="userDataShow.user_fee_id" :options="globalStore.listUser"  :filterable="false"
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
@@ -695,7 +695,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly  :class="'form-control'"
                                                     v-model:value="userDataShow.money_drawal"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -707,7 +707,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly :class="'form-control'" v-model:value="userDataShow.fee_ship"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -718,7 +718,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly :class="'form-control'" v-model:value="userDataShow.fee_user"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -731,7 +731,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly :class="'form-control'"
                                                     v-model:value="userDataShow.fee_customer"
-                                                    :options="{ precision: 2, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -744,7 +744,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly :class="'form-control'"
                                                     v-model:value="userDataShow.fee_money_customer"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -786,7 +786,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select readonly disabled v-model="detail.customer_card_id" :options="listCards"
+                                                        <v-select readonly disabled v-model="detail.customer_card_id" :options="listCards"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -797,7 +797,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select readonly disabled v-model="detail.pos_id" :options="globalStore.listPos"
+                                                        <v-select readonly disabled v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -812,7 +812,7 @@
                                                             <div>
                                                                 <VueNumberFormat readonly disabled :class="'form-control'"
                                                                     v-model:value="detail.money"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -829,7 +829,7 @@
                                                             <div>
                                                                 <VueNumberFormat readonly disabled :class="'form-control'"
                                                                     v-model:value="detail.group_bill"
-                                                                    :options="{ precision: 3, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 3, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -902,6 +902,17 @@ const formatPrice = (value) => {
     const val = (value / 1).toFixed(0).replace(',', '.')
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 };
+const selectedCustomer = (value) => {
+    if (timer.value) {
+        clearTimeout(timer.value);
+        timer.value = 0;
+    }
+    timer.value = setTimeout(() => {
+        useCardStore.fetchAllCustomerCards(ref({ search: value.id }).value).then(({ data }) => {
+            listCards.value = data.customer_cards
+        })
+    }, 1500);
+};
 
 const headers: Header[] = [
     { text: "ID", value: "id", sortable: true },
@@ -921,6 +932,7 @@ const serverOptions = ref<ServerOptions>({
     sortBy: 'id',
     sortType: 'desc',
 });
+
 const objDefault = {
     'name': '',
     'stt': '',
@@ -936,7 +948,7 @@ const objDefault = {
     'note': '',
     'fee_ship': 0,
     'fee_user': 0,
-    'customer_id': 0,
+    'customer_id': route.query.customer_id??0,
     'details': []
 }
 
@@ -964,7 +976,6 @@ const searchValue = ref()
 const showDetail = dataInfo => {
     userData.value = dataInfo
 }
-const provinceId = ref('')
 
 const listCards = ref()
 const formatDate = (date) => {
@@ -982,6 +993,9 @@ const askEdit = dataInfo => {
     idEdit.value = dataInfo.id
     useDrawalStore.fetchDrawal(idEdit.value).then(({ data }) => {
         userData.value = data.drawal
+        useCardStore.fetchAllCustomerCards(ref({ search: userData.value.customer_id }).value).then(({ data }) => {
+            listCards.value = data.customer_cards
+        })
     }).catch(error => {
         toast.error(error.message);
     })
@@ -990,6 +1004,9 @@ const askShow = dataInfo => {
     idShow.value = dataInfo.id
     useDrawalStore.fetchDrawal(idShow.value).then(({ data }) => {
         userDataShow.value = data.drawal
+        useCardStore.fetchAllCustomerCards(ref({ search: userData.value.customer_id }).value).then(({ data }) => {
+            listCards.value = data.customer_cards
+        })
     }).catch(error => {
         toast.error(error.message);
     })
@@ -1002,10 +1019,26 @@ const fetchCustomer = (query) => {
             timer.value = 0;
         }
         timer.value = setTimeout(() => {
-            useCustomerStore.fetchAllCustomers(ref({ search: query }).value).then(({ data }) => {
+            useCustomerStore.fetchAllCustomers(ref({ customer_id: route.query.customer_id,query:query }).value).then(({ data }) => {
                 customerSearch.value = data.customers
+                if(userDataAddNew.value.customer_id) {
+                    userDataAddNew.value.name =  (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone);
+                }
             })
         }, 1500);
+    }
+}
+
+const fetchCustomerFirst = () => {
+    if(userDataAddNew.value.customer_id) {
+        useCustomerStore.fetchAllCustomers(ref({ customer_id: route.query.customer_id}).value).then(({ data }) => {
+            customerSearch.value = data.customers
+            useCardStore.fetchAllCustomerCards(ref({ search: userDataAddNew.value.customer_id }).value).then(({ data }) => {
+                listCards.value = data.customer_cards
+                userDataAddNew.value.name =  (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone)
+            })
+
+        })
     }
 }
 
@@ -1162,20 +1195,6 @@ watch(userDataAddNew, (value) => {
             }
         }, 1500);
     }
-    if (value.customer_id != userDataAddNewWatch.value.customer_id) {
-        userDataAddNewWatch.value.customer_id = value.customer_id
-        if (timer.value) {
-            clearTimeout(timer.value);
-            timer.value = 0;
-        }
-        timer.value = setTimeout(() => {
-            useCardStore.fetchAllCustomerCards(ref({ search: value.customer_id }).value).then(({ data }) => {
-                listCards.value = data.customer_cards
-                userDataAddNew.value.name =  (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone);
-// 
-            })
-        }, 1500);
-    }
 }, { deep: true }
 );
 
@@ -1200,18 +1219,6 @@ watch(userData, (value) => {
                 userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest;
 
             }
-        }, 1500);
-    }
-    if (value.customer_id != userDataAddNewWatch.value.customer_id) {
-        userDataAddNewWatch.value.customer_id = value.customer_id
-        if (timer.value) {
-            clearTimeout(timer.value);
-            timer.value = 0;
-        }
-        timer.value = setTimeout(() => {
-            useCardStore.fetchAllCustomerCards(ref({ search: value.customer_id }).value).then(({ data }) => {
-                listCards.value = data.customer_cards
-            })
         }, 1500);
     }
 }, { deep: true }

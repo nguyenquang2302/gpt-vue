@@ -119,7 +119,7 @@ class WithdrawalService extends BaseService
                 $withdrawalDetail->profit =($withdrawalDetail->money_drawal *$withdrawal->fee_customer)/100 - ($withdrawalDetail->money_drawal *$withdrawalDetail->fee_bank)/100;
                 $withdrawalDetail->branch_id = $branch_id;
                 if (isset($group_bill[0])) {
-                    $withdrawalDetail->lo = (int)$group_bill[0];
+                    $withdrawalDetail->lo = $group_bill[0];
                 }
                 if (isset($group_bill[1])) {
                     $withdrawalDetail->bill = $group_bill[1];
@@ -193,7 +193,7 @@ class WithdrawalService extends BaseService
                     $withdrawalDetail->profit =($withdrawalDetail->money_drawal *$withdrawal->fee_customer)/100 - ($withdrawalDetail->money_drawal *$withdrawalDetail->fee_bank)/100;
                     $withdrawalDetail->branch_id = $withdrawal->branch_id;
                     if (isset($group_bill[0])) {
-                        $withdrawalDetail->lo = (int)$group_bill[0];
+                        $withdrawalDetail->lo = $group_bill[0];
                     }
                     if (isset($group_bill[1])) {
                         $withdrawalDetail->bill = $group_bill[1];
@@ -243,7 +243,7 @@ class WithdrawalService extends BaseService
         $money  = $details->sum('money');
         $money_drawal  = $details->sum('money_drawal');
         foreach ($withdrawal->withdrawalDetail as $drawalDetail) {
-            $drawalDetail->lo = $withdrawal->datetime->format('y_m_d_').(int)$drawalDetail->lo ;
+            $drawalDetail->lo = $withdrawal->datetime->format('y_m_d_').$drawalDetail->lo ;
             if($withdrawal->isOwnerPos) {
                 $drawalDetail->isOwnerPos = true;
             }

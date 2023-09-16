@@ -72,13 +72,12 @@
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Khách hàng <span
-                                                                class="text-danger">(*)</span></label>
+                                                <label for="name" class="col-form-label" @click="fetchCustomerFirst" >Khách hàng <span class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.customer_id" :options="customerSearch"
+                                                <v-select v-model="userDataAddNew.customer_id" :options="customerSearch"  :filterable="false"
                                                     label="name_phone" :reduce="customer => customer.id"
-                                                    @search="fetchCustomer" @search:focus="fetchCustomer"></v-select>
+                                                    @search="fetchCustomer" @search:focus="fetchCustomer" @option:selected="selectedCustomer" ></v-select>
                                             </div>
                                         </div>
 
@@ -87,7 +86,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="userDataAddNew.customer_card_id" :options="listCards"
+                                                        <v-select v-model="userDataAddNew.customer_card_id" :options="listCards"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -122,7 +121,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.user_fee_id"
+                                                <v-select v-model="userDataAddNew.user_fee_id"  :filterable="false"
                                                     :options="globalStore.listUser" label="name"
                                                     :reduce="customer => customer.id"></v-select>
                                             </div>
@@ -229,7 +228,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"
+                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -423,7 +422,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser"
+                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser"  :filterable="false"
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
@@ -528,7 +527,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"
+                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -683,7 +682,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select readonly disabled v-model="userDataShow.user_fee_id" :options="globalStore.listUser"
+                                                <v-select readonly disabled v-model="userDataShow.user_fee_id" :options="globalStore.listUser"  :filterable="false"
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
@@ -785,7 +784,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select readonly disabled v-model="detail.pos_id" :options="globalStore.listPos"
+                                                        <v-select readonly disabled v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -1009,6 +1008,18 @@ const askShow = dataInfo => {
     })
 }
 
+const selectedCustomer = (value) => {
+    if (timer.value) {
+        clearTimeout(timer.value);
+        timer.value = 0;
+    }
+    timer.value = setTimeout(() => {
+        useCardStore.fetchAllCustomerCards(ref({ search: value.id }).value).then(({ data }) => {
+            listCards.value = data.customer_cards
+        })
+    }, 500);
+};
+
 const fetchCustomer = (query) => {
     if (query) {
         if (timer.value) {
@@ -1016,10 +1027,22 @@ const fetchCustomer = (query) => {
             timer.value = 0;
         }
         timer.value = setTimeout(() => {
-            useCustomerStore.fetchAllCustomers(ref({ search: query }).value).then(({ data }) => {
+            useCustomerStore.fetchAllCustomers(ref({ query: query }).value).then(({ data }) => {
                 customerSearch.value = data.customers
             })
         }, 1500);
+    }
+}
+const fetchCustomerFirst = (query) => {
+    if(userDataAddNew.value.customer_id) {
+        useCustomerStore.fetchAllCustomers(ref({ customer_id: route.query.customer_id}).value).then(({ data }) => {
+            customerSearch.value = data.customers
+            useCardStore.fetchAllCustomerCards(ref({ search: userDataAddNew.value.customer_id }).value).then(({ data }) => {
+                listCards.value = data.customer_cards
+                userDataAddNew.value.name =  (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone)
+            })
+
+        })
     }
 }
 
@@ -1165,7 +1188,6 @@ watch(searchValue, async (newQuestion, oldQuestion) => {
         fetchAll()
     }, 1500);
 }, { deep: true })
-// branchssudo systemctl enable nginx
 
 const userDataAddNewWatch = ref({ ...objDefault })
 watch(userDataAddNew, (value) => {
@@ -1188,19 +1210,6 @@ watch(userDataAddNew, (value) => {
                 userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest;
 
             }
-        }, 1500);
-    }
-    if (value.customer_id != userDataAddNewWatch.value.customer_id) {
-        userDataAddNewWatch.value.customer_id = value.customer_id
-        if (timer.value) {
-            clearTimeout(timer.value);
-            timer.value = 0;
-        }
-        timer.value = setTimeout(() => {
-            useCardStore.fetchAllCustomerCards(ref({ search: value.customer_id }).value).then(({ data }) => {
-                listCards.value = data.customer_cards
-                userDataAddNew.value.name =  (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone);
-            })
         }, 1500);
     }
 }, { deep: true }
@@ -1227,20 +1236,6 @@ watch(userData, (value) => {
                 userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest;
 
             }
-        }, 1500);
-    }
-    if (value.customer_id != userDataAddNewWatch.value.customer_id) {
-        userDataAddNewWatch.value.customer_id = value.customer_id
-        if (timer.value) {
-            clearTimeout(timer.value);
-            timer.value = 0;
-        }
-        timer.value = setTimeout(() => {
-            useCardStore.fetchAllCustomerCards(ref({ search: value.customer_id }).value).then(({ data }) => {
-                listCards.value = data.customer_cards
-                // userData.value.name =  (customerSearch.value.find((customer) => customer.id == userData.value.customer_id).name_phone);
-
-            })
         }, 1500);
     }
 }, { deep: true }

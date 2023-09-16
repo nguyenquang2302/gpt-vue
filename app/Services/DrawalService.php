@@ -125,7 +125,7 @@ class DrawalService extends BaseService
                         $drawalDetail->money_back = $drawalDetail->money - $drawalDetail->fee_bank_money;
                         $drawalDetail->time = Carbon::now();
                         $drawalDetail->user_id = Auth::user()->id;
-                        $drawalDetail->lo = (int)$group_bill[0];
+                        $drawalDetail->lo = $group_bill[0];
                         $drawalDetail->bill = $group_bill[1];
                         $drawalDetail->profit = ($drawalDetail->money * $drawal->fee_customer / 100) - ($drawalDetail->money * $drawalDetail->fee_bank / 100);
                         $drawalDetail->branch_id = $branch_id;
@@ -211,7 +211,7 @@ class DrawalService extends BaseService
                         $drawalDetail->money_back = $drawalDetail->money - $drawalDetail->fee_bank_money;
                         $drawalDetail->time = Carbon::now();
                         $drawalDetail->user_id = Auth::user()->id;
-                        $drawalDetail->lo = (int)$group_bill[0];
+                        $drawalDetail->lo = $group_bill[0];
                         $drawalDetail->bill = $group_bill[1];
                         $drawalDetail->profit = ($drawalDetail->money * $drawal->fee_customer / 100) - ($drawalDetail->money * $drawalDetail->fee_bank / 100);
                         $drawalDetail->branch_id = $drawal->branch_id;
@@ -266,7 +266,7 @@ class DrawalService extends BaseService
                 throw new Exception(__('Số cần rút và số tiền rút chưa khớp'));
             }
             foreach ($drawal->drawalDetail as $drawalDetail) {
-                $drawalDetail->lo = $drawal->datetime->format('y_m_d_') . (int)$drawalDetail->lo;
+                $drawalDetail->lo = $drawal->datetime->format('y_m_d_') . $drawalDetail->lo;
                 $drawalDetail->save();
                 if (!PosConsignment::where('pos_id', $drawalDetail->pos_id)->where('lo', $drawalDetail->lo)->first()) {
                     $posConsignment = new PosConsignment();

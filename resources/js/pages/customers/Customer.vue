@@ -77,7 +77,7 @@
                                                 customer_id: item.id
                                             }
                                         }">
-                                        <i class="fa fa-upload operation-icon text-info" title="Đáo hạn"></i>
+                                        <i class="fa  fa-upload operation-icon text-info" title="Đáo hạn"></i>
                                     </router-link>
                                     
                             </div>

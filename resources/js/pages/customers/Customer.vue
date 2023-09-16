@@ -132,7 +132,7 @@
                                                 <label for="name" class="col-form-label">Tỉnh (*)</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select disabled  v-model="userDataAddNew.province_id"
+                                                <v-select   v-model="userDataAddNew.province_id"
                                                     :options="globalStore.listProvince" label="name"
                                                     :reduce="branch => branch.id"></v-select>
                                             </div>
@@ -142,7 +142,7 @@
                                                 <label for="name" class="col-form-label">Quận/Huyện (*)</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select disabled  v-model="userDataAddNew.district_id"
+                                                <v-select   v-model="userDataAddNew.district_id"
                                                     :options="listDistricts" label="name"
                                                     :reduce="district => district.id">
                                                 </v-select>
@@ -167,6 +167,19 @@
                                             <div class="col-md-8">
                                                 <input type="text" v-model="userDataAddNew.address" name="address"
                                                     class="form-control" placeholder="Nhập địa chỉ" maxlength="100" required />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">BirthDay <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <VueDatePicker  v-model="userDataAddNew.birth_day" :enable-time-picker="false"
+                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                    :timezone="'Asia/Novosibirsk'" auto-apply />
+
                                             </div>
                                         </div>
 
@@ -299,6 +312,19 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Ngày <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <VueDatePicker v-model="userCard.birth_day" :enable-time-picker="false"
+                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                    :timezone="'Asia/Novosibirsk'" auto-apply />
+
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalEdit"
@@ -311,7 +337,7 @@
                         </div>
                     </div>
                     <!-- end -->
-                    <!-- add customer Card -->
+                    <!-- view customer Card -->
                      <div>
                         <div class="modal right fade"  id="modal-view"
                             aria-hidden="true">
@@ -406,6 +432,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--  -->
                     <div>
                         <div class="modal right fade" id="modal-add-customer-card" aria-hidden="true">
                             <div class="modal-dialog">
@@ -496,6 +523,18 @@
                                                     label="name" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Ngày <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <VueDatePicker v-model="userCard.birth_day" :enable-time-picker="false"
+                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                    :timezone="'Asia/Novosibirsk'" auto-apply />
+
+                                            </div>
+                                        </div>
 
 
                                     </div>
@@ -527,6 +566,8 @@ import { useCustomerCardListStore } from '@/pages/customerCard/useCustomerCardLi
 import { toast } from 'vue3-toastify';
 import { useGlobalStore } from '@/store/globalStore'
 import jquery from 'jquery';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 const formatPrice = (value) => {
     const val = (value / 1).toFixed(0).replace(',', '.')
@@ -542,6 +583,11 @@ const headers: Header[] = [
     { text: "Số dư", value: "money", sortable: true },
     { text: "Operation", value: "operation" },
 ];
+
+const formatDate = (date) => {
+    const tzOffset = date.getTimezoneOffset() * 60 * 1000
+    return new Date(date - tzOffset).toISOString().split('T')[0]
+}
 
 const items = ref([])
 const allBranchs = ref([])
@@ -585,6 +631,7 @@ const userCard = ref({
     'customer_id': '',
     'bank_id': '',
     'note': '',
+    'birth_day': '',
     active: true,
 })
 

@@ -9,7 +9,6 @@ use App\Events\Customer\CustomerRestored;
 use App\Events\Customer\CustomerStatusChanged;
 use App\Events\Customer\CustomerUpdated;
 use App\Models\Customer\Customer;
-use App\Exceptions\GeneralException;
 use App\Models\CustomerTransaction\CustomerTransaction;
 use App\Services\BaseService;
 use Carbon\Carbon;
@@ -53,23 +52,23 @@ class CustomerService extends BaseService
      * @param  array  $data
      * @return Customer
      *
-     * @throws GeneralException
+     * @throws Exception
      * @throws \Throwable
      */
     public function store(array $data = []): Customer
     {
         DB::beginTransaction();
-        $birth_day = $data['birth_day'] ? Carbon::createFromFormat('d/m/Y', $data['birth_day'])->format('Y-m-d') : NULL;
+        $birth_day  = Carbon::parse(($data['birth_day']),'utc')->setTimezone(config('app.timezone'));
 
-        try {
+        // try {
             $customer = $this->createCustomer([
                 'name' => $data['name'],
-                'email' => $data['email'],
+                'email' => $data['email']??'',
                 'cmnd' => $data['cmnd'],
                 'phone' => $data['phone'],
                 'address' => $data['address'],
                 'birth_day' => $birth_day,
-                'note' => $data['note'],
+                'note' => $data['note']??'',
                 'province_id' => $data['province_id']?? null,
                 'district_id' => $data['district_id']?? null,
                 'ward_id' => $data['ward_id']?? null,
@@ -77,11 +76,11 @@ class CustomerService extends BaseService
                 'active' => isset($data['active']) && $data['active'] === '1',
                 'user_id' => Auth::user()->id
             ]);
-        } catch (Exception $e) {
-            DB::rollBack();
+        // } catch (Exception $e) {
+        //     DB::rollBack();
 
-            throw new GeneralException(__('There was a problem creating this customer. Please try again.'));
-        }
+        //     throw new Exception(__('There was a problem creating this customer. Please try again.'));
+        // }
 
         event(new CustomerCreated($customer));
 
@@ -100,7 +99,7 @@ class CustomerService extends BaseService
     public function update(Customer $customer, array $data = []): Customer
     {
         DB::beginTransaction();
-        $birth_day = $data['birth_day'] ? Carbon::createFromFormat('m/d/Y', $data['birth_day'])->format('Y-m-d') : NULL;
+        $birth_day  = Carbon::parse(($data['birth_day']),'utc')->setTimezone(config('app.timezone'));
         try {
             $customer->update([
                 'name' => $data['name'],
@@ -120,7 +119,7 @@ class CustomerService extends BaseService
         } catch (Exception $e) {
             DB::rollBack();
 
-            throw new GeneralException(__('There was a problem updating this customer. Please try again.'));
+            throw new Exception(__('There was a problem updating this customer. Please try again.'));
         }
 
         event(new CustomerUpdated($customer));
@@ -134,7 +133,7 @@ class CustomerService extends BaseService
     public function upVip(Customer $customer, array $data = []): Customer
     {
         if($customer->vip) {
-            throw new GeneralException(__('KH đã là VIP'));
+            throw new Exception(__('KH đã là VIP'));
         }
         DB::beginTransaction();
         try {
@@ -172,7 +171,7 @@ class CustomerService extends BaseService
         } catch (Exception $e) {
             DB::rollBack();
 
-            throw new GeneralException(__('There was a problem updating this customer. Please try again.'));
+            throw new Exception(__('There was a problem updating this customer. Please try again.'));
         }
 
         event(new CustomerUpdated($customer));
@@ -210,7 +209,7 @@ class CustomerService extends BaseService
      * @param $status
      * @return Customer
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function mark(Customer $customer, $status): Customer
     {
@@ -222,19 +221,19 @@ class CustomerService extends BaseService
             return $customer;
         }
 
-        throw new GeneralException(__('There was a problem updating this customer. Please try again.'));
+        throw new Exception(__('There was a problem updating this customer. Please try again.'));
     }
 
     /**
      * @param  Customer  $customer
      * @return Customer
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function delete(Customer $customer): Customer
     {
         if ($customer->id === auth()->id()) {
-            throw new GeneralException(__('You can not delete yourself.'));
+            throw new Exception(__('You can not delete yourself.'));
         }
 
         if ($this->deleteById($customer->id)) {
@@ -243,14 +242,14 @@ class CustomerService extends BaseService
             return $customer;
         }
 
-        throw new GeneralException('There was a problem deleting this customer. Please try again.');
+        throw new Exception('There was a problem deleting this customer. Please try again.');
     }
 
     /**
      * @param  Customer  $customer
      * @return Customer
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function restore(Customer $customer): Customer
     {
@@ -260,14 +259,14 @@ class CustomerService extends BaseService
             return $customer;
         }
 
-        throw new GeneralException(__('There was a problem restoring this customer. Please try again.'));
+        throw new Exception(__('There was a problem restoring this customer. Please try again.'));
     }
 
     /**
      * @param  Customer  $customer
      * @return bool
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function destroy(Customer $customer): bool
     {
@@ -277,7 +276,7 @@ class CustomerService extends BaseService
             return true;
         }
 
-        throw new GeneralException(__('There was a problem permanently deleting this customer. Please try again.'));
+        throw new Exception(__('There was a problem permanently deleting this customer. Please try again.'));
     }
 
     /**

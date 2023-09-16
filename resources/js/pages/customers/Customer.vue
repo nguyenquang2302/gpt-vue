@@ -72,7 +72,7 @@
                                     
                                     <router-link
                                         :to="{
-                                            name: 'Withdrawal',
+                                            name: 'WithDrawals',
                                             query: {
                                                 customer_id: item.id
                                             }

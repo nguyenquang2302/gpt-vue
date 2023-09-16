@@ -48,11 +48,14 @@ class posBackCheck extends Command
         if ($time_check_pos_back) {
             $time_check_pos_back_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_pos_back);
         } else {
-            $time_check_pos_back_carbon = Carbon::now();
+            $time_check_pos_back_carbon = Carbon::now()->subHour(5);
         }
         $now = Carbon::now();
         $caculator_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
         if ($caculator_minutes >= 4) {
+            settings()->set([
+                'time_check_pos_back' => Carbon::now()
+            ]);
             $users = User::where('autoPosBack',1)->whereHas('pos')->with('pos')->get();
             foreach ($users as $user) {
                 

@@ -61,12 +61,15 @@ class BankLogsCheck extends Command
         if ($time_check_bank_log) {
             $time_check_bank_log_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_bank_log);
         } else {
-            $time_check_bank_log_carbon = Carbon::now();
+            $time_check_bank_log_carbon = Carbon::now()->subHour(5);
         }
         $now = Carbon::now();
         $caculator_minutes = $time_check_bank_log_carbon->diffInMinutes($now);
-
         if ($caculator_minutes >= 4) {
+            settings()->set([
+                'time_check_bank_log' => Carbon::now()
+            ]);
+
             $users = User::whereNotNull('accountName')->get();
             foreach ($users as $user) {
                 $lists = BankLog::where('user_id', $user->id)->where('isChecked', 0)->get();

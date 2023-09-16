@@ -40,6 +40,7 @@ Route::middleware(['auth:sanctum','is_admin:admin,manager_vip_2'])->group(functi
     Route::post('/checkHistories', [CommandCheckController::class, 'checkHistories']);
     Route::post('/checkBankLogs', [CommandCheckController::class, 'checkBankLogs']);
     Route::post('/checkPosbacks', [CommandCheckController::class, 'checkPosbacks']);
+    Route::post('/checkAllCommand', [CommandCheckController::class, 'checkAll']);
     
 });
     

@@ -65,7 +65,7 @@ class checkMBBank extends Command
         if ($time_check_mb) {
             $time_check_mb_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_mb);
         } else {
-            $time_check_mb_carbon = Carbon::now();
+            $time_check_mb_carbon = Carbon::now()->subHour(5);
         }
 
         $now = Carbon::now();

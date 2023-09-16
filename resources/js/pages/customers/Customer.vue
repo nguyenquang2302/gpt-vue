@@ -523,19 +523,6 @@
                                                     label="shortName" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Ngày <span
-                                                                class="text-danger">(*)</span></label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <VueDatePicker v-model="userCard.birth_day" :enable-time-picker="false"
-                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
-                                                    :timezone="'Asia/Novosibirsk'" auto-apply />
-
-                                            </div>
-                                        </div>
-
 
                                     </div>
                                     <div class="modal-footer justify-content-between">

@@ -114,7 +114,7 @@ const logout  = () => {
 const checkHistory  = async() => {
 
     await axios.post('/checkHistories').then((response) => {
-      
+        toast.error(response.data.message);
 
     }).catch(({ response }) => {
         toast.error(response.data.message);
@@ -124,7 +124,7 @@ const checkHistory  = async() => {
 const checkBankLog  = async () => {
 
     await axios.post('/checkBankLogs').then((response) => {
-
+        toast.error(response.data.message);
     }).catch(({ response }) => {
         toast.error(response.data.message);
     })
@@ -134,7 +134,7 @@ const checkBankLog  = async () => {
 const checkPosBack  = async () => {
     
     await axios.post('/checkPosbacks').then((response) => {
-        
+        toast.error(response.data.message);
 
     }).catch(({ response }) => {
         toast.error(response.data.message);
@@ -144,8 +144,6 @@ const checkPosBack  = async () => {
 const checkAllCommand  = async () => {
     
     await axios.post('/checkAllCommand').then((response) => {
-        
-
     }).catch(({ response }) => {
         toast.error(response.data.message);
     })

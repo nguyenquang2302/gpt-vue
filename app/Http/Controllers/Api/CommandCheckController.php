@@ -30,7 +30,7 @@ class CommandCheckController
 
         if ($caculator_minutes <= 5) {
             return response([
-                'message' => 'Vui lòng chờ .'.(5-$caculator_minutes).'P để thực hiện tiếp',
+                'message' => 'Vui lòng chờ '.(5-$caculator_minutes).' Phút để thực hiện tiếp',
             ], Response::HTTP_GATEWAY_TIMEOUT);
         }
         try {
@@ -59,7 +59,7 @@ class CommandCheckController
         $caculator_minutes = $time_check_bank_log_carbon->diffInMinutes($now);
         if ($caculator_minutes <= 5) {
             return response([
-                'message' => 'Vui lòng chờ .'.(5-$caculator_minutes).'P để thực hiện tiếp',
+                'message' => 'Vui lòng chờ '.(5-$caculator_minutes).' Phút để thực hiện tiếp',
             ], Response::HTTP_GATEWAY_TIMEOUT);
         }
 
@@ -91,7 +91,7 @@ class CommandCheckController
         $caculator_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
         if ($caculator_minutes <= 5) {
             return response([
-                'message' => 'Vui lòng chờ .'.(5-$caculator_minutes).'P để thực hiện tiếp',
+                'message' => 'Vui lòng chờ '.(5-$caculator_minutes).' Phút để thực hiện tiếp',
             ], Response::HTTP_GATEWAY_TIMEOUT);
         }
 
@@ -114,12 +114,11 @@ class CommandCheckController
         $time_check_pos_back = settings()->get('time_check_pos_back', 0);
         $time_check_bank_log = settings()->get('time_check_bank_log', 0);
         $time_check_mb = settings()->get('time_check_mb', 0);
-        
+      
         if ($time_check_pos_back) {
             $time_check_pos_back_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_pos_back);
             $time_check_bank_log_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_bank_log);
             $time_check_mb_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_mb);
-            dd($time_check_pos_back_carbon,$time_check_bank_log_carbon,$time_check_mb_carbon);
         } else {
             $time_check_pos_back_carbon = Carbon::now()->subHour(5) ;
         }
@@ -129,12 +128,11 @@ class CommandCheckController
         $caculator_banklog_minutes = $time_check_mb_carbon->diffInMinutes($now);
 
         if ($caculator_pos_minutes <= 5 || $caculator_mb_minutes <= 5 || $caculator_banklog_minutes <=5 ) {
-            $max = ($caculator_pos_minutes > $caculator_mb_minutes)?$caculator_pos_minutes:$caculator_mb_minutes;
-            $max = ($max > $caculator_banklog_minutes)?$max:$caculator_banklog_minutes;
+            $max = ($caculator_pos_minutes < $caculator_mb_minutes)?$caculator_pos_minutes:$caculator_mb_minutes;
+            $max = ($max < $caculator_banklog_minutes)?$max:$caculator_banklog_minutes;
             
-            dd($max,$caculator_pos_minutes,$caculator_mb_minutes,$caculator_banklog_minutes);
             return response([
-                'message' => 'Vui lòng chờ .'.(5-$max).'P để thực hiện tiếp',
+                'message' => 'Vui lòng chờ '.(5-$max).' Phút để thực hiện tiếp',
             ], Response::HTTP_GATEWAY_TIMEOUT);
         }
 

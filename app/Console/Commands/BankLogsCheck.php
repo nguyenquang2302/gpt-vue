@@ -57,12 +57,23 @@ class BankLogsCheck extends Command
      */
     public function handle()
     {
-        $users = User::whereNotNull('accountName')->get();
-        foreach ($users as $user) {
-            $lists = BankLog::where('user_id', $user->id)->where('isChecked', 0)->get();
-            foreach ($lists as $transaction) {
-                $data = $transaction;
-                $this->excuteData($data, $user);
+        $time_check_bank_log = settings()->get('time_check_bank_log', 0);
+        if ($time_check_bank_log) {
+            $time_check_bank_log_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_bank_log);
+        } else {
+            $time_check_bank_log_carbon = Carbon::now();
+        }
+        $now = Carbon::now();
+        $caculator_minutes = $time_check_bank_log_carbon->diffInMinutes($now);
+
+        if ($caculator_minutes >= 4) {
+            $users = User::whereNotNull('accountName')->get();
+            foreach ($users as $user) {
+                $lists = BankLog::where('user_id', $user->id)->where('isChecked', 0)->get();
+                foreach ($lists as $transaction) {
+                    $data = $transaction;
+                    $this->excuteData($data, $user);
+                }
             }
         }
     }

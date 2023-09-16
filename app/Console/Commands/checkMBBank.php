@@ -61,52 +61,21 @@ class checkMBBank extends Command
         // settings()->set([
         //     'time_check_mb' => Carbon::now()
         // ]);
-        $time_check_mb = settings()->get('time_check_mb',0);
-        if($time_check_mb) {
+        $time_check_mb = settings()->get('time_check_mb', 0);
+        if ($time_check_mb) {
             $time_check_mb_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_mb);
         } else {
             $time_check_mb_carbon = Carbon::now();
         }
-        
+
         $now = Carbon::now();
         $caculator_minutes = $time_check_mb_carbon->diffInMinutes($now);
-        if($caculator_minutes >= 1)
-        {
-            
+        if ($caculator_minutes >= 4) {
+
             settings()->set([
                 'time_check_mb' => Carbon::now()
             ]);
-            // $customerTransaction = CustomerTransaction::first();
-            // dd('https://crm.giaiphapthe.com/admin/fundTransaction/'.$customerTransaction->id);
 
-            // if($now->hour >= 23) {
-
-            // } else if ($now->hour <= 8 || $now->hour >= 20) {
-            //     return;
-            // }
-            // $user = User::find(1);
-
-            // $data =  [
-            //     "postingDate" => "30/01/2023 00:01:00",
-            //     "transactionDate" => "29/01/2023 14:57:00",
-            //     "accountNo" => "0838808080",
-            //     "creditAmount" => "0",
-            //     "debitAmount" => "196000000",
-            //     "currency" => "VND",
-            //     "description" => "CUSTOMER CKRT 5 1	 - Ma giao dich/ Trace 435 549",
-            //     "availableBalance" => null,
-            //     "beneficiaryAccount" => null,
-            //     "refNo" => "FF2365045975058\\BNK",
-            //     "benAccountName" => null,
-            //     "bankName" => null,
-            //     "benAccountNo" => null,
-            //     "dueDate" => null,
-            //     "docId" => null,
-            //     "transactionType" => null
-            // ];
-            // $this->excuteData($data,$user);
-            // die;
-            // $user = User::find(1);
             $users = User::where('accountName', '!=', NULL)->get();
             foreach ($users as $user) {
                 sleep(5);
@@ -139,19 +108,7 @@ class checkMBBank extends Command
                     }
                 }
             }
-            // $response = Http::post(self::transaction_url, [
-            //     'user' => $user->accountName,
-            //     'pass' => $user->passBank,
-            //     'account' => '3667456789999',
-            //     'time' => $time,
-            // ]);
-            // $lists = ($response->object());
-            // foreach ($lists->data as $transaction) {
-            //     $data = (array)$transaction;
-            //     $this->excuteData($data,$user);
-            // }
         }
-
     }
 
     public function excuteData($data, $user)
@@ -160,7 +117,7 @@ class checkMBBank extends Command
         DB::beginTransaction();
 
         try {
-            var_dump($user->id.'-'.$data['debitAmount'].'-'.$data['creditAmount']);
+            var_dump($user->id . '-' . $data['debitAmount'] . '-' . $data['creditAmount']);
             if ($bankLogs = BankLog::where('refNo', $data['refNo'])->where('creditAmount', $data['creditAmount'])->where('debitAmount', $data['debitAmount'])->first()) {
                 // return;
             } else {
@@ -454,7 +411,7 @@ class checkMBBank extends Command
                     $creditAmount = $bankLogs->creditAmount;
                     $debitAmount = $bankLogs->debitAmount;
                     if ($creditAmount > 0) {
-                        if ($user1 = User::where('posName',$detail[1])->first()) {
+                        if ($user1 = User::where('posName', $detail[1])->first()) {
                             $bankLogs->isChecked = true;
                             $bankLogs->content = $description[0];
                             $bankLogs->save();
@@ -499,7 +456,7 @@ class checkMBBank extends Command
                         }
                     } elseif ($debitAmount > 0) {
                         // trừ tiền Chủ pos
-                        $user = User::where('posName',$detail[1])->first();
+                        $user = User::where('posName', $detail[1])->first();
                         $userTranfer = User::where('accountNo', $bankLogs->accountNo)->first();
                         if ($user && $userTranfer) {
                             $bankLogs->isChecked = true;
@@ -596,7 +553,6 @@ class checkMBBank extends Command
             }
             DB::commit();
         } catch (\Throwable $th) {
-            var_dump($th);
             DB::rollBack();
             return;
         }

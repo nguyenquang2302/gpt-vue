@@ -15,6 +15,32 @@
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
+            <!-- cmnd -->
+            <li class="nav-item">
+                <a class="nav-link" role="button" title="Lấy lịch sử giao dịch" @click="checkHistory">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-terminal" viewBox="0 0 16 16">
+                    <path d="M6 9a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3A.5.5 0 0 1 6 9zM3.854 4.146a.5.5 0 1 0-.708.708L4.793 6.5 3.146 8.146a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2z"/>
+                    <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h12z"/>
+                    </svg>
+                </a>
+            </li>
+            <li class="nav-item" title="Kiểm tra giao dịch" @click="checkBankLog">
+                <a class="nav-link" role="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-terminal-fill" viewBox="0 0 16 16">
+                        <path d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708L4.793 6.5 3.146 8.146z"/>
+                    </svg>
+                </a>
+            </li>
+
+            <li class="nav-item" title="Kiểm tra tiền về" @click="checkPosBack">
+                <a class="nav-link" role="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-terminal-plus" viewBox="0 0 16 16">
+                        <path d="M2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4a.5.5 0 0 1-1 0V4a1 1 0 0 0-1-1H2Z"/>
+                        <path d="M3.146 5.146a.5.5 0 0 1 .708 0L5.177 6.47a.75.75 0 0 1 0 1.06L3.854 8.854a.5.5 0 1 1-.708-.708L4.293 7 3.146 5.854a.5.5 0 0 1 0-.708ZM5.5 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5ZM16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+                    </svg>
+                </a>
+            </li>
+
             <!-- Navbar Search -->
             <li class="nav-item">
                 <a class="nav-link" role="button">
@@ -43,92 +69,7 @@
                     </form>
                 </div>
             </li>
-
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-comments"></i>
-                    <span class="badge badge-danger navbar-badge">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Brad Diesel
-                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">Call me whenever you can...</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    John Pierce
-                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">I got your message bro</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Nora Silvester
-                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">The subject goes here</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li>
+          
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
@@ -148,17 +89,48 @@
 <script setup>
 import axios from '@/plugins/axios'
 import router from '@/router'
-const logout  = () => {
-      return new Promise((resolve, reject) => {
-        router.push('/login');
-        axios.post('/logout').then((response) => {
-            localStorage.removeItem('user')
-            localStorage.removeItem('accessToken')
-            resolve('Success')
-            router.push('/login');
+import { toast } from 'vue3-toastify';
 
-        }).catch(error => reject(error))
-      })
-    }
+const logout  = () => {
+    return new Promise((resolve, reject) => {
+    axios.post('/logout').then((response) => {
+        localStorage.removeItem('user')
+        localStorage.removeItem('accessToken')
+        resolve('Success')
+        router.push('/login');
+
+    }).catch(error => reject(error))
+    })
+}
+
+const checkHistory  = async() => {
+
+    await axios.post('/checkHistories').then((response) => {
+      
+
+    }).catch(({ response }) => {
+        toast.error(response.data.message);
+    })
+}
+
+const checkBankLog  = async () => {
+
+    await axios.post('/checkBankLogs').then((response) => {
+
+    }).catch(({ response }) => {
+        toast.error(response.data.message);
+    })
+
+}
+
+const checkPosBack  = async () => {
+    
+    await axios.post('/checkPosbacks').then((response) => {
+        
+
+    }).catch(({ response }) => {
+        toast.error(response.data.message);
+    })
+}
 
 </script>

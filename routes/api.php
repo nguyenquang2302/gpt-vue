@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DrawalController;
 use App\Http\Controllers\Api\WithdrawalController;
 use App\Http\Controllers\Api\BankLogController;
+use App\Http\Controllers\Api\CommandCheckController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+Route::middleware(['auth:sanctum','is_admin:admin,manager_vip_2'])->group(function () { 
+    Route::post('/checkHistories', [CommandCheckController::class, 'checkHistories']);
+    Route::post('/checkBankLogs', [CommandCheckController::class, 'checkBankLogs']);
+    Route::post('/checkPosbacks', [CommandCheckController::class, 'checkPosbacks']);
+    
+});
+    
 Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manager_vip_2,staff'])->group(function () {
     Route::group(['middleware', ['json.force']], function() {
         // global

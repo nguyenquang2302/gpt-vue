@@ -130,7 +130,7 @@ class CommandCheckController
             $max = ($caculator_pos_minutes > $caculator_mb_minutes)?$caculator_pos_minutes:$caculator_mb_minutes;
             $max = ($max > $caculator_banklog_minutes)?$max:$caculator_banklog_minutes;
             
-            dd($max);
+            dd($max,$caculator_pos_minutes,$caculator_mb_minutes,$caculator_banklog_minutes);
             return response([
                 'message' => 'Vui lòng chờ .'.(5-$max).'P để thực hiện tiếp',
             ], Response::HTTP_GATEWAY_TIMEOUT);

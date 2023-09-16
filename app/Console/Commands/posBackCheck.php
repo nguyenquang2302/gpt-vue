@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Domains\Auth\Models\User;
 use App\Models\FundTransaction\FundTransaction;
 use App\Models\PosBack\PosBack;
+use App\Models\Users\User;
 use App\Services\FundTransactionService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

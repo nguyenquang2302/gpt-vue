@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Domains\Auth\Models\User;
 use App\Models\BankLog\BankLog;
 use App\Models\Customer\Customer;
 use App\Models\CustomerTransaction\CustomerTransaction;
@@ -12,6 +11,7 @@ use App\Models\Expense\Expense;
 use App\Models\FundTransaction\FundTransaction;
 use App\Models\Pos\Pos;
 use App\Models\PosBack\PosBack;
+use App\Models\Users\User;
 use App\Models\Withdrawal\Withdrawal;
 use App\Models\WithdrawalDetail\WithdrawalDetail;
 use App\Services\CustomerTransactionService;

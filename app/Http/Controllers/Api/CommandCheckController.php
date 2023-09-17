@@ -118,11 +118,22 @@ class CommandCheckController
       
         if ($time_check_pos_back) {
             $time_check_pos_back_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_pos_back);
-            $time_check_bank_log_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_bank_log);
-            $time_check_mb_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_mb);
         } else {
             $time_check_pos_back_carbon = Carbon::now()->subHour(5) ;
         }
+
+        if ($time_check_bank_log) {
+            $time_check_bank_log_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_bank_log);
+        } else {
+            $time_check_bank_log_carbon = Carbon::now()->subHour(5) ;
+        }
+
+        if ($time_check_mb) {
+            $time_check_mb_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_mb);
+        } else {
+            $time_check_mb_carbon = Carbon::now()->subHour(5) ;
+        }
+
         $now = Carbon::now();
         $caculator_pos_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
         $caculator_mb_minutes = $time_check_bank_log_carbon->diffInMinutes($now);

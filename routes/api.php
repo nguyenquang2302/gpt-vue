@@ -43,16 +43,27 @@ Route::middleware(['auth:sanctum','is_admin:admin,manager_vip_2'])->group(functi
     Route::post('/checkAllCommand', [CommandCheckController::class, 'checkAll']);
     
 });
-    
+Route::get('branchs/lists', [BranchController::class, 'lists']);
+Route::get('provinces', [ApiGlobalController::class, 'provinces'])->name('provinces');
+Route::get('districts/{provinceId}', [ApiGlobalController::class, 'districts'])->name('districts');
+Route::get('wards/{districtId}', [ApiGlobalController::class, 'wards'])->name('wards');
+Route::get('address', [ApiGlobalController::class, 'address'])->name('address');
+Route::get('/fund-categories', [ApiGlobalController::class, 'fundCategories'])->name('fundCategories');
+Route::get('list-bank', [ApiGlobalController::class, 'listBank']);
+
+Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manager_vip_2,staff,partner'])->group(function () {
+     // customer
+     Route::get('/customers/search', [CustomerController::class, 'search']);
+     Route::get('/customers', [CustomerController::class, 'index']);
+     Route::post('/customers', [CustomerController::class, 'store']);
+});
 Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manager_vip_2,staff'])->group(function () {
     Route::group(['middleware', ['json.force']], function() {
         // global
         
-        Route::get('list-bank', [ApiGlobalController::class, 'listBank']);
         Route::get('list-pos', [ApiGlobalController::class, 'listPos']);
 
-        Route::get('branchs/lists', [BranchController::class, 'lists']);
-
+        Route::apiResource('customers', CustomerController::class)->except(['index','store']);
         Route::patch('/users/password/change/{user}', [UserPasswordController::class, 'update']);
 
         Route::post('/users/{user}', [UserPasswordController::class, 'update']);
@@ -60,9 +71,6 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
         Route::apiResource('users', UserController::class);
         Route::apiResource('branchs', BranchController::class);
 
-        // customer
-        Route::get('/customers/search', [CustomerController::class, 'search']);
-        Route::apiResource('customers', CustomerController::class);
         // 
         Route::get('/customer-cards/search', [CustomerCardController::class, 'search']);
         Route::apiResource('customer-cards', CustomerCardController::class);
@@ -79,12 +87,6 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
         // History
         Route::apiResource('/history', BankLogController::class);
 
-        // 
-        Route::get('provinces', [ApiGlobalController::class, 'provinces'])->name('provinces');
-        Route::get('districts/{provinceId}', [ApiGlobalController::class, 'districts'])->name('districts');
-        Route::get('wards/{districtId}', [ApiGlobalController::class, 'wards'])->name('wards');
-        Route::get('address', [ApiGlobalController::class, 'address'])->name('address');
-        Route::get('/fund-categories', [ApiGlobalController::class, 'fundCategories'])->name('fundCategories');
         
         // ok
 

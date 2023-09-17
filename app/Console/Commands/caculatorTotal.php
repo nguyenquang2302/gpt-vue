@@ -70,9 +70,8 @@ class caculatorTotal extends Command
                 $q1->where('isDone', 1);
             });
         }])->with('posBack')->get();
-        // settings()->set([
-        //     'total_expense' => Expense::sum('debitAmount'),
-        // ]);
+      
+
         $money_not_back_yet = 0; // Tổng tiền pos chưa về
         foreach($data['all_pos'] as $pos) {
             $moneyBack = $pos->getTotalMoneyBack();
@@ -81,8 +80,6 @@ class caculatorTotal extends Command
         $total_banklogs_debit = BankLog::where('isChecked',0)->sum('debitAmount');
         $total_banklogs_credit = BankLog::where('isChecked',0)->sum('creditAmount');
         $data['customer_cart_save'] = CustomerCard::where('save',1)->count();
-       
-        
 
         $data['total_money_plus'] = Customer::where('money','>',0)->where('type',1)->sum('money');
         $data['total_money_minus'] = Customer::where('money','<',0)->where('type',1)->sum('money');
@@ -101,6 +98,7 @@ class caculatorTotal extends Command
         $data['totalTransactions'] = Drawal::where('isDone', 1)->count();
 
         $data['totalTransactions'] += Withdrawal::where('isDone', 1)->count();
+
         settings()->set([
             'customer_cart_save' => $data['customer_cart_save'],
             'total_profit' => $total_profit,

@@ -46,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const TYPE_USER = 'user';
     public const TYPE_BANK = 'bank';
     public const TYPE_POS = 'pos';
+    public const TYPE_PARTNER = 'partner';
 
     /**
      * The attributes that are mass assignable.
@@ -84,7 +85,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'avatar',
         'branch_id',
-        'posName'
+        'posName',
+        'time_partner',
+        'fee_partner'
     ];
 
     /**

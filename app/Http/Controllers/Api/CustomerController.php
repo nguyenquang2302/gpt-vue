@@ -39,7 +39,6 @@ class CustomerController
     {
         $isChecked = $request->input('isChecked'); 
         $rowsPerPage = $request->input('rowsPerPage'); 
-        $page = $request->input('page'); 
         $sortBy = $request->get('sortBy','id');
         $sortType = $request->get('sortType','desc');
         $customers = Customer::query();
@@ -50,16 +49,29 @@ class CustomerController
             $customers->where('money','<',0);
 
         }
-        
-        return response([
-            'customers' => $customers
-                    ->when($request->input('search'), function ($query, $search) {
-                        $slug_name =  \Str::slug($search);
-                        $query->where('name', 'like', '%' . $search . '%')
-                            ->OrWhere('email', 'like', '%' . $search . '%')
-                            ->OrWhere('slug', 'like', '%' . $slug_name . '%');
-                    })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
-        ], Response::HTTP_OK);
+        if (auth()->user()->checkRole(['partners'])) {
+            $customers->where('user_id',auth()->user()->id);
+            return response([
+                'customers' => $customers->select('id', 'name', 'phone', 'CMND')
+                        ->when($request->input('search'), function ($query, $search) {
+                            $slug_name =  \Str::slug($search);
+                            $query->where('name', 'like', '%' . $search . '%')
+                                ->OrWhere('email', 'like', '%' . $search . '%')
+                                ->OrWhere('slug', 'like', '%' . $slug_name . '%');
+                        })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
+            ], Response::HTTP_OK);
+        } else {
+            return response([
+                'customers' => $customers
+                        ->when($request->input('search'), function ($query, $search) {
+                            $slug_name =  \Str::slug($search);
+                            $query->where('name', 'like', '%' . $search . '%')
+                                ->OrWhere('email', 'like', '%' . $search . '%')
+                                ->OrWhere('slug', 'like', '%' . $slug_name . '%');
+                        })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
+            ], Response::HTTP_OK);
+        }
+
     }
 
     public function search( Request $request)

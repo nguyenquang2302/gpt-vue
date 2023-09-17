@@ -32,7 +32,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'type' => [Rule::requiredIf(function () {
                 return ! $this->user->isMasterAdmin();
-            }), Rule::in([User::TYPE_ADMIN, User::TYPE_USER,User::TYPE_MANAGER,User::TYPE_MANAGER_VIP,User::TYPE_MOD , User::TYPE_STAFF, User::TYPE_POS,User::TYPE_MANAGER_VIP_2])],
+            }), Rule::in([User::TYPE_ADMIN, User::TYPE_USER,User::TYPE_MANAGER,User::TYPE_MANAGER_VIP,User::TYPE_MOD , User::TYPE_STAFF, User::TYPE_POS,User::TYPE_MANAGER_VIP_2,User::TYPE_PARTNER])],
             'name' => ['required', 'max:100'],
             'email' => ['required', 'max:255', 'email', Rule::unique('users')->ignore($this->user->id)],
             'roles' => ['sometimes', 'array'],
@@ -47,7 +47,9 @@ class UpdateUserRequest extends FormRequest
             'autoPosBack' => ['sometimes'],
             'branch_id' => ['sometimes'],
             'branch_ids' => ['sometimes'],
-            'posName' => ['sometimes']
+            'posName' => ['sometimes'],
+            'time_partner' => ['sometimes'],
+            'fee_partner' => ['sometimes'],
 
         ];
     }

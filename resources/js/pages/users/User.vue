@@ -64,8 +64,34 @@
                                                     <option value="mod">Mod</option>
                                                     <option value="staff">Staff</option>
                                                     <option value="pos">POS</option>
+                                                    <option value="partner">Đối tác</option>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div v-if="userDataAddNew.type =='partner'">
+                                            <div class="form-group row" >
+                                                <div class="col-md-4">
+                                                    <label for="name" class="col-form-label">Thời gian đối tác</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <VueDatePicker  v-model="userDataAddNew.time_partner" :enable-time-picker="false"
+                                                        :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                        :timezone="'Asia/Novosibirsk'" auto-apply />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row" >
+                                                <div class="col-md-4">
+                                                    <label for="name" class="col-form-label">Phí mặc định</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <VueNumberFormat  :class="'form-control'"
+                                                        v-model:value="userDataAddNew.fee_partner"
+                                                        :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                    </VueNumberFormat>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="form-group row" v-if="userDataAddNew.type =='pos'">
                                             <div class="col-md-4">
@@ -227,7 +253,7 @@
                     <!-- Edit User -->
 
                     <div>
-                        <div class="modal right fade" :class="{ 'd-none': !isPopupEdit }" id="modal-edit"
+                        <div class="modal right fade" id="modal-edit"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -261,9 +287,38 @@
                                                     <option value="mod">Mod</option>
                                                     <option value="staff">Staff</option>
                                                     <option value="pos">POS</option>
+                                                    <option value="partner">Đối tác</option>
+
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div v-if="userData.type =='partner'">
+                                            <div class="form-group row" >
+                                                <div class="col-md-4">
+                                                    <label for="name" class="col-form-label">Thời gian đối tác</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <VueDatePicker  v-model="userData.time_partner" :enable-time-picker="false"
+                                                        :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                        :timezone="'Asia/Novosibirsk'" auto-apply />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row" >
+                                                <div class="col-md-4">
+                                                    <label for="name" class="col-form-label">Phí mặc định</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <VueNumberFormat  :class="'form-control'"
+                                                        v-model:value="userData.fee_partner"
+                                                        :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                    </VueNumberFormat>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                         <div class="form-group row" v-if="userData.type=='pos'">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Tên POS</label>
@@ -443,6 +498,8 @@ import { useUserListStore } from '@/pages/users/useUserListStore'
 import { useBranchListStore } from '@/pages/branchs/useBranchListStore'
 import { toast } from 'vue3-toastify';
 import jquery from 'jquery';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 const headers: Header[] = [
     { text: "ID", value: "id" },
@@ -450,6 +507,7 @@ const headers: Header[] = [
     { text: "Email", value: "email" },
     { text: "Operation", value: "operation" },
 ];
+
 
 const items = ref([])
 const allBranchs = ref([])
@@ -485,6 +543,10 @@ const showDetail = dataInfo => {
     userData.value = dataInfo
 }
 
+const formatDate = (date) => {
+    const tzOffset = date.getTimezoneOffset() * 60 * 1000
+    return new Date(date - tzOffset).toISOString().split('T')[0]
+}
 
 const askDelete = dataInfo => {
     idDelete.value = dataInfo.id
@@ -501,7 +563,6 @@ const askEdit = dataInfo => {
         // toast.error(error.message);
     })
     // userData.value = dataInfo
-    fetchAllBranch()
 }
 
 const fetchAll = () => {
@@ -584,7 +645,7 @@ const fetchAllBranch = () => {
     }).catch(error => {
         toast.error(error.message);
     })
-
 };
+fetchAllBranch()
 
 </script>

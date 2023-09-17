@@ -312,11 +312,6 @@ class DashboardController
             $data['to'] =  $to = Carbon::now();
         }
 
-        $data['totalCustomer'] = Customer::all()->count();
-        $data['totalCustomerNew'] = Customer::whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->count();
-        $data['totalTransactions'] = Drawal::whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where('isDone', 1)->count();
-
-        $data['totalTransactions'] += Withdrawal::whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where('isDone', 1)->count();
 
         $active = 1;
         if ($active) {
@@ -328,29 +323,6 @@ class DashboardController
             }])->with('posBack')->get();
         }
 
-        $withdrawalDetails = WithdrawalDetail::whereHas('withdrawal', function (Builder $query) use ($from, $to) {
-                $query->where('isDone', 1)
-                    ->whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"]);
-            })->get();
-        $drawalDetails =  DrawalDetail::whereHas('drawal', function (Builder $query) use ($from, $to) {
-                $query->where('isDone', 1)
-                    ->whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"]);
-            })->get();
-       
-        foreach($drawalDetails as $drawalDetail1) {
-            
-            $drawalDetail1->profit = ($drawalDetail1->money* $drawalDetail1->drawal->fee_customer/100) - ($drawalDetail1->money* $drawalDetail1->fee_bank/100) ;
-            $drawalDetail1->save();
-        }
-
-        foreach($withdrawalDetails as $withdrawalDetail) {
-            
-            $withdrawalDetail->profit = ($withdrawalDetail->money_drawal * $withdrawalDetail->withDrawal->fee_customer)/100 - ($withdrawalDetail->money_drawal *$withdrawalDetail->fee_bank)/100;
-            $withdrawalDetail->save();
-
-        }
-        $data['totalProfit'] =  $withdrawalDetails->sum('profit');
-        $data['totalProfit'] += $drawalDetails->sum('profit');
 
         $data['statisticals']['withdrawal']['money'] = 0;
         $data['statisticals']['withdrawal']['money_drawal'] = 0;
@@ -359,7 +331,6 @@ class DashboardController
 
         // 
         $data['statisticals']['drawal']['money'] = 0;
-        $data['statisticals']['drawal']['money_drawal'] = 0;
         $data['statisticals']['drawal']['fee_bank_money'] = 0;
         $data['statisticals']['drawal']['money_back'] = 0;
         $data['statisticals']['drawal']['money_tranfer'] = 0;
@@ -369,23 +340,24 @@ class DashboardController
         $data['statisticals']['pos_back_money'] = 0;
         $data['statisticals']['money_not_back_yet'] = 0;
         $data['statisticals']['profit_money_sub_fee_bank'] = 0;
-        $data['statisticals']['drawal']['money_drawal']  = CustomerTransaction::where('source', 'CKRT')->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->sum('money');
-
+        
         foreach ($data['all_pos'] as $key => $pos) {
 
             // Rút tiền
             $pos->drawal_statisticals = $drawal_statisticals = $pos->getAllMoneyDrawal($active, $from, $to);
+
+
+
             $pos->statisticals = $statisticals = $pos->getAllMoneyWithdrawal($active, $from, $to);
 
             $data['statisticals']['drawal']['money'] += $drawal_statisticals['money'];
             $data['statisticals']['drawal']['fee_bank_money'] += $drawal_statisticals['fee_bank_money'];
             $data['statisticals']['drawal']['money_back'] += $drawal_statisticals['money_back'];
             $data['statisticals']['drawal']['profit_money'] += $drawal_statisticals['profit_money'];
-            // dd($statisticals['profit_money'], $drawal_statisticals['profit_money']);
 
             // //Đáo hạn
             $moneyBack = $pos->getMoneyBack($active, $from, $to);
-            $pos_money_money =  $pos_back_money = $moneyBack['moneyback'];
+            $pos_back_money = $moneyBack['moneyback'];
             // // tổng tiền chưa về của máy pos =  tiền về - tiền  rút
             $pos->money_not_back_yet = $money_not_back_yet = $moneyBack['money_not_back_yet'];
             $data['statisticals']['withdrawal']['money'] += $statisticals['money'];
@@ -401,8 +373,7 @@ class DashboardController
 
         // Lợi nhuận đã tính
 
-        $data['statisticals']['money_drawal'] = $data['statisticals']['withdrawal']['money_drawal'];
-        +$data['statisticals']['drawal']['money_drawal'];
+ 
         // Tổng tiền = tiền rút (đáo hạn) - phí ngân hàng(pos) + lợi tức
 
         // tiền về =
@@ -412,11 +383,13 @@ class DashboardController
             'data' =>  $data,
             'message' => 'Danh sách thành công'
         ], Response::HTTP_OK);
+        
     }
     
     public function indexGlobalDetail(DashboardRequest $request)
     {
         
+        $data['now'] = Carbon::now();
         if ($request->from && $request->to) {
             $data['from'] =  $from = Carbon::parse($request->get('0'));
             $data['to'] =  $to = Carbon::parse($request->get('1'));
@@ -469,7 +442,7 @@ class DashboardController
             $data['to'] =  $to = Carbon::now();
         }
 
-
+        $data['thu_chi'] = BankLog::where('isChecked', 1)->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where('content_fix', 'THUCHI')->sum('debitAmount');
         $data['users'] = User::where('activeBank',true)->get();
         
         $data['investors'] = Customer::where('type',2)->sum('money');
@@ -484,18 +457,8 @@ class DashboardController
         $data['totalTransactions'] = Drawal::whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where('isDone', 1)->count();
 
         $data['totalTransactions'] += Withdrawal::whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where('isDone', 1)->count();
-        // $msb = new MSBService('123','456');
-        // dd($msb->sendSms());
-        $customers = Customer::all();
-        $data['money_debit'] = 0;
-        foreach ($customers as $customer) {
-            $transactions = $customer->customerTransactions()->get();
-            $money = $transactions->sum('money');
-            if ($money > 0) {
-                $data['money_debit'] += $money;
-            }
-        }
 
+        
         $active = 1;
         if ($active) {
             $data['all_pos'] = Pos::with(['withdrawalDetail' => function ($query) use ($active, $from, $to) {
@@ -504,45 +467,13 @@ class DashboardController
                         ->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"]);
                 });
             }])->with('posBack')->get();
-            $withdrawal = Withdrawal::where('isDone', $active)
-                ->whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])
-                ->get();
-            $drawal = Drawal::where('isDone', $active)
-                ->whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])
-                ->get();
-
-            $bankLogs = BankLog::where('isChecked', $active)->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->get();
-            $data['fee_ship'] = $drawal->sum('fee_ship') + $withdrawal->sum('fee_ship');
-            $data['thu_chi'] = BankLog::where('isChecked', $active)->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where('content_fix', 'THUCHI')->sum('debitAmount');
-            $data['total_ckrt_comfirm'] = BankLog::where('isChecked', $active)->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where(function ($query) {
-                $query->where('content', 'like', '%CKRT%')->orWhere('content_fix', 'like', '%CKRT%');
-            })
-                ->sum('debitAmount');
         }
-
-        $withdrawalDetails = WithdrawalDetail::whereHas('withdrawal', function (Builder $query) use ($from, $to) {
-                $query->where('isDone', 1)
-                    ->whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"]);
-            })->get();
-        $drawalDetails =  DrawalDetail::whereHas('drawal', function (Builder $query) use ($from, $to) {
-                $query->where('isDone', 1)
-                    ->whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"]);
-            })->get();
-       
-        foreach($drawalDetails as $drawalDetail1) {
-            
-            $drawalDetail1->profit = ($drawalDetail1->money* $drawalDetail1->drawal->fee_customer/100) - ($drawalDetail1->money* $drawalDetail1->fee_bank/100) ;
-            $drawalDetail1->save();
-        }
-
-        foreach($withdrawalDetails as $withdrawalDetail) {
-            
-            $withdrawalDetail->profit = ($withdrawalDetail->money_drawal * $withdrawalDetail->withDrawal->fee_customer)/100 - ($withdrawalDetail->money_drawal *$withdrawalDetail->fee_bank)/100;
-            $withdrawalDetail->save();
-
-        }
-        $data['totalProfit'] =  $withdrawalDetails->sum('profit');
-        $data['totalProfit'] += $drawalDetails->sum('profit');
+        $data['fee_ship'] = Withdrawal::where('isDone', $active)
+        ->whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])
+        ->select('id','fee_ship')->sum('fee_ship');
+        $data['fee_ship'] += Drawal::where('isDone', $active)
+        ->whereBetween('datetime', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])
+        ->select('id','fee_ship')->sum('fee_ship');
 
         $data['statisticals']['withdrawal']['money'] = 0;
         $data['statisticals']['withdrawal']['money_drawal'] = 0;
@@ -551,7 +482,6 @@ class DashboardController
 
         // 
         $data['statisticals']['drawal']['money'] = 0;
-        $data['statisticals']['drawal']['money_drawal'] = 0;
         $data['statisticals']['drawal']['fee_bank_money'] = 0;
         $data['statisticals']['drawal']['money_back'] = 0;
         $data['statisticals']['drawal']['money_tranfer'] = 0;
@@ -561,57 +491,47 @@ class DashboardController
         $data['statisticals']['pos_back_money'] = 0;
         $data['statisticals']['money_not_back_yet'] = 0;
         $data['statisticals']['profit_money_sub_fee_bank'] = 0;
-        $data['statisticals']['profit'] = $withdrawal->sum('profit_money') + $drawal->sum('profit_money');
-        $data['statisticals']['drawal']['money_drawal']  = CustomerTransaction::where('source', 'CKRT')->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->sum('money');
+        $data['total_ckrt_comfirm'] = BankLog::where('isChecked', $active)->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where(function ($query) {
+            $query->where('content', 'like', '%CKRT%')->orWhere('content_fix', 'like', '%CKRT%');
+        })->sum('debitAmount');
+
+        $data['statisticals']['withdrawal']['profit_money'] = 0;
 
         foreach ($data['all_pos'] as $key => $pos) {
+
             // Rút tiền
             $pos->drawal_statisticals = $drawal_statisticals = $pos->getAllMoneyDrawal($active, $from, $to);
+
+
+            
             $pos->statisticals = $statisticals = $pos->getAllMoneyWithdrawal($active, $from, $to);
 
             $data['statisticals']['drawal']['money'] += $drawal_statisticals['money'];
             $data['statisticals']['drawal']['fee_bank_money'] += $drawal_statisticals['fee_bank_money'];
             $data['statisticals']['drawal']['money_back'] += $drawal_statisticals['money_back'];
             $data['statisticals']['drawal']['profit_money'] += $drawal_statisticals['profit_money'];
-            // dd($statisticals['profit_money'], $drawal_statisticals['profit_money']);
-            $data['statisticals']['profit'] += $statisticals['profit_money'] + $drawal_statisticals['profit_money'];
 
             // //Đáo hạn
             $moneyBack = $pos->getMoneyBack($active, $from, $to);
-            $pos->pos_back_money =  $pos_back_money = $moneyBack['moneyback'];
+            $pos_back_money = $moneyBack['moneyback'];
             // // tổng tiền chưa về của máy pos =  tiền về - tiền  rút
             $pos->money_not_back_yet = $money_not_back_yet = $moneyBack['money_not_back_yet'];
-
-
             $data['statisticals']['withdrawal']['money'] += $statisticals['money'];
             $data['statisticals']['withdrawal']['money_drawal'] += $statisticals['money_drawal'];
+            $data['statisticals']['withdrawal']['profit_money'] += $statisticals['profit_money'];
             $data['statisticals']['withdrawal']['fee_bank_money'] += $statisticals['fee_bank_money'];
             $data['statisticals']['withdrawal']['money_back'] += ($statisticals['money_drawal'] - $statisticals['fee_bank_money']);
             $data['statisticals']['pos_back_money'] += $pos_back_money;
             $data['statisticals']['money_not_back_yet'] += $money_not_back_yet;
+            $moneyBack = $pos->getMoneyBack($active, $from, $to);
+            $pos->pos_back_money =  $pos_back_money = $moneyBack['moneyback'];
+
         }
-
-
-
-        // Lợi nhuận đã tính
-
-        $data['statisticals']['money_drawal'] = $data['statisticals']['withdrawal']['money_drawal'];
-        +$data['statisticals']['drawal']['money_drawal'];
-        // Tổng tiền = tiền rút (đáo hạn) - phí ngân hàng(pos) + lợi tức
-
+        $data['totalProfit'] = $data['statisticals']['withdrawal']['profit_money'] +  $data['statisticals']['drawal']['profit_money'];
+ 
         // tiền về =
         $data['statisticals']['money_back'] = $data['statisticals']['withdrawal']['money_back'];
-            // Số tiền thực tế
-
-        ;
-
-        $data['money_auth'] = -$data['total_money_minus'] - $data['total_money_plus'] +  $data['statisticals']['money_not_back_yet'];
-        foreach($data['users'] as $user) {
-            if($fund_transaction = $user->fundTransaction()->orderBy('id','desc')->first() ) {
-                $data['money_auth']  += $fund_transaction->money_after;
-            }
-        }
-
+            // Số tiền thực tế;
         return response([
             'data' =>  $data,
             'message' => 'Danh sách thành công'

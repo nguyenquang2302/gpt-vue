@@ -9,8 +9,8 @@ use App\Events\User\UserRestored;
 use App\Events\User\UserStatusChanged;
 use App\Events\User\UserUpdated;
 use App\Models\Users\User;
-use App\Exceptions\GeneralException;
 use App\Services\BaseService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -49,7 +49,7 @@ class UserService extends BaseService
      * @param  array  $data
      * @return mixed
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function registerUser(array $data = []): User
     {
@@ -60,7 +60,7 @@ class UserService extends BaseService
         } catch (Exception $e) {
             DB::rollBack();
 
-            throw new GeneralException(__('There was a problem creating your account.'));
+            throw new Exception(__('There was a problem creating your account.'));
         }
 
         DB::commit();
@@ -73,7 +73,7 @@ class UserService extends BaseService
      * @param $provider
      * @return mixed
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function registerProvider($info, $provider): User
     {
@@ -93,7 +93,7 @@ class UserService extends BaseService
             } catch (Exception $e) {
                 DB::rollBack();
 
-                throw new GeneralException(__('There was a problem connecting to :provider', ['provider' => $provider]));
+                throw new Exception(__('There was a problem connecting to :provider', ['provider' => $provider]));
             }
 
             DB::commit();
@@ -106,7 +106,7 @@ class UserService extends BaseService
      * @param  array  $data
      * @return User
      *
-     * @throws GeneralException
+     * @throws Exception
      * @throws \Throwable
      */
     public function store(array $data = []): User
@@ -120,8 +120,11 @@ class UserService extends BaseService
         {
             $posName = null;
         }
-        
+            
         try {
+
+            $time_partner  = $data['time_partner']?Carbon::parse(($data['time_partner']),'utc')->setTimezone(config('app.timezone')):null;
+
             $user = $this->createUser([
                 'type' => $data['type'],
                 'name' => $data['name'],
@@ -137,6 +140,8 @@ class UserService extends BaseService
                 'autoPosBack' => $data['autoPosBack'] ?? null,
                 'branch_id' => $data['branch_id'] ?? null,
                 'posName' => $posName ?? null,
+                'time_partner' => $time_partner,
+                'fee_partner' => $data['fee_partner'],
 
             ]);
 
@@ -148,7 +153,7 @@ class UserService extends BaseService
         } catch (Exception $e) {
             DB::rollBack();
 
-            throw new GeneralException(__('There was a problem creating this user. Please try again.'));
+            throw new Exception(__('There was a problem creating this user. Please try again.'));
         }
 
         event(new UserCreated($user));
@@ -180,7 +185,8 @@ class UserService extends BaseService
         {
             $posName = null;
         }
-        // try {
+        try {
+            $time_partner  = $data['time_partner']?Carbon::parse(($data['time_partner']),'utc')->setTimezone(config('app.timezone')):null;
             $user->update([
                 'type' => $user->isMasterAdmin() ? $this->model::TYPE_ADMIN : $data['type'] ?? $user->type,
                 'name' => $data['name'],
@@ -193,6 +199,8 @@ class UserService extends BaseService
                 'autoPosBack' => $data['autoPosBack'] ?? null,
                 'branch_id' => $data['branch_id'] ?? null,
                 'posName' => $posName ?? null,
+                'time_partner' => $time_partner,
+                'fee_partner' => $data['fee_partner'],
 
             ]);
             if(isset($data['branch_ids']) && $data['branch_ids']) {
@@ -206,11 +214,11 @@ class UserService extends BaseService
                     $user->syncPermissions($data['permissions'] ?? []);
                 }
             }
-        // } catch (Exception $e) {
-        //     DB::rollBack();
+        } catch (Exception $e) {
+            DB::rollBack();
 
-        //     throw new GeneralException(__('There was a problem updating this user. Please try again.'));
-        // }
+            throw new Exception(__('There was a problem updating this user. Please try again.'));
+        }
 
         event(new UserUpdated($user));
 
@@ -251,7 +259,7 @@ class UserService extends BaseService
         if (isset($data['current_password'])) {
             throw_if(
                 ! Hash::check($data['current_password'], $user->password),
-                new GeneralException(__('That is not your old password.'))
+                new Exception(__('That is not your old password.'))
             );
         }
 
@@ -270,16 +278,16 @@ class UserService extends BaseService
      * @param $status
      * @return User
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function mark(User $user, $status): User
     {
         if ($status === 0 && auth()->id() === $user->id) {
-            throw new GeneralException(__('You can not do that to yourself.'));
+            throw new Exception(__('You can not do that to yourself.'));
         }
 
         if ($status === 0 && $user->isMasterAdmin()) {
-            throw new GeneralException(__('You can not deactivate the administrator account.'));
+            throw new Exception(__('You can not deactivate the administrator account.'));
         }
 
         $user->active = $status;
@@ -290,19 +298,19 @@ class UserService extends BaseService
             return $user;
         }
 
-        throw new GeneralException(__('There was a problem updating this user. Please try again.'));
+        throw new Exception(__('There was a problem updating this user. Please try again.'));
     }
 
     /**
      * @param  User  $user
      * @return User
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function delete(User $user): User
     {
         if ($user->id === auth()->id()) {
-            throw new GeneralException(__('You can not delete yourself.'));
+            throw new Exception(__('You can not delete yourself.'));
         }
 
         if ($this->deleteById($user->id)) {
@@ -311,14 +319,14 @@ class UserService extends BaseService
             return $user;
         }
 
-        throw new GeneralException('There was a problem deleting this user. Please try again.');
+        throw new Exception('There was a problem deleting this user. Please try again.');
     }
 
     /**
      * @param  User  $user
      * @return User
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function restore(User $user): User
     {
@@ -328,14 +336,14 @@ class UserService extends BaseService
             return $user;
         }
 
-        throw new GeneralException(__('There was a problem restoring this user. Please try again.'));
+        throw new Exception(__('There was a problem restoring this user. Please try again.'));
     }
 
     /**
      * @param  User  $user
      * @return bool
      *
-     * @throws GeneralException
+     * @throws Exception
      */
     public function destroy(User $user): bool
     {
@@ -345,7 +353,7 @@ class UserService extends BaseService
             return true;
         }
 
-        throw new GeneralException(__('There was a problem permanently deleting this user. Please try again.'));
+        throw new Exception(__('There was a problem permanently deleting this user. Please try again.'));
     }
 
     /**
@@ -372,6 +380,8 @@ class UserService extends BaseService
             'autoPosBack' => $data['autoPosBack'] ?? null,
             'branch_id' => $data['branch_id'] ?? null,
             'posName' => $data['posName'] ?? null,
+            'time_partner' => $data['time_partner'],
+            'fee_partner' => $data['fee_partner'],
 
         ]);
     }

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import User from '../pages/users/User.vue'
 import Customer from '../pages/customers/Customer.vue'
+import CustomerPantner from '../pages/customers/CustomerPantner.vue'
 import CustomerCard from '../pages/customerCard/CustomerCard.vue'
 import Drawals from '../pages/drawal/Drawal.vue'
 import WithDrawals from '../pages/withDrawal/WithDrawal.vue'
@@ -75,6 +76,11 @@ const routes =  [
                 path:"/global-details",
                 name: "GlobalDetail",
                 component: GlobalDetails
+            },
+            {
+                path:"/customer-partners",
+                name: "CustomerPantner",
+                component: CustomerPantner
             }
         ]
     },

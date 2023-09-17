@@ -22,71 +22,39 @@ trait PosMethod
 
     public function getAllMoneyWithdrawal($active, $from, $to)
     {
-        if ($active) {
-            $drawalDetails = $this->withDrawalDetail()->whereHas('withdrawal', function (Builder $query) use($from, $to) {
-                $query->where('isDone', 1)
-                ->whereBetween('datetime', [$from->format('Y-m-d')." 00:00:00", $to->format('Y-m-d')." 23:59:59"]);
+        $drawalDetails = $this->withDrawalDetail()->whereHas('withdrawal', function (Builder $query) use($from, $to) {
+            $query->where('isDone', 1)
+            ->whereBetween('datetime', [$from->format('Y-m-d')." 00:00:00", $to->format('Y-m-d')." 23:59:59"]);
 
-            })->get();
-        } else {
-            $drawalDetails = $this->drawalDetails;
-        }
-        $data['money'] = 0;
-        $data['money_drawal'] = 0;
-        $data['fee_bank_money'] = 0;
-        $data['money_back'] = 0;
-        $data['profit_money'] = 0 ;
-        foreach ($drawalDetails??[] as $key => $drawalDetail) {
-            if($drawalDetail->isOwnerPos) {
-                $data['money'] +=  $drawalDetail->money;
-                $data['money_drawal'] += $drawalDetail->money_drawal;
-                $data['profit_money'] += - $drawalDetail->fee_money_bank;
-                $data['fee_bank_money'] += $drawalDetail->fee_money_bank;
-                $data['money_back'] -= $drawalDetail->fee_money_bank;
-            } else {
-                $data['money'] +=  $drawalDetail->money;
-                $data['money_drawal'] += $drawalDetail->money_drawal;
-                $data['profit_money'] += - $drawalDetail->fee_money_bank;
-                $data['fee_bank_money'] += $drawalDetail->fee_money_bank;
-                $data['money_back'] += $drawalDetail->money_back;
-            }
+        })->get();
+       
 
-        }
+        $data['money'] =  $drawalDetails->sum('money'); // tổng số tiền rút
+        $data['profit_money'] = $drawalDetails->sum('profit'); 
+        $data['fee_bank_money'] = $drawalDetails->sum('fee_bank_money');
+        $data['money_drawal'] = $drawalDetails->sum('money_drawal');
+        $data['money_back'] = $drawalDetails->sum('money_back');
+
         return $data;
     }
 
     public function getAllMoneyDrawal($active, $from, $to)
     {
-        if ($active) {
-            $drawalDetails = $this->drawalDetail()->whereHas('drawal', function (Builder $query) use ($from, $to) {
-                $query->where('isDone', 1)
-                ->whereBetween('datetime', [$from->format('Y-m-d')." 00:00:00", $to->format('Y-m-d')." 23:59:59"]);
-            })->get();
-        } else {
-            $drawalDetails = $this->drawalDetails;
-        }
-        $data['money'] = 0;
-        $data['money_drawal'] = 0;
-        $data['fee_bank_money'] = 0;
-        $data['money_back'] = 0;
-        $data['profit_money'] = 0 ;
-        foreach ($drawalDetails??[] as $key => $drawalDetail) {
-            if($drawalDetail->drawal->isDone){
-                $customerTransaction = CustomerTransaction::where('source','CKRT')->where('key',$drawalDetail->drawal->id)->first();
-                if($customerTransaction) {
-                    $data['money_drawal']  -= $customerTransaction->money;
-                    
-                }
-                $data['money'] +=  $drawalDetail->money;
-                $data['profit_money'] +=  - $drawalDetail->fee_bank_money;
-                $data['fee_bank_money'] += $drawalDetail->fee_bank_money;
-                $data['money_drawal'] += $drawalDetail->money_drawal;
-                $data['money_back'] += $drawalDetail->money_back;
-            }
-        }
+        $drawalDetails = $this->drawalDetail()->whereHas('drawal', function (Builder $query) use ($from, $to) {
+            $query->where('isDone', 1)
+            ->whereBetween('datetime', [$from->format('Y-m-d')." 00:00:00", $to->format('Y-m-d')." 23:59:59"]);
+        })->get();
+
+        $data['money'] =  $drawalDetails->sum('money'); // tổng số tiền rút
+        $data['profit_money'] = $drawalDetails->sum('profit'); 
+        $data['fee_bank_money'] = $drawalDetails->sum('fee_bank_money');
+        $data['money_drawal'] = $drawalDetails->sum('money_drawal');
+        $data['money_back'] = $drawalDetails->sum('money_back');
+
         return $data;
     }
 
+    
     public function getMoneyBack($active, $from, $to)
     {
         $moneyback = 0;

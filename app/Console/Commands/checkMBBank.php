@@ -58,6 +58,7 @@ class checkMBBank extends Command
      */
     public function handle()
     {
+        die('a');
         // settings()->set([
         //     'time_check_mb' => Carbon::now()
         // ]);
@@ -70,6 +71,8 @@ class checkMBBank extends Command
 
         $now = Carbon::now();
         $caculator_minutes = $time_check_mb_carbon->diffInMinutes($now);
+        dd($caculator_minutes);
+
         if ($caculator_minutes >= 4) {
 
             settings()->set([

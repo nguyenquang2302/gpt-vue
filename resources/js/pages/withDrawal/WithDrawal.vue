@@ -1018,6 +1018,8 @@ const selectedCustomer = (value) => {
             listCards.value = data.customer_cards
         })
     }, 500);
+    userDataAddNew.value.name = value.name_phone
+    userData.value.name = value.name_phone
 };
 
 const fetchCustomer = (query) => {

@@ -17,7 +17,6 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     login(data) {
       data.device_name = 'web_admin'
-      return new Promise((resolve, reject) => {
         axios.post('/login', data).then((response) => {
           let { user, token, permissions } = response.data
           this.userData = user
@@ -31,13 +30,10 @@ export const useAuthStore = defineStore('auth', {
           localStorage.setItem('accessToken', token)
           resolve(response)
         }).catch(error => reject(error))
-      })
     },
 
     changePassword(data) {
-      return new Promise((resolve, reject) => {
         axios.post('/changePassword', data).then((response) => {resolve(response)}).catch(error => reject(error))
-      })
     },
 
     passwordRemind(email) {
@@ -45,7 +41,6 @@ export const useAuthStore = defineStore('auth', {
     },
 
     authInfo() {
-      return new Promise((resolve, reject) => {
         axios.get(`/me`)
           .then((resp) => {
             if (resp && resp.data) {
@@ -62,11 +57,9 @@ export const useAuthStore = defineStore('auth', {
             }
           })
           .catch(error => reject(error))
-      })
     },
 
     logout() {
-      return new Promise((resolve, reject) => {
         axios.post('/logout').then((response) => {
           let {success} = response.data
           if (success) {
@@ -81,7 +74,6 @@ export const useAuthStore = defineStore('auth', {
             resolve('Success')
           }
         }).catch(error => reject(error))
-      })
     }
   }
 })

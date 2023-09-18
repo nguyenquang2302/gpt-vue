@@ -14,35 +14,27 @@ export const useCustomerListStore = defineStore('CustomerListStore', {
 
     // 👉 Add Customer
     addCustomer(userData) {
-      return new Promise((resolve, reject) => {
         axios.post('/customers', userData).then(response => resolve(response))
           .catch(error => reject(error))
-      })
     },
 
     // 👉 fetch single user
     fetchCustomer(id) {
-      return new Promise((resolve, reject) => {
         axios.get(`/customers/${id}`).then(response => resolve(response)).catch(error => reject(error))
-      })
     },
 
     // 👉 Update Department
     updateData(data) {
-      return new Promise((resolve, reject) => {
         axios.put(`/customers/${data.id}`, data)
           .then(response => resolve(response))
           .catch(error => reject(error))
-      })
     },
 
     // 👉 delete single department
     deleteData(id) {
-      return new Promise((resolve, reject) => {
         axios.delete(`/customers/${id}`)
           .then(response => resolve(response))
           .catch(error => reject(error))
-      })
     },
 
   },

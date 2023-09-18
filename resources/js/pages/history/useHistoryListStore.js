@@ -12,18 +12,14 @@ export const useHistoryListStore = defineStore('HistoryListStore', {
 
     // 👉 fetch single user
     fetchHistory(id) {
-      return new Promise((resolve, reject) => {
         axios.get(`/history/${id}`).then(response => resolve(response)).catch(error => reject(error))
-      })
     },
 
     // 👉 Update Department
     updateData(data) {
-      return new Promise((resolve, reject) => {
         axios.put(`/history/${data.id}`, data)
           .then(response => resolve(response))
           .catch(error => reject(error))
-      })
     },
 
   },

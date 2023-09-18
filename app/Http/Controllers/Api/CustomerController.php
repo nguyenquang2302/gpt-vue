@@ -49,7 +49,7 @@ class CustomerController
             $customers->where('money','<',0);
 
         }
-        if (auth()->user()->checkRole(['partners'])) {
+        if (auth()->user()->checkRole(['partner'])) {
             $customers->where('user_id',auth()->user()->id);
             return response([
                 'customers' => $customers->select('id', 'name', 'phone', 'CMND')
@@ -61,6 +61,7 @@ class CustomerController
                         })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
             ], Response::HTTP_OK);
         } else {
+            
             return response([
                 'customers' => $customers
                         ->when($request->input('search'), function ($query, $search) {
@@ -76,16 +77,29 @@ class CustomerController
 
     public function search( Request $request)
     {
-        return response([
-            'customers' => Customer::query()->select('id', 'name', 'phone')
-            ->when($request->input('query'), function ($query, $search) {
-                $slug_name =  \Str::slug($search);
-                $query->where('name', 'like', '%' . $search . '%')
-                    ->OrWhere('phone', 'like', '%' . $search . '%')
-                    ->OrWhere('slug', 'like', '%' . $slug_name . '%');
+        if (auth()->user()->checkRole(['partner'])) {
+            return response([
+                'customers' => Customer::query()->select('id', 'name', 'phone')->where('user_id',auth()->user()->id)
+                ->when($request->input('query'), function ($query, $search) {
+                    $slug_name =  \Str::slug($search);
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->OrWhere('phone', 'like', '%' . $search . '%')
+                        ->OrWhere('slug', 'like', '%' . $slug_name . '%');
 
-            })->get()
-        ], Response::HTTP_OK);
+                })->get()
+            ], Response::HTTP_OK);
+        } else {
+            return response([
+                'customers' => Customer::query()->select('id', 'name', 'phone')
+                ->when($request->input('query'), function ($query, $search) {
+                    $slug_name =  \Str::slug($search);
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->OrWhere('phone', 'like', '%' . $search . '%')
+                        ->OrWhere('slug', 'like', '%' . $slug_name . '%');
+
+                })->get()
+            ], Response::HTTP_OK);
+        }
     }
     /**
      * Store a newly created resource in storage.

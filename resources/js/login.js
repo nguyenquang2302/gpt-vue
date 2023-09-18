@@ -5,6 +5,5 @@ import '../dist/css/adminlte.min.css'
 
 import Axios from 'axios'
 window.axios = Axios;
-
 let app = createApp(App)
 app.mount('#app')

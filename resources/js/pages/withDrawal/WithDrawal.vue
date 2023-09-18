@@ -523,6 +523,8 @@
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span>
+                                                        &nbsp;
+                                                        <button type="button">NTDH {{userData.id}} {{userData.customer_id}} </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 text-right"> 
@@ -782,7 +784,9 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span>
+                                                    <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }} &nbsp;</span>
+                                                        <button type="button"  >NTDH {{userDataShow.id}} {{userDataShow.customer_id}} </button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -876,13 +880,11 @@
                                             </div>
                                             
                                     </div>
-
-                                    <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default CloseModalCreate"
+                                   
+                                    <div class="modal-footer justify-content-between" v-if="!userDataShow.isDone">
+                                        <button type="button" class="btn btn-default CloseModalShow"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                    </div>
-                                    <div class="modal-footer justify-content-between" v-if="!userData.isDone">
-                                        <button type="button" class="btn btn-primary"  @click="actionVerify(userData.id)">Xác nhận GIAO DỊCH</button>
+                                        <button type="button" class="btn btn-primary"  @click="actionVerify(userDataShow.id)">Xác nhận GIAO DỊCH</button>
                                     </div>
                                 </div>
                             </div>

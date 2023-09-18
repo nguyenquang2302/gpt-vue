@@ -533,6 +533,8 @@
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span>
+                                                        &nbsp;
+                                                        <button type="button">CKRT {{userData.id}} {{userData.customer_id}} </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 text-right"> 
@@ -775,7 +777,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span>
+                                                    <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span> &nbsp;
+                                                        <button type="button"  >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </button>
                                                     </div>
                                                 </div>
                                                 
@@ -858,6 +861,12 @@
                                                 <span  class="total_money_transfer"></span>
 
                                             </div>
+                                    </div>
+                                    
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-success CloseModalCreate"
+                                            data-bs-dismiss="modal">Huỷ</button>
+                                        <button type="button"  >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </button>
                                     </div>
                                     <div class="modal-footer justify-content-between" v-if="!userDataShow.isDone">
                                         <button type="button" class="btn btn-primary"  @click="actionVerify(userDataShow.id)">Xác nhận GIAO DỊCH</button>

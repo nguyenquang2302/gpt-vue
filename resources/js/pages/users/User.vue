@@ -10,7 +10,7 @@
                 </div>
                 <div class="content">
 
-                    <EasyDataTable v-model:server-options="serverOptions" :server-items-length="serverItemsLength"
+                    <EasyDataTable  v-model:server-options="serverOptions" :server-items-length="serverItemsLength"
                         :loading="loading" :headers="headers" :items="items" :key="reRender" buttons-pagination
                         table-class-name="customize-table">
                         <template #item-operation="item">

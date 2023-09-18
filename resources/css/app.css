@@ -19,16 +19,17 @@
 
   --easy-table-header-item-padding: 10px 15px;
 
-  --easy-table-body-even-row-font-color: #fff;
-  --easy-table-body-even-row-background-color: #4c5d7a;
+  --easy-table-body-even-row-font-color: #fff !important;
+  --easy-table-body-even-row-background-color: #fff  !important;
+  --easy-table-body-even-row-background-color: #cfcfcf !important;
 
   --easy-table-body-row-font-color: #111111;
-  --easy-table-body-row-background-color: #cfcfcf;
+  --easy-table-body-row-background-color: #f5f5f5;
   --easy-table-body-row-height: 50px;
   --easy-table-body-row-font-size: 14px;
 
   --easy-table-body-row-hover-font-color: #40b80d;
-  --easy-table-body-row-hover-background-color: #red;
+  --easy-table-body-row-hover-background-color: #cfcfcf;
 
   --easy-table-body-item-padding: 10px 15px;
 

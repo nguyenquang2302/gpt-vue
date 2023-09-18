@@ -17,8 +17,6 @@ import '../plugins/jquery/jquery.min.js'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 
-// import '../plugins/bootstrap/js/bootstrap.bundle.js'
-// import '../dist/js/adminlte.js'
 import '../dist/css/customize.css'
 
 import 'vue3-toastify/dist/index.css'

@@ -4,8 +4,8 @@ import router from '@/router'
 const axiosIns = axios.create({
   // You can add your headers here
   // ================================
-  baseURL: 'http://gpt.x/api',
-  // baseURL: 'https://hotrothe.vn/api/',
+  // baseURL: 'http://gpt.x/api',
+  baseURL: 'https://hotrothe.vn/api/',
   // timeout: 1000,
   // headers: {'X-Custom-Header': 'foobar'}
 })
@@ -31,7 +31,7 @@ axiosIns.interceptors.response.use(function (response) {
     localStorage.removeItem('accessToken')
     return router.replace('/login')
   } else {
-    return error;
+    return error
   }
 });
 

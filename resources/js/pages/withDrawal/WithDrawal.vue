@@ -86,7 +86,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="userDataAddNew.customer_card_id" :options="listCards"  :filterable="false"
+                                                        <v-select v-model="userDataAddNew.customer_card_id" :options="listCards" 
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -121,7 +121,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.user_fee_id"  :filterable="false"
+                                                <v-select v-model="userDataAddNew.user_fee_id"  
                                                     :options="globalStore.listUser" label="name"
                                                     :reduce="customer => customer.id"></v-select>
                                             </div>
@@ -228,7 +228,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
+                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos" 
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -431,7 +431,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser"  :filterable="false"
+                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser" 
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
@@ -536,7 +536,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
+                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -691,7 +691,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select readonly disabled v-model="userDataShow.user_fee_id" :options="globalStore.listUser"  :filterable="false"
+                                                <v-select readonly disabled v-model="userDataShow.user_fee_id" :options="globalStore.listUser" 
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
@@ -793,7 +793,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select readonly disabled v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
+                                                        <v-select readonly disabled v-model="detail.pos_id" :options="globalStore.listPos" 
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>

@@ -321,7 +321,7 @@
 
                                         <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                             tiền cần rút :<br>
-                                            <span  class="total_money_transfer">{{ formatPrice(sumTotalDetail(userDataAddNew)) }}</span>
+                                            <span  class="total_money_transfer">{{ (sumTotalDetail(userDataAddNew)) }}</span>
 
                                         </div>
                                         <button type="button" class="btn btn-primary" @click="actionCreate()">Đồng
@@ -942,7 +942,7 @@ const objDefault = {
     'money_drawal': 0,
     'fee_customer': 0,
     'transfer': false,
-    'fee_money_customer': 0,
+    'fee_money_customer':0,
     'bank_id': ref(),
     'bank_code': ref(),
     'bank_customer_name': ref(),
@@ -1141,8 +1141,8 @@ const sumTotalDetail = (data) => {
             total = total + element.money;
         });
     }
-   
-    return formatPrice(data.money - total +data.fee_money_customer )
+   console.log(data.money_drawal - total + data.fee_money_customer)
+    return formatPrice(data.money_drawal - total + data.fee_money_customer )
 }
 fetchAll()
 globalStore.fetchListBank()

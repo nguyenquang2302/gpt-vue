@@ -483,6 +483,7 @@ const timer = ref(1500)
 
 watch(serverOptions, (value,value2) => {
     if(value != value2) {
+    items.value = []
         if (timer.value) {
             clearTimeout(timer.value);
             timer.value = 0;
@@ -494,6 +495,7 @@ watch(serverOptions, (value,value2) => {
 }, { deep: true }
 );
 watch(searchValue, async (newQuestion, oldQuestion) => {
+    items.value = []
     if (timer.value) {
         clearTimeout(timer.value);
         timer.value = 0;

@@ -53,26 +53,37 @@
     </div>
   </div>
 </template>
-<script setup>
-import axios from 'axios'
-import {  ref} from "vue"
-import { toast } from 'vue3-toastify';
+<script>
+  import axios from 'axios'
+  import {  ref} from "vue"
+  import { toast } from 'vue3-toastify';
 
-const loginData = ref({
-  'email':'',
-  'password':'',
-  'remember':'',
- })
-const login = () => {
-  axios.post('/api/login', {
-    email: loginData.value.email,
-    password: loginData.value.password,
-  })
-    .then(response => {
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      localStorage.setItem('accessToken', response.data.access_token);
-    }).catch(error => {
-      toast.error(error)
-    })
-}
+  export default {
+    components: {
+    },
+    data () {
+      return {
+        loginData:{
+          'email':'',
+          'password':'',
+          'remember':'',
+        }
+      }
+    },
+    methods: {
+      login: function() {
+        axios.post('/api/login', {
+          email: loginData.value.email,
+          password: loginData.value.password,
+        })
+        .then(response => {
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          localStorage.setItem('accessToken', response.data.access_token);
+        }).catch(error => {
+          toast.error(error)
+        })
+      }
+
+    }
+  }
 </script>

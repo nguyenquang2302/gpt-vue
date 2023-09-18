@@ -57,6 +57,7 @@
 import axios from 'axios'
 import {  ref} from "vue"
 import { toast } from 'vue3-toastify';
+import router from '@/router/index.js'
 
 const loginData = ref({
   'email':'',
@@ -71,6 +72,7 @@ const login = () => {
     .then(response => {
       localStorage.setItem('user', JSON.stringify(response.data.user));
       localStorage.setItem('accessToken', response.data.access_token);
+      router.push('/');
     }).catch(error => {
       toast.error(error)
     })

@@ -293,8 +293,6 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default CloseModalCreate"
-                                            data-bs-dismiss="modal">Huỷ</button>
                                         <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                             tiền sẽ rút :<br>
                                             <span  class="total_money_transfer">{{ formatPrice(userDataAddNew.money_withdrawal) }}</span>
@@ -302,10 +300,21 @@
                                         </div>
 
                                         <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                            tiền cần rút :<br>
+                                            tiền cần nạp :<br>
                                             <span  class="total_money_transfer">{{ formatPrice(sumTotalDetail(userDataAddNew)) }}</span>
 
                                         </div>
+
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                            tiền cần rút :<br>
+                                            <span  class="total_money_transfer">{{ formatPrice(sumTotalDetailDrawal(userDataAddNew)) }}</span>
+
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default CloseModalCreate"
+                                            data-bs-dismiss="modal">Huỷ</button>
                                         <button type="button" class="btn btn-primary" @click="actionCreate()">Đồng
                                             ý</button>
                                     </div>
@@ -1145,8 +1154,8 @@ const sumTotalDetail = (data) => {
             total = total + element.money;
         });
     }
-    return total;
-
+    
+    return data.money_withdrawal - total;
 }
 
 const sumTotalDetailDrawal = (data) => {

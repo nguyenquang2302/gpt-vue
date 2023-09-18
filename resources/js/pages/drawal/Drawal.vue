@@ -314,7 +314,7 @@
                                         <button type="button" class="btn btn-default CloseModalCreate"
                                             data-bs-dismiss="modal">Huỷ</button>
                                         <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                            tiền sẽ rút :<br>
+                                            tiền Đáo :<br>
                                             <span  class="total_money_transfer">{{ formatPrice(userDataAddNew.money_drawal) }}</span>
 
                                         </div>

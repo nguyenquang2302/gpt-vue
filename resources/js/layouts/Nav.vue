@@ -100,6 +100,7 @@ import router from '@/router'
 import { toast } from 'vue3-toastify';
 
 const logout  = () => {
+    return new Promise((resolve, reject) => {
     axios.post('/logout').then((response) => {
         localStorage.removeItem('user')
         localStorage.removeItem('accessToken')
@@ -107,6 +108,7 @@ const logout  = () => {
         router.push('/login');
 
     }).catch(error => reject(error))
+    })
 }
 
 const checkHistory  = async() => {

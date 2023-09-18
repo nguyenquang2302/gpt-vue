@@ -17,6 +17,7 @@ axiosIns.interceptors.request.use(
   },
   (error) => {
     // Do something with request error
+    return Promise.reject(error)
   }
 )
 
@@ -31,7 +32,7 @@ axiosIns.interceptors.response.use(function (response) {
     localStorage.removeItem('accessToken')
     return router.replace('/login')
   } else {
-    return error
+    return Promise.reject(error);
   }
 });
 

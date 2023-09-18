@@ -70,7 +70,6 @@ class checkMBBank extends Command
 
         $now = Carbon::now();
         $caculator_minutes = $time_check_mb_carbon->diffInMinutes($now);
-        dd($caculator_minutes);
 
         if ($caculator_minutes >= 4) {
 

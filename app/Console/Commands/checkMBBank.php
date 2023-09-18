@@ -58,7 +58,6 @@ class checkMBBank extends Command
      */
     public function handle()
     {
-        die('a');
         // settings()->set([
         //     'time_check_mb' => Carbon::now()
         // ]);

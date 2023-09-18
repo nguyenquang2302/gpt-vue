@@ -1150,8 +1150,7 @@ const sumTotalDetail = (data) => {
             total = total + element.money;
         });
     }
-   console.log(data.money_drawal - total + data.fee_money_customer)
-    return formatPrice(data.money_drawal - total + data.fee_money_customer )
+    return formatPrice(data.money_drawal - total )
 }
 fetchAll()
 globalStore.fetchListBank()

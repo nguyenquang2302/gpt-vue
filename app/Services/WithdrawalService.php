@@ -105,6 +105,8 @@ class WithdrawalService extends BaseService
         if ($data['details']) {
             foreach ($data['details'] ?? [] as $k => $detail) {
                 $group_bill = explode('.', $detail['group_bill']);
+                $group_bill[1] = ($group_bill[1]<100)?$group_bill[1]*10:$group_bill[1];
+                $group_bill[1] = ($group_bill[1]<10)?$group_bill[1]*100:$group_bill[1];
                 // if (!$group_bill[0] || !$group_bill[1]) {
                 // }
                 $pos = Pos::find($detail['pos_id']);
@@ -180,6 +182,9 @@ class WithdrawalService extends BaseService
             if ($data['details']) {
                 foreach ($data['details'] ?? [] as $k => $detail) {
                     $group_bill = explode('.', $detail['group_bill']);
+                    $group_bill[1] = ($group_bill[1]<100)?$group_bill[1]*10:$group_bill[1];
+                    $group_bill[1] = ($group_bill[1]<10)?$group_bill[1]*100:$group_bill[1];
+                    
                     $pos = Pos::find($detail['pos_id']);
                     $withdrawalDetail = new WithdrawalDetail();
                     $withdrawalDetail->pos_id = $detail['pos_id'];

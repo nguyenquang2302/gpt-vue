@@ -170,7 +170,7 @@
                 </div>
             </div>
         </div>
-        <div  class="loading-fix"> 
+        <div  class="loading-fix" v-if="loading"> 
             <DotLoader />
         </div>
     </div>

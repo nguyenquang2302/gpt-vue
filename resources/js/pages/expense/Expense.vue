@@ -153,7 +153,7 @@
 
     };
     fetchAll()
-    const timer = ref(1500)
+    const timer = ref(500)
 
 
 // watch(searchValue, async (newQuestion, oldQuestion) => {
@@ -163,7 +163,7 @@
 //     }
 //     timer.value = setTimeout(() => {
 //         fetchAll()
-//     }, 1500);
+//     }, 500);
 // }, { deep: true })
 // branchssudo systemctl enable nginx
 

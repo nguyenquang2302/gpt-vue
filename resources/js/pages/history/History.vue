@@ -490,7 +490,7 @@ watch(serverOptions, (value,value2) => {
         }
         timer.value = setTimeout(() => {
             fetchAll()
-        }, 1500);
+        }, 500);
     }
 }, { deep: true }
 );
@@ -502,7 +502,7 @@ watch(searchValue, async (newQuestion, oldQuestion) => {
     }
     timer.value = setTimeout(() => {
         fetchAll()
-    }, 1500);
+    }, 500);
 }, { deep: true })
 // branchssudo systemctl enable nginx
 

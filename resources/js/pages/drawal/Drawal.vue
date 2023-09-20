@@ -317,23 +317,35 @@
                                                 @click="addItemAddNew()">Thêm</label>
                                         </div>
                                     </div>
+
                                     <div class="modal-footer justify-content-between">
+                                        
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                            tiền sẽ Chuyển :<br>
+                                            <span  class="total_money_transfer">{{ formatPrice(userDataAddNew.money_drawal-userDataAddNew.fee_money_customer) }}</span>
+                                        </div>
+
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                            tiền sẽ rút :<br>
+                                            <span  class="total_money_transfer">{{ formatPrice(userDataAddNew.money_drawal) }}</span>
+                                        </div>
+
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                            tiền cần rút :<br>{{ sumTotalDetail(userData)  }}<br>
+                                            <span  class="total_money_transfer"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer justify-content-between">
+
                                         <button type="button" class="btn btn-default CloseModalCreate"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                            tiền Đáo :<br>
-                                            <span  class="total_money_transfer">{{ formatPrice(userDataAddNew.money_drawal) }}</span>
-
-                                        </div>
-
-                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                            tiền cần rút :<br>
-                                            <span  class="total_money_transfer">{{ (sumTotalDetail(userDataAddNew)) }}</span>
-
-                                        </div>
                                         <button type="button" class="btn btn-primary" @click="actionCreate()">Đồng
                                             ý</button>
+
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -616,23 +628,33 @@
                                     <hr>
 
                                     <div class="modal-footer justify-content-between">
+                                        
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                            tiền sẽ Chuyển :<br>
+                                            <span  class="total_money_transfer">{{ formatPrice(userData.money_drawal-userData.fee_money_customer) }}</span>
+                                        </div>
+
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                            tiền sẽ rút :<br>
+                                            <span  class="total_money_transfer">{{ formatPrice(userData.money_drawal) }}</span>
+                                        </div>
+
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                            tiền cần rút :<br>{{ sumTotalDetail(userData)  }}<br>
+                                            <span  class="total_money_transfer"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer justify-content-between">
+
                                         <button type="button" class="btn btn-default CloseModalEdit"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                            <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                                tiền sẽ rút :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(userData.money_drawal) }}</span>
-
-                                            </div>
-
-                                            <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                                tiền cần rút :<br>
-                                                <span  class="total_money_transfer"> {{ sumTotalDetail(userData)  }}</span>
-
-                                            </div>
                                         <button type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
                                             ý</button>
-                                            
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -855,16 +877,19 @@
                                     <hr>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default CloseModalCreate"
-                                            data-bs-dismiss="modal">Huỷ</button>
+                                        
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                                tiền sẽ rút :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(userDataShow.money_drawal) }}</span>
-
+                                                tiền sẽ Chuyển :<br>
+                                                <span  class="total_money_transfer">{{ formatPrice(userDataShow.money_drawal-userDataShow.fee_money_customer) }}</span>
                                             </div>
 
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                                tiền cần rút :{{ sumTotalDetail(userDataShow)  }}<br>
+                                                tiền sẽ rút :<br>
+                                                <span  class="total_money_transfer">{{ formatPrice(userDataShow.money_drawal) }}</span>
+                                            </div>
+
+                                            <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                                tiền cần rút :<br>{{ sumTotalDetail(userDataShow)  }}<br>
                                                 <span  class="total_money_transfer"></span>
 
                                             </div>
@@ -927,7 +952,7 @@ const selectedCustomer = (value) => {
         useCardStore.fetchAllCustomerCards(ref({ search: value.id }).value).then(({ data }) => {
             listCards.value = data.customer_cards
         })
-    }, 1500);
+    }, 500);
     userDataAddNew.value.name = value.name_phone
     userData.value.name = value.name_phone
 };
@@ -1044,7 +1069,7 @@ const fetchCustomer = (query) => {
                     userDataAddNew.value.name =  (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone);
                 }
             })
-        }, 1500);
+        }, 500);
     }
 }
 
@@ -1164,7 +1189,7 @@ fetchAll()
 globalStore.fetchListBank()
 globalStore.fetchListUser()
 globalStore.fetchListPos()
-const timer = ref(1500)
+const timer = ref(500)
 
 watch(serverOptions, (value, value2) => {
     if (value != value2) {
@@ -1174,7 +1199,7 @@ watch(serverOptions, (value, value2) => {
         }
         timer.value = setTimeout(() => {
             fetchAll()
-        }, 1500);
+        }, 500);
     }
 }, { deep: true }
 );
@@ -1186,7 +1211,7 @@ watch(searchValue, async (newQuestion, oldQuestion) => {
     }
     timer.value = setTimeout(() => {
         fetchAll()
-    }, 1500);
+    }, 500);
 }, { deep: true })
 // branchssudo systemctl enable nginx
 
@@ -1211,7 +1236,7 @@ watch(userDataAddNew, (value) => {
                 userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest;
 
             }
-        }, 1500);
+        }, 500);
     }
 }, { deep: true }
 );
@@ -1237,7 +1262,7 @@ watch(userData, (value) => {
                 userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest;
 
             }
-        }, 1500);
+        }, 500);
     }
 }, { deep: true }
 );

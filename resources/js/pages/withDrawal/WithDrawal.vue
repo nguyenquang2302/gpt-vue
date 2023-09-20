@@ -1051,7 +1051,7 @@ const fetchCustomer = (query) => {
             useCustomerStore.fetchAllCustomers(ref({ query: query }).value).then(({ data }) => {
                 customerSearch.value = data.customers
             })
-        }, 1500);
+        }, 500);
     }
 }
 const fetchCustomerFirst = (query) => {
@@ -1184,7 +1184,7 @@ fetchAll()
 globalStore.fetchListBank()
 globalStore.fetchListUser()
 globalStore.fetchListPos()
-const timer = ref(1500)
+const timer = ref(500)
 
 
 watch(serverOptions, (value, value2) => {
@@ -1195,7 +1195,7 @@ watch(serverOptions, (value, value2) => {
         }
         timer.value = setTimeout(() => {
             fetchAll()
-        }, 1500);
+        }, 500);
     }
 }, { deep: true }
 );
@@ -1207,7 +1207,7 @@ watch(searchValue, async (newQuestion, oldQuestion) => {
     }
     timer.value = setTimeout(() => {
         fetchAll()
-    }, 1500);
+    }, 500);
 }, { deep: true })
 
 const userDataAddNewWatch = ref({ ...objDefault })
@@ -1231,7 +1231,7 @@ watch(userDataAddNew, (value) => {
                 userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest;
 
             }
-        }, 1500);
+        }, 500);
     }
 }, { deep: true }
 );
@@ -1257,7 +1257,7 @@ watch(userData, (value) => {
                 userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest;
 
             }
-        }, 1500);
+        }, 500);
     }
 }, { deep: true }
 );

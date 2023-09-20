@@ -96,7 +96,7 @@ class WithdrawalService extends BaseService
                 'customer_card_id' => $data['customer_card_id'],
                 'customer_id' => $CustomerCard->customer_id,
                 'profit_money' => $profit_money,
-                'datetime' => Carbon::parse(($data['datetime']), 'utc')->setTimezone(config('app.timezone')),
+                'datetime' => Carbon::parse(($data['datetime']), 'utc'),
                 'branch_id' => $branch_id,
                 'stt' => $data['stt']
             ]);
@@ -194,7 +194,7 @@ class WithdrawalService extends BaseService
                 'fee_money_customer' => $fee_money_customer,
                 'profit_money' => $profit_money,
                 'note' => $data['note'],
-                'datetime' => Carbon::parse(($data['datetime']), 'utc')->setTimezone(config('app.timezone')),
+                'datetime' => Carbon::parse(($data['datetime']), 'utc'),
                 'stt' => $data['stt']
 
             ]);

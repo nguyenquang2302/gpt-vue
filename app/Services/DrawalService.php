@@ -107,7 +107,7 @@ class DrawalService extends BaseService
                 'bank_code' => $data['bank_code'],
                 'bank_customer_name' => stripVN($data['bank_customer_name']),
                 'customer_id' => $data['customer_id'],
-                'datetime' => Carbon::parse(($data['datetime']),'utc')->setTimezone(config('app.timezone')),
+                'datetime' => Carbon::parse(($data['datetime']),'utc'),
                 'branch_id' => $branch_id,
                 'stt' => $data['stt']
 
@@ -215,7 +215,7 @@ class DrawalService extends BaseService
                 'profit_money' => $profit_money,
                 'bank_code' => $data['bank_code'],
                 'bank_customer_name' => stripVN($data['bank_customer_name']),
-                'datetime' => Carbon::parse(($data['datetime']),'utc')->setTimezone(config('app.timezone')),
+                'datetime' => Carbon::parse(($data['datetime']),'utc'),
                 'stt' => $data['stt']
 
             ]);

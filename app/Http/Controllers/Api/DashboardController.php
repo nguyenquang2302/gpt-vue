@@ -29,8 +29,8 @@ class DashboardController
 
         $active = 1;
         if ($request->from && $request->to) {
-            $data['from'] =  $from = Carbon::parse($request->get('0'));
-            $data['to'] =  $to = Carbon::parse($request->get('1'));
+            $data['from'] =  $from = Carbon::parse($request->get('0'))->setTimezone(config('app.timezone'));
+            $data['to'] =  $to = Carbon::parse($request->get('1'))->setTimezone(config('app.timezone'));
         } else if($case = $request->get('3')) {
             switch ($case) {
                 case 'toDay':
@@ -79,7 +79,6 @@ class DashboardController
             $data['from'] =  $from = Carbon::now();
             $data['to'] =  $to = Carbon::now();
         }
-        
         $detail1 =  DrawalDetail::whereHas('drawal', function (Builder $q1) use ($active, $from, $to) {
             $q1->where('isDone', $active)
                 ->whereBetween('datetime', [$from->startOfDay(), $to->endOfDay()]);

@@ -328,7 +328,5 @@ const fetchAll = () => {
     })
 
 };
-fetchAll()
-
 
 </script>

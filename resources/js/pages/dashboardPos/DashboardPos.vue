@@ -223,5 +223,4 @@ const fetchAll = () => {
     })
 
 };
-fetchAll()
 </script>

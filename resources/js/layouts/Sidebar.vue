@@ -488,7 +488,7 @@
         <nav class="mt-2" v-if="userLogin.type == 'manager_vip_2'">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <router-link class="nav-link" to="/global-details">
+              <router-link class="nav-link" to="/globals">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe"
                   viewBox="0 0 16 16">
                   <path

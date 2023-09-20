@@ -2,11 +2,11 @@
 
 namespace App\Models\Drawal;
 
-use App\Domains\Auth\Models\User;
 use App\Models\Bank\Bank;
 use App\Models\Branch\Branch;
 use App\Models\Customer\Customer;
 use App\Models\DrawalDetail\DrawalDetail;
+use App\Models\Users\User;
 use Google\Service\Monitoring\Custom;
 
 /**

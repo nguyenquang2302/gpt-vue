@@ -44,8 +44,6 @@ class posBackCheck extends Command
      */
     public function handle()
     {
-        try {
-            DB::beginTransaction();
             $time_check_pos_back = settings()->get('time_check_pos_back', 0);
             if ($time_check_pos_back) {
                 $time_check_pos_back_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_pos_back);
@@ -58,6 +56,10 @@ class posBackCheck extends Command
                 settings()->set([
                     'time_check_pos_back' => Carbon::now()
                 ]);
+            try {
+
+                DB::beginTransaction();
+
                 $users = User::where('autoPosBack',1)->whereHas('pos')->with('pos')->get();
                 foreach ($users as $user) {
                     
@@ -113,12 +115,10 @@ class posBackCheck extends Command
                         }
                     }
                 }
+            } catch (\Throwable $th) {
+                DB::rollBack();
             }
             DB::commit();
-
-    } catch (\Throwable $th) {
-        DB::rollBack();
-
-    }
+            }
     }
 }

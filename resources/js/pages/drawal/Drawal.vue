@@ -41,6 +41,13 @@
                             </div>
                         </template>
 
+                        <template #item-user="item">
+                            <div class="operation-wrapper">
+                                <div v-if="item.user">{{ (item.user.name) }}</div>
+
+                            </div>
+                        </template>
+
                         <template #item-operation="item">
                             <div class="operation-wrapper">
                                 <i class="fa fa-eye operation-icon" title="Chỉnh sửa"  @click="askShow(item)"
@@ -609,7 +616,7 @@
                                     <hr>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default CloseModalCreate"
+                                        <button type="button" class="btn btn-default CloseModalEdit"
                                             data-bs-dismiss="modal">Huỷ</button>
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền sẽ rút :<br>
@@ -931,7 +938,8 @@ const headers: Header[] = [
     { text: "KH", value: "customer.name" },
     { text: "Số tiền rút", value: "money_drawal" },
     { text: "Phí KH(%)", value: "fee_customer" },
-    { text: "Shipto", value: "user.name" },
+    { text: "Shipto", value: "user_belongto.name" },
+    { text: "Người tạo", value: "user.name" },
     { text: "Operation", value: "operation" },
 ];
 

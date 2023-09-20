@@ -44,7 +44,10 @@ class DrawalDetail extends Model
         'lo',
         'bill',
         'profit',
-        'branch_id'
+        'branch_id',
+        'fee_partner',
+        'user_partner_id',
+        'fee_partner_money'
     ];
 
     /**

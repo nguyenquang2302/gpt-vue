@@ -2,11 +2,11 @@
 
 namespace App\Models\Withdrawal;
 
-use App\Domains\Auth\Models\User;
 use App\Models\Bank\Bank;
 use App\Models\Branch\Branch;
 use App\Models\Customer\Customer;
 use App\Models\CustomerCard\CustomerCard;
+use App\Models\Users\User;
 use App\Models\WithdrawalDetail\WithdrawalDetail;
 
 /**

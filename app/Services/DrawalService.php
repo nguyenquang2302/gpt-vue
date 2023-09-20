@@ -15,7 +15,9 @@ use App\Models\CustomerCard\CustomerCard;
 use App\Models\CustomerTransaction\CustomerTransaction;
 use App\Models\Pos\Pos;
 use App\Models\DrawalDetail\DrawalDetail;
+use App\Models\PartnerTransaction\PartnerTransaction;
 use App\Models\PosConsignment\PosConsignment;
+use App\Models\Users\User;
 use App\Services\BaseService;
 use Carbon\Carbon;
 use Exception;
@@ -85,6 +87,7 @@ class DrawalService extends BaseService
             $profit_money = $fee_money_customer - $fee_user;
         }
         $branch_id = Auth::user()->branch_id;
+        
         try {
             $drawal = $this->createDrawal([
                 'name' => $data['name'],
@@ -109,7 +112,18 @@ class DrawalService extends BaseService
                 'stt' => $data['stt']
 
             ]);
-            
+            //  Kiểm tra tài khoản tạo 
+            $customer = Customer::where('id',$data['customer_id'])->first();
+            if($customer) {
+                $userCreate = User::find($customer->user_id);
+                //  Đối ứng
+                if($userCreate->type == User::TYPE_PARTNER) {
+                    $fee_partner = $userCreate->fee_partner;
+                } else {
+                    $fee_partner = $drawal->fee_customer;
+                }
+            }
+            //  
             $drawal->drawalDetail()->delete();
 
                 if ($data['details']) {
@@ -131,7 +145,15 @@ class DrawalService extends BaseService
                         $drawalDetail->bill = $group_bill[1];
                         $drawalDetail->profit = ($drawalDetail->money * $drawal->fee_customer / 100) - ($drawalDetail->money * $drawalDetail->fee_bank / 100);
                         $drawalDetail->branch_id = $branch_id;
+                        // phí đối ứng
+                        $drawalDetail->fee_partner = $fee_partner;
+                        $fee_partner_money = ($drawal->fee_customer - $fee_partner)*$drawalDetail->money/100;
+                        $drawalDetail->fee_partner_money = $fee_partner_money;
+                        $drawalDetail->user_partner_id = $userCreate?$userCreate->id:null;
+                        $drawalDetail->profit = $drawalDetail->profit - $fee_partner_money;
+                        // profit trừ phí cho đối ứng
                         $drawal->drawalDetail()->save($drawalDetail);
+
                     };
                 }
             $drawal->profit = $drawal->caclulatorProfit();
@@ -177,7 +199,7 @@ class DrawalService extends BaseService
         $profit_money = $fee_money_customer - $fee_user;
 
 
-        // try {
+        try {
             $drawal->update([
                 'name' => $data['name'],
                 'money' => round($money_),
@@ -198,6 +220,17 @@ class DrawalService extends BaseService
 
             ]);
             if (Auth::user()->checkRole(['admin', 'manager', 'mod'])) {
+                $customer = Customer::where('id',$drawal->customer_id)->first();
+                if($customer) {
+                    $userCreate = User::find($customer->user_id);
+                    //  Đối ứng
+                    if($userCreate->type == User::TYPE_PARTNER) {
+                        $fee_partner = $userCreate->fee_partner;
+                    } else {
+                        $fee_partner = $drawal->fee_customer;
+                    }
+                }
+
                 $drawal->drawalDetail()->delete();
                 if ($data['details']) {
                     foreach ($data['details'] as $k => $detail) {
@@ -219,15 +252,23 @@ class DrawalService extends BaseService
                         $drawalDetail->bill = $group_bill[1];
                         $drawalDetail->profit = ($drawalDetail->money * $drawal->fee_customer / 100) - ($drawalDetail->money * $drawalDetail->fee_bank / 100);
                         $drawalDetail->branch_id = $drawal->branch_id;
+
+                        // phí đối ứng
+                        $drawalDetail->fee_partner = $fee_partner;
+                        $fee_partner_money = ($drawal->fee_customer - $fee_partner)*$drawalDetail->money/100;
+                        $drawalDetail->fee_partner_money = $fee_partner_money;
+                        $drawalDetail->user_partner_id = $userCreate?$userCreate->id:null;
+                        $drawalDetail->profit = $drawalDetail->profit - $fee_partner_money;
+                        
                         $drawal->drawalDetail()->save($drawalDetail);
                     };
                 }
             }
-        // } catch (Exception $e) {
-        //     DB::rollBack();
+        } catch (Exception $e) {
+            DB::rollBack();
 
-        //     throw new Exception(__('There was a problem updating this drawal. Please try again.'));
-        // }
+            throw new Exception(__('There was a problem updating this drawal. Please try again.'));
+        }
         $drawal->profit = $drawal->caclulatorProfit();
         $drawal->save();
         event(new DrawalUpdated($drawal));
@@ -264,12 +305,14 @@ class DrawalService extends BaseService
             throw new Exception(__('Giao dịch đã được xác nhận'));
         }
         DB::beginTransaction();
-        // try {
+        try {
             $money = $drawal->drawalDetail->sum('money');
             if ($money != $drawal->money_drawal) {
                 throw new Exception(__('Số cần rút và số tiền rút chưa khớp'));
             }
+            $total_partner_profilt = 0 ;
             foreach ($drawal->drawalDetail as $drawalDetail) {
+                $total_partner_profilt = $total_partner_profilt + $drawalDetail->fee_partner_money;
                 $drawalDetail->lo = $drawal->datetime->format('y_m_d_') . $drawalDetail->lo;
                 $drawalDetail->save();
                 if (!PosConsignment::where('pos_id', $drawalDetail->pos_id)->where('lo', $drawalDetail->lo)->first()) {
@@ -289,6 +332,7 @@ class DrawalService extends BaseService
             if ($drawal->save()) {
 
                 $customer = Customer::find($drawal->customer_id);
+
                 $money_before = $customer->money;
 
                 $money_change =  $drawal->money;
@@ -309,16 +353,30 @@ class DrawalService extends BaseService
                     'money_after' => $money_after,
                     'isBankChecked' => 1,
                 ]);
+
                 $customerTransaction =  new CustomerTransaction($customerTransaction);
                 $customerTransaction->save();
                 $customer->money = $money_after;
                 $customer->last_transaction_time = Carbon::now();
                 $customer->save();
+                $user = $customer->user;
+                if($user && $user->type == User::TYPE_PARTNER) {
+                    $data['name'] = 'Nhận phí đối ứng';
+                    $data['type'] = 1;
+                    $data['note'] = $customer->name;
+                    $data['creditAmount'] = $total_partner_profilt;
+                    $data['debitAmount'] = 0;
+                    $data['user_id'] = $user->id;
+                    $data['refNo'] = null;
+                    $fundTransaction =  new PartnerTransaction();
+                    $fundTransactionService = new PartnerTransactionService($fundTransaction);
+                    $fundTransactionService->store($data);
+                }
             }
-        // } catch (Exception $e) {
-        //     DB::rollBack();
-        //     throw new Exception(__('There was a problem update this drawal. Please try again.'));
-        // }
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception(__('There was a problem update this drawal. Please try again.'));
+        }
         event(new DrawalVerify($drawal));
         DB::commit();
         return $drawal;
@@ -363,6 +421,26 @@ class DrawalService extends BaseService
                     $customerTransaction->save();
                     $customer->money = $money_after;
                     $customer->save();
+
+                
+                    $user = $customer->user;
+                    if($user && $user->type == User::TYPE_PARTNER) {
+                        $total_partner_profilt = 0;
+                        foreach ($drawal->drawalDetail as $drawalDetail) {
+                            $total_partner_profilt = $total_partner_profilt + $drawalDetail->fee_partner_money;
+                        }
+                        $data['name'] = 'Giao dịch đã Huỷ';
+                        $data['type'] = 2;
+                        $data['note'] = $customer->name;
+                        $data['creditAmount'] = 0;
+                        $data['debitAmount'] = $total_partner_profilt;
+                        $data['user_id'] = $user->id;
+                        $data['refNo'] = null;
+                        $fundTransaction =  new PartnerTransaction();
+                        $fundTransactionService = new PartnerTransactionService($fundTransaction);
+                        $fundTransactionService->store($data);
+                    }
+
                 }
             }
 
@@ -386,7 +464,9 @@ class DrawalService extends BaseService
         if ($drawal->isDone) {
 
             $details = $drawal->drawalDetail;
+            $total_partner_profilt = 0;
             foreach($details as $detail) {
+                $total_partner_profilt = $total_partner_profilt + $detail->fee_partner_money;
                 $detail->lo = substr($detail->lo,9,strlen($detail->lo)-9);
                 $detail->save();
             }
@@ -418,6 +498,19 @@ class DrawalService extends BaseService
             $drawal->isDone = false;
             $drawal->save();
             
+            $user = $customer->user;
+            if($user && $user->type == User::TYPE_PARTNER) {
+                $data['name'] = 'Giao dịch đã Huỷ';
+                $data['type'] = 2;
+                $data['note'] = $customer->name;
+                $data['creditAmount'] = 0;
+                $data['debitAmount'] = $total_partner_profilt;
+                $data['user_id'] = $user->id;
+                $data['refNo'] = null;
+                $fundTransaction =  new PartnerTransaction();
+                $fundTransactionService = new PartnerTransactionService($fundTransaction);
+                $fundTransactionService->store($data);
+            }
         }
 
         return $drawal;

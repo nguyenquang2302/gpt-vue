@@ -52,10 +52,8 @@ class CustomerCardController
         if($customerId) {
             $customers->where('customer_id',$customerId);
         }
-                   
-
         return response([
-            'customer_cards' =>  $customers ->when($request->input('search'), function ($query, $search) {
+            'customer_cards' =>  $customers->with('user')->when($request->input('search'), function ($query, $search) {
                 $query->where('name', 'like', '%' . $search . '%')
                     ->OrWhere('end_number', 'like', '%' . $search . '%');
             })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),

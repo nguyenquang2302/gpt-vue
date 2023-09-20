@@ -2,10 +2,10 @@
 
 namespace App\Models\Customer;
 
-use App\Domains\Auth\Models\User;
 use App\Models\Branch\Branch;
 use App\Models\CustomerTransaction\CustomerTransaction;
 use App\Models\Drawal\Drawal;
+use App\Models\Users\User;
 use App\Models\Withdrawal\Withdrawal;
 use HoangPhi\VietnamMap\Models\Province;
 use HoangPhi\VietnamMap\Models\District;

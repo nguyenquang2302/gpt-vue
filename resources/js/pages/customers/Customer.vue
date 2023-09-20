@@ -39,6 +39,11 @@
 
                             </div>
                         </template>
+                        <template #item-user="item">
+                            <div class="operation-wrapper">
+                                <div v-if="item.user"  :class="[(item.user.type === 'partner')?'text-red':'']">{{ (item.name) }}</div>
+                            </div>
+                        </template>
 
                         <template #item-operation="item">
                             <div class="operation-wrapper">
@@ -568,6 +573,7 @@ const headers: Header[] = [
     { text: "Chi nhánh", value: "branch.name" },
     { text: "Tên", value: "name" },
     { text: "Số dư", value: "money", sortable: true },
+    { text: "Người tạo", value: "user", sortable: true },
     { text: "Operation", value: "operation" },
 ];
 

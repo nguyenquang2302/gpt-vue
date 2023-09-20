@@ -52,7 +52,7 @@ class CustomerController
         if (auth()->user()->checkRole(['partner'])) {
             $customers->where('user_id',auth()->user()->id);
             return response([
-                'customers' => $customers->select('id', 'name', 'phone', 'CMND')
+                'customers' => $customers->select('id', 'name', 'phone', 'CMND')->with('user')
                         ->when($request->input('search'), function ($query, $search) {
                             $slug_name =  \Str::slug($search);
                             $query->where('name', 'like', '%' . $search . '%')
@@ -63,7 +63,7 @@ class CustomerController
         } else {
             
             return response([
-                'customers' => $customers
+                'customers' => $customers->with('user')
                         ->when($request->input('search'), function ($query, $search) {
                             $slug_name =  \Str::slug($search);
                             $query->where('name', 'like', '%' . $search . '%')

@@ -56,7 +56,7 @@ class DrawalController
         }
 
         return response([
-            'drawals' =>  $customers ->when($request->input('search'), function ($query, $search) {
+            'drawals' =>  $customers->with('user')->with('userBelongto')->when($request->input('search'), function ($query, $search) {
                 $query->where('name', 'like', '%' . $search . '%');
             })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
         ], Response::HTTP_OK);

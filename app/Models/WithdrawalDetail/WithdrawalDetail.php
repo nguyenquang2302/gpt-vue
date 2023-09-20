@@ -49,7 +49,10 @@ class WithdrawalDetail extends Model
         'isBankChecked',
         'profit',
         'isOwnerPos',
-        'branch_id'
+        'branch_id',
+        'fee_partner',
+        'user_partner_id',
+        'fee_partner_money'
     ];
 
     /**

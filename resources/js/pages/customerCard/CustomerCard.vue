@@ -34,6 +34,12 @@
                             </div>
                         </template>
 
+                        <template #item-user="item">
+                            <div class="operation-wrapper">
+                                <div v-if="item.user" :class="[(item.user.type === 'partner')?'text-red':'']">{{ (item.name) }}</div>
+                            </div>
+                        </template>
+                        
                         <template #item-operation="item">
                             <div class="operation-wrapper">
                                 <i class="fa fa-eye operation-icon" title="Chỉnh sửa" @click="askEdit(item)" data-bs-toggle="modal"
@@ -425,6 +431,7 @@ const headers: Header[] = [
     { text: "4 số đầu", value: "start_number" },
     { text: "4 số cuối", value: "end_number" },
     { text: "Khách hàng", value: "customer.name", sortable: true },
+    { text: "Người tạo", value: "user", sortable: true },
     { text: "Operation", value: "operation" },
 ];
 

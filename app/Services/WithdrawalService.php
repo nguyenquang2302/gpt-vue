@@ -13,8 +13,10 @@ use App\Models\Withdrawal\Withdrawal;
 use App\Models\Customer\Customer;
 use App\Models\CustomerCard\CustomerCard;
 use App\Models\CustomerTransaction\CustomerTransaction;
+use App\Models\PartnerTransaction\PartnerTransaction;
 use App\Models\Pos\Pos;
 use App\Models\PosConsignment\PosConsignment;
+use App\Models\Users\User;
 use App\Models\WithdrawalDetail\WithdrawalDetail;
 use App\Services\BaseService;
 use Carbon\Carbon;
@@ -94,41 +96,60 @@ class WithdrawalService extends BaseService
                 'customer_card_id' => $data['customer_card_id'],
                 'customer_id' => $CustomerCard->customer_id,
                 'profit_money' => $profit_money,
-                'datetime' => Carbon::parse(($data['datetime']),'utc')->setTimezone(config('app.timezone')),
+                'datetime' => Carbon::parse(($data['datetime']), 'utc')->setTimezone(config('app.timezone')),
                 'branch_id' => $branch_id,
                 'stt' => $data['stt']
             ]);
+
+            if ($data['details']) {
+                $customer = Customer::where('id', $CustomerCard->customer_id)->first();
+                if ($customer) {
+                    $userCreate = User::find($customer->user_id);
+                    //  Đối ứng
+                    if ($userCreate->type == User::TYPE_PARTNER) {
+                        $fee_partner = $userCreate->fee_partner;
+                    } else {
+                        $fee_partner = $withdrawal->fee_customer;
+                    }
+                }
+
+                foreach ($data['details'] ?? [] as $k => $detail) {
+                    $group_bill = explode('.', $detail['group_bill']);
+                    $group_bill[1] = ($group_bill[1] < 100) ? $group_bill[1] * 10 : $group_bill[1];
+                    $group_bill[1] = ($group_bill[1] < 10) ? $group_bill[1] * 100 : $group_bill[1];
+                    // if (!$group_bill[0] || !$group_bill[1]) {
+                    // }
+                    $pos = Pos::find($detail['pos_id']);
+                    $withdrawalDetail = new WithdrawalDetail();
+                    $withdrawalDetail->pos_id = $detail['pos_id'];
+                    $withdrawalDetail->money = (float)(str_replace(',', '', $detail['money']));
+                    $withdrawalDetail->money_drawal = (float)(str_replace(',', '', $detail['money_drawal']));
+                    $withdrawalDetail->fee_bank = $pos->fee_bank;
+                    $withdrawalDetail->time = Carbon::now();
+                    $withdrawalDetail->user_id = Auth::user()->id;
+                    $withdrawalDetail->fee_money_bank = ($withdrawalDetail->money_drawal * $pos->fee_bank / 100);
+                    $withdrawalDetail->profit = ($withdrawalDetail->money_drawal * $withdrawal->fee_customer) / 100 - ($withdrawalDetail->money_drawal * $withdrawalDetail->fee_bank) / 100;
+                    $withdrawalDetail->branch_id = $branch_id;
+                    if (isset($group_bill[0])) {
+                        $withdrawalDetail->lo = $group_bill[0];
+                    }
+                    if (isset($group_bill[1])) {
+                        $withdrawalDetail->bill = $group_bill[1];
+                    }
+                    $withdrawalDetail->money_back = $withdrawalDetail->money_drawal - $withdrawalDetail->fee_money_bank;
+
+                    // phí đối ứng
+                    $withdrawalDetail->fee_partner = $fee_partner;
+                    $fee_partner_money = ($withdrawal->fee_customer - $fee_partner) * $withdrawalDetail->money_drawal / 100;
+                    $withdrawalDetail->fee_partner_money = $fee_partner_money;
+                    $withdrawalDetail->user_partner_id = $userCreate ? $userCreate->id : null;
+                    $withdrawalDetail->profit = $withdrawalDetail->profit - $fee_partner_money;
+
+                    $withdrawal->withdrawalDetail()->save($withdrawalDetail);
+                };
+            }
         } catch (Exception $e) {
             DB::rollBack();
-
-        }
-        if ($data['details']) {
-            foreach ($data['details'] ?? [] as $k => $detail) {
-                $group_bill = explode('.', $detail['group_bill']);
-                $group_bill[1] = ($group_bill[1]<100)?$group_bill[1]*10:$group_bill[1];
-                $group_bill[1] = ($group_bill[1]<10)?$group_bill[1]*100:$group_bill[1];
-                // if (!$group_bill[0] || !$group_bill[1]) {
-                // }
-                $pos = Pos::find($detail['pos_id']);
-                $withdrawalDetail = new WithdrawalDetail();
-                $withdrawalDetail->pos_id = $detail['pos_id'];
-                $withdrawalDetail->money = (float)(str_replace(',', '', $detail['money']));
-                $withdrawalDetail->money_drawal = (float)(str_replace(',', '', $detail['money_drawal']));
-                $withdrawalDetail->fee_bank = $pos->fee_bank;
-                $withdrawalDetail->time = Carbon::now();
-                $withdrawalDetail->user_id = Auth::user()->id;
-                $withdrawalDetail->fee_money_bank = ($withdrawalDetail->money_drawal * $pos->fee_bank / 100);
-                $withdrawalDetail->profit =($withdrawalDetail->money_drawal *$withdrawal->fee_customer)/100 - ($withdrawalDetail->money_drawal *$withdrawalDetail->fee_bank)/100;
-                $withdrawalDetail->branch_id = $branch_id;
-                if (isset($group_bill[0])) {
-                    $withdrawalDetail->lo = $group_bill[0];
-                }
-                if (isset($group_bill[1])) {
-                    $withdrawalDetail->bill = $group_bill[1];
-                }
-                $withdrawalDetail->money_back = $withdrawalDetail->money_drawal - $withdrawalDetail->fee_money_bank;
-                $withdrawal->withdrawalDetail()->save($withdrawalDetail);
-            };
         }
         $withdrawal->profit = $withdrawal->caclulatorProfit();
         $withdrawal->save();
@@ -173,18 +194,28 @@ class WithdrawalService extends BaseService
                 'fee_money_customer' => $fee_money_customer,
                 'profit_money' => $profit_money,
                 'note' => $data['note'],
-                'datetime' => Carbon::parse(($data['datetime']),'utc')->setTimezone(config('app.timezone')),
+                'datetime' => Carbon::parse(($data['datetime']), 'utc')->setTimezone(config('app.timezone')),
                 'stt' => $data['stt']
 
             ]);
 
             $withdrawal->withdrawalDetail()->delete();
             if ($data['details']) {
+                $customer = Customer::where('id', $withdrawal->customerCard->customer_id)->first();
+                if ($customer) {
+                    $userCreate = User::find($customer->user_id);
+                    //  Đối ứng
+                    if ($userCreate->type == User::TYPE_PARTNER) {
+                        $fee_partner = $userCreate->fee_partner;
+                    } else {
+                        $fee_partner = $withdrawal->fee_customer;
+                    }
+                }
                 foreach ($data['details'] ?? [] as $k => $detail) {
                     $group_bill = explode('.', $detail['group_bill']);
-                    $group_bill[1] = ($group_bill[1]<100)?$group_bill[1]*10:$group_bill[1];
-                    $group_bill[1] = ($group_bill[1]<10)?$group_bill[1]*100:$group_bill[1];
-                    
+                    $group_bill[1] = ($group_bill[1] < 100) ? $group_bill[1] * 10 : $group_bill[1];
+                    $group_bill[1] = ($group_bill[1] < 10) ? $group_bill[1] * 100 : $group_bill[1];
+
                     $pos = Pos::find($detail['pos_id']);
                     $withdrawalDetail = new WithdrawalDetail();
                     $withdrawalDetail->pos_id = $detail['pos_id'];
@@ -195,7 +226,7 @@ class WithdrawalService extends BaseService
                     $withdrawalDetail->time = Carbon::now();
                     $withdrawalDetail->user_id = Auth::user()->id;
                     $withdrawalDetail->fee_money_bank = ($withdrawalDetail->money_drawal * $pos->fee_bank / 100);
-                    $withdrawalDetail->profit =($withdrawalDetail->money_drawal *$withdrawal->fee_customer)/100 - ($withdrawalDetail->money_drawal *$withdrawalDetail->fee_bank)/100;
+                    $withdrawalDetail->profit = ($withdrawalDetail->money_drawal * $withdrawal->fee_customer) / 100 - ($withdrawalDetail->money_drawal * $withdrawalDetail->fee_bank) / 100;
                     $withdrawalDetail->branch_id = $withdrawal->branch_id;
                     if (isset($group_bill[0])) {
                         $withdrawalDetail->lo = $group_bill[0];
@@ -205,12 +236,19 @@ class WithdrawalService extends BaseService
                     }
 
                     $withdrawalDetail->money_back = $withdrawalDetail->money_drawal - $withdrawalDetail->fee_money_bank;
+
+                    // phí đối ứng
+                    $withdrawalDetail->fee_partner = $fee_partner;
+                    $fee_partner_money = ($withdrawal->fee_customer - $fee_partner) * $withdrawalDetail->money_drawal / 100;
+                    $withdrawalDetail->fee_partner_money = $fee_partner_money;
+                    $withdrawalDetail->user_partner_id = $userCreate ? $userCreate->id : null;
+                    $withdrawalDetail->profit = $withdrawalDetail->profit - $fee_partner_money;
+
                     $withdrawal->withdrawalDetail()->save($withdrawalDetail);
                 };
             }
         } catch (Exception $e) {
             DB::rollBack();
-
         }
         $withdrawal->profit = $withdrawal->caclulatorProfit();
         $withdrawal->save();
@@ -236,20 +274,21 @@ class WithdrawalService extends BaseService
 
             return $withdrawal;
         }
-
     }
 
     public function verify(Withdrawal $withdrawal, $verify): Withdrawal
     {
         DB::beginTransaction();
         if ($withdrawal->isDone) {
+            return $withdrawal;
         }
         $details = $withdrawal->withdrawalDetail;
         $money  = $details->sum('money');
         $money_drawal  = $details->sum('money_drawal');
+        $total_partner_profilt  = $details->sum('fee_partner_money');
         foreach ($withdrawal->withdrawalDetail as $drawalDetail) {
-            $drawalDetail->lo = $withdrawal->datetime->format('y_m_d_').$drawalDetail->lo ;
-            if($withdrawal->isOwnerPos) {
+            $drawalDetail->lo = $withdrawal->datetime->format('y_m_d_') . $drawalDetail->lo;
+            if ($withdrawal->isOwnerPos) {
                 $drawalDetail->isOwnerPos = true;
             }
             $drawalDetail->save();
@@ -267,10 +306,11 @@ class WithdrawalService extends BaseService
         }
         $withdrawal->isDone = $verify;
         if ($withdrawal->save()) {
+            $customer = Customer::find($withdrawal->customer_id);
+
             if ($withdrawal->fee_money_customer > 0) {
 
                 $CustomerCard = $withdrawal->customerCard;
-                $customer = Customer::find($CustomerCard->customer_id);
                 $money_before = $customer->money;
 
                 $money_change =  -$withdrawal->fee_money_customer;
@@ -296,7 +336,6 @@ class WithdrawalService extends BaseService
                 $customer->save();
             }
             if ($money > $money_drawal) {
-                $customer = Customer::find($withdrawal->customer_id);
                 $money_before = $customer->money;
                 $money_change =  - ($money - $money_drawal);
                 $money_after = $customer->money + $money_change;
@@ -319,8 +358,6 @@ class WithdrawalService extends BaseService
                 $customer->last_transaction_time = Carbon::now();
                 $customer->save();
             } elseif ($money < $money_drawal) {
-                $customer = Customer::find($withdrawal->customer_id);
-
                 $money_before = $customer->money;
                 $money_change   = ($money_drawal - $money) - ($money_drawal - $money) * ($withdrawal->fee_customer) / 100;
                 $money_after = $customer->money + $money_change;
@@ -345,10 +382,24 @@ class WithdrawalService extends BaseService
             }
             event(new WithdrawalVerify($withdrawal, $verify));
 
+
+            $user = $customer->user;
+                if($user && $user->type == User::TYPE_PARTNER) {
+                    $data['name'] = 'Nhận phí đối ứng';
+                    $data['type'] = 1;
+                    $data['note'] = $customer->name;
+                    $data['creditAmount'] = $total_partner_profilt;
+                    $data['debitAmount'] = 0;
+                    $data['user_id'] = $user->id;
+                    $data['refNo'] = null;
+                    $fundTransaction =  new PartnerTransaction();
+                    $fundTransactionService = new PartnerTransactionService($fundTransaction);
+                    $fundTransactionService->store($data);
+                }
+                
             DB::commit();
             return $withdrawal;
         }
-
     }
     /**
      * @param  Withdrawal  $withdrawal
@@ -359,10 +410,11 @@ class WithdrawalService extends BaseService
     {
         DB::beginTransaction();
 
-        if($withdrawal->isDone) {
+        if ($withdrawal->isDone) {
             $details = $withdrawal->withdrawalDetail;
             $money  = $details->sum('money');
             $money_drawal  = $details->sum('money_drawal');
+            $total_partner_profilt = $details->sum('fee_partner_money');
             if ($withdrawal->fee_money_customer > 0) {
 
                 $CustomerCard = $withdrawal->customerCard;
@@ -416,7 +468,7 @@ class WithdrawalService extends BaseService
                 $customer = Customer::find($withdrawal->customer_id);
 
                 $money_before = $customer->money;
-                $money_change   = -(($money_drawal - $money) - ($money_drawal - $money) * ($withdrawal->fee_customer) / 100);
+                $money_change   = - (($money_drawal - $money) - ($money_drawal - $money) * ($withdrawal->fee_customer) / 100);
                 $money_after = $customer->money + $money_change;
                 $customerTransaction = ([
                     "customer_id" => $withdrawal->customer_id,
@@ -436,7 +488,23 @@ class WithdrawalService extends BaseService
                 $customer->money = $money_after;
                 $customer->save();
             }
+
+            $user = $customer->user;
+            if($user && $user->type == User::TYPE_PARTNER) {
+                $data['name'] = 'Giao dịch đã Huỷ';
+                $data['type'] = 2;
+                $data['note'] = $customer->name;
+                $data['creditAmount'] = 0;
+                $data['debitAmount'] = $total_partner_profilt;
+                $data['user_id'] = $user->id;
+                $data['refNo'] = null;
+                $fundTransaction =  new PartnerTransaction();
+                $fundTransactionService = new PartnerTransactionService($fundTransaction);
+                $fundTransactionService->store($data);
+            }
+
         }
+
         if ($this->deleteById($withdrawal->id)) {
             event(new WithdrawalDeleted($withdrawal));
             DB::commit();
@@ -457,7 +525,6 @@ class WithdrawalService extends BaseService
 
             return $withdrawal;
         }
-
     }
 
     /**
@@ -472,7 +539,6 @@ class WithdrawalService extends BaseService
 
             return true;
         }
-
     }
 
     /**
@@ -506,10 +572,12 @@ class WithdrawalService extends BaseService
     public function reDone(Withdrawal $withdrawal): Withdrawal
     {
         // DB::beginTransaction();
-        if($withdrawal->isDone) {
+        if ($withdrawal->isDone) {
             $details = $withdrawal->withdrawalDetail;
-            foreach($details as $detail) {
-                $detail->lo = substr($detail->lo,9,strlen($detail->lo)-9);
+            $total_partner_profilt = 0;
+            foreach ($details as $detail) {
+                $total_partner_profilt = $total_partner_profilt + $detail->fee_partner_money;
+                $detail->lo = substr($detail->lo, 9, strlen($detail->lo) - 9);
                 $detail->save();
             }
             $money  = $details->sum('money');
@@ -567,7 +635,7 @@ class WithdrawalService extends BaseService
                 $customer = Customer::find($withdrawal->customer_id);
 
                 $money_before = $customer->money;
-                $money_change   = -(($money_drawal - $money) - ($money_drawal - $money) * ($withdrawal->fee_customer) / 100);
+                $money_change   = - (($money_drawal - $money) - ($money_drawal - $money) * ($withdrawal->fee_customer) / 100);
                 $money_after = $customer->money + $money_change;
                 $customerTransaction = ([
                     "customer_id" => $withdrawal->customer_id,
@@ -588,12 +656,25 @@ class WithdrawalService extends BaseService
                 $customer->save();
             }
         }
-            $withdrawal->isDone = false;
-            $withdrawal->save();
-            event(new WithdrawalDeleted($withdrawal));
-            DB::commit();
-            return $withdrawal;
-            DB::rollBack();
+        $withdrawal->isDone = false;
+        $withdrawal->save();
+        $user = $customer->user;
+        if($user && $user->type == User::TYPE_PARTNER) {
+            $data['name'] = 'Giao dịch đã Huỷ';
+            $data['type'] = 2;
+            $data['note'] = $customer->name;
+            $data['creditAmount'] = 0;
+            $data['debitAmount'] = $total_partner_profilt;
+            $data['user_id'] = $user->id;
+            $data['refNo'] = null;
+            $fundTransaction =  new PartnerTransaction();
+            $fundTransactionService = new PartnerTransactionService($fundTransaction);
+            $fundTransactionService->store($data);
+        }
 
+        event(new WithdrawalDeleted($withdrawal));
+        DB::commit();
+        return $withdrawal;
+        DB::rollBack();
     }
 }

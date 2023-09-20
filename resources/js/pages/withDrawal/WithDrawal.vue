@@ -34,9 +34,16 @@
                             </div>
                         </template>
 
-                        <template #item-created_at="item">
+                        <template #item-user="item">
                             <div class="operation-wrapper">
-                                <div>{{ dateTime(item.created_at) }}</div>
+                                <div>{{ dateTime(item.user.name) }}</div>
+
+                            </div>
+                        </template>
+
+                        <template #item-created_at="item">
+                            <div v-if="item.user" class="operation-wrapper">
+                                <div>{{ (item.created_at) }}</div>
 
                             </div>
                         </template>
@@ -935,7 +942,8 @@ const headers: Header[] = [
     { text: "KH", value: "customer.name" },
     { text: "Số tiền rút", value: "money_withdrawal" },
     { text: "Phí KH(%)", value: "fee_customer" },
-    { text: "Shipto", value: "user.name" },
+    { text: "Shipto", value: "user_belongto.name" },
+    { text: "Người tạo", value: "user.name" },
     { text: "Operation", value: "operation" },
 ];
 

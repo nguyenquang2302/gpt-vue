@@ -57,7 +57,7 @@
                                                 <select v-model="userDataAddNew.type" name="type" class="form-control" required=""
                                                     x-on:change="userType = $event.target.value">
                                                     <option value="user" selected="">Người dùng</option>
-                                                    <option value="admin">Người quản lý</option>
+                                                    <option value="admin">ADMIN</option>
                                                     <option value="manager">Manager</option>
                                                     <option value="manager_vip">Manager VIP</option>
                                                     <option value="manager_vip_2">Manager VIP 2</option>

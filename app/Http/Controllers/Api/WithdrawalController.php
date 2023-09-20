@@ -54,7 +54,7 @@ class WithdrawalController
         }
 
         return response([
-            'withdrawals' =>  $withdrawals ->when($request->input('search'), function ($query, $search) {
+            'withdrawals' =>  $withdrawals->with('user')->with('userBelongto')->when($request->input('search'), function ($query, $search) {
                 $query->where('name', 'like', '%' . $search . '%');
             })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
         ], Response::HTTP_OK);

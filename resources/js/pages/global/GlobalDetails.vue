@@ -40,8 +40,9 @@
                                         <div class="col-md-8">
                                             <div class="form-group" >
                                                 <VueDatePicker  :enable-time-picker="true" :range="true"
-                                                        :clearable="true" :month-change-on-scroll="false" 
-                                                    auto-apply  v-model="times"/>
+                                                :timezone="'Asia/Ho_Chi_Minh'"
+                                                :clearable="true" :month-change-on-scroll="false" 
+                                                auto-apply  v-model="times"/>
                                             </div>
                                         </div>
                                         <div class="col-md-2">

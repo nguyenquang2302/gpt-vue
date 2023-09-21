@@ -142,7 +142,7 @@
                                             <div class="col-md-8">
                                                 <VueDatePicker  v-model="userDataAddNew.birth_day" :enable-time-picker="true"
                                                     :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                    :timezone="'Asia/Novosibirsk'" auto-apply />
+                                                    :timezone="'Asia/Ho_Chi_Minh'" auto-apply />
 
                                             </div>
                                         </div>

@@ -123,7 +123,7 @@ class UserService extends BaseService
             
         try {
 
-            $time_partner  = $data['time_partner']?Carbon::parse(($data['time_partner']),'utc')->setTimezone(config('app.timezone')):null;
+            $time_partner  = $data['time_partner']?Carbon::parse(($data['time_partner']),'utc'):null;
 
             $user = $this->createUser([
                 'type' => $data['type'],
@@ -186,7 +186,7 @@ class UserService extends BaseService
             $posName = null;
         }
         try {
-            $time_partner  = $data['time_partner']?Carbon::parse(($data['time_partner']),'utc')->setTimezone(config('app.timezone')):null;
+            $time_partner  = $data['time_partner']?Carbon::parse(($data['time_partner']),'utc'):null;
             $user->update([
                 'type' => $user->isMasterAdmin() ? $this->model::TYPE_ADMIN : $data['type'] ?? $user->type,
                 'name' => $data['name'],

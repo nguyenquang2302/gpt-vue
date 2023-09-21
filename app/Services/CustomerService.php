@@ -98,7 +98,7 @@ class CustomerService extends BaseService
     public function update(Customer $customer, array $data = []): Customer
     {
         DB::beginTransaction();
-        $birth_day  = Carbon::parse(($data['birth_day']),'utc')->setTimezone(config('app.timezone'));
+        $birth_day  = Carbon::parse(($data['birth_day']),'utc');
         try {
             $customer->update([
                 'name' => $data['name'],

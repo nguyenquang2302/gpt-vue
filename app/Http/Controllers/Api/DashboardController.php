@@ -29,8 +29,8 @@ class DashboardController
 
         $active = 1;
         if ($request->from && $request->to) {
-            $data['from'] =  $from = Carbon::parse($request->get('0'))->setTimezone(config('app.timezone'));
-            $data['to'] =  $to = Carbon::parse($request->get('1'))->setTimezone(config('app.timezone'));
+            $data['from'] =  $from = Carbon::parse($request->get('0'));
+            $data['to'] =  $to = Carbon::parse($request->get('1'));
         } else if($case = $request->get('3')) {
             switch ($case) {
                 case 'toDay':

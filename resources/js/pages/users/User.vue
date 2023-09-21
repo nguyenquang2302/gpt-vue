@@ -74,8 +74,8 @@
                                                     <label for="name" class="col-form-label">Thời gian đối tác</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <VueDatePicker  v-model="userDataAddNew.time_partner" :enable-time-picker="false"
-                                                        :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                    <VueDatePicker  v-model="userDataAddNew.time_partner" :enable-time-picker="true"
+                                                        :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
                                                         :timezone="'Asia/Novosibirsk'" auto-apply />
                                                 </div>
                                             </div>
@@ -299,8 +299,8 @@
                                                     <label for="name" class="col-form-label">Thời gian đối tác</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <VueDatePicker  v-model="userData.time_partner" :enable-time-picker="false"
-                                                        :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                    <VueDatePicker  v-model="userData.time_partner" :enable-time-picker="true"
+                                                        :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
                                                         :timezone="'Asia/Novosibirsk'" auto-apply />
                                                 </div>
                                             </div>

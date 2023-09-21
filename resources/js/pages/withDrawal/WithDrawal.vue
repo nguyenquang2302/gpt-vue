@@ -204,8 +204,8 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker v-model="userDataAddNew.datetime" :enable-time-picker="false"
-                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                <VueDatePicker v-model="userDataAddNew.datetime" :enable-time-picker="true"
+                                                    :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
                                                     :timezone="'Asia/Novosibirsk'" auto-apply />
 
                                             </div>
@@ -510,8 +510,8 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker v-model="userData.datetime" :enable-time-picker="false"
-                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                <VueDatePicker v-model="userData.datetime" :enable-time-picker="true"
+                                                    :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
                                                     :timezone="'Asia/Novosibirsk'" auto-apply />
 
                                             </div>
@@ -772,8 +772,8 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker readonly disabled v-model="userDataShow.datetime" :enable-time-picker="false"
-                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                <VueDatePicker readonly disabled v-model="userDataShow.datetime" :enable-time-picker="true"
+                                                    :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
                                                     :timezone="'Asia/Novosibirsk'" auto-apply />
 
                                             </div>

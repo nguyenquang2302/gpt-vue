@@ -58,8 +58,7 @@ class CustomerService extends BaseService
     public function store(array $data = []): Customer
     {
         DB::beginTransaction();
-        $birth_day  = Carbon::parse(($data['birth_day']),'utc')->setTimezone(config('app.timezone'));
-
+        $birth_day  = Carbon::parse(($data['birth_day']));
         // try {
             $customer = $this->createCustomer([
                 'name' => $data['name'],

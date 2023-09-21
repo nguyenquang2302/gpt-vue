@@ -229,9 +229,9 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker v-model="userDataAddNew.datetime" :enable-time-picker="false"
-                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
-                                                    :timezone="'Asia/Novosibirsk'" auto-apply />
+                                                <VueDatePicker v-model="userDataAddNew.datetime" :enable-time-picker="true"
+                                                    :clearable="false" :month-change-on-scroll="false" :preview-:preview-format="formatDate"
+                                                    :timezone="'Asia/Ho_Chi_Minh'" auto-apply />
 
                                             </div>
                                         </div>
@@ -532,8 +532,8 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker v-model="userData.datetime" :enable-time-picker="false"
-                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                <VueDatePicker v-model="userData.datetime" :enable-time-picker="true"
+                                                    :clearable="false" :month-change-on-scroll="false" :preview-:preview-format="formatDate"
                                                     :timezone="'Asia/Novosibirsk'" auto-apply />
 
                                             </div>
@@ -787,8 +787,8 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker readonly disabled v-model="userDataShow.datetime" :enable-time-picker="false"
-                                                    :clearable="false" :month-change-on-scroll="false" :format="formatDate"
+                                                <VueDatePicker readonly disabled v-model="userDataShow.datetime" :enable-time-picker="true"
+                                                    :clearable="false" :month-change-on-scroll="false" :preview-:preview-format="formatDate"
                                                     :timezone="'Asia/Novosibirsk'" auto-apply />
 
                                             </div>
@@ -1022,10 +1022,7 @@ const showDetail = dataInfo => {
 }
 
 const listCards = ref()
-const formatDate = (date) => {
-    const tzOffset = date.getTimezoneOffset() * 60 * 1000
-    return new Date(date - tzOffset).toISOString().split('T')[0]
-}
+
 const askDelete = dataInfo => {
     idDelete.value = dataInfo.id
 }

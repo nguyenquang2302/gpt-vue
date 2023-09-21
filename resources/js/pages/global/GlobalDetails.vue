@@ -39,7 +39,7 @@
                                     <div class="row customize-row" v-show="hideForm"  >
                                         <div class="col-md-8">
                                             <div class="form-group" >
-                                                <VueDatePicker  :enable-time-picker="false" :range="true"
+                                                <VueDatePicker  :enable-time-picker="true" :range="true"
                                                         :clearable="true" :month-change-on-scroll="false" 
                                                     auto-apply  v-model="times"/>
                                             </div>

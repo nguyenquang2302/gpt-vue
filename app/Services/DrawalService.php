@@ -215,7 +215,7 @@ class DrawalService extends BaseService
                 'profit_money' => $profit_money,
                 'bank_code' => $data['bank_code'],
                 'bank_customer_name' => stripVN($data['bank_customer_name']),
-                'datetime' => Carbon::parse(($data['datetime']),'utc'),
+                'datetime' => Carbon::parse(($data['datetime'])),
                 'stt' => $data['stt']
 
             ]);

@@ -54,7 +54,7 @@ class Customer extends Model
         'introduced_by_user_id',
         'last_transaction_time',
         'branch_id',
-        'type'
+        'type',
     ];
 
     /**

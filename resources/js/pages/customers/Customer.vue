@@ -183,7 +183,7 @@
                                             <div class="col-md-8">
                                                 <VueDatePicker  v-model="userDataAddNew.birth_day" :enable-time-picker="true"
                                                     :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                    :timezone="'Asia/Ho_Chi_Minh'" auto-apply />
+                                                     auto-apply />
 
                                             </div>
                                         </div>
@@ -325,7 +325,7 @@
                                             <div class="col-md-8">
                                                 <VueDatePicker v-model="userCard.birth_day" :enable-time-picker="true"
                                                     :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                    :timezone="'Asia/Ho_Chi_Minh'" auto-apply />
+                                                     auto-apply />
 
                                             </div>
                                         </div>

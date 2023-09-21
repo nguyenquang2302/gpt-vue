@@ -76,7 +76,7 @@
                                                 <div class="col-md-8">
                                                     <VueDatePicker  v-model="userDataAddNew.time_partner" :enable-time-picker="true"
                                                         :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                        :timezone="'Asia/Ho_Chi_Minh'" auto-apply />
+                                                         auto-apply />
                                                 </div>
                                             </div>
 
@@ -301,7 +301,7 @@
                                                 <div class="col-md-8">
                                                     <VueDatePicker  v-model="userData.time_partner" :enable-time-picker="true"
                                                         :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                        :timezone="'Asia/Ho_Chi_Minh'" auto-apply />
+                                                         auto-apply />
                                                 </div>
                                             </div>
 

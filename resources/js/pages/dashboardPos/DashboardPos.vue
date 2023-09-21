@@ -44,7 +44,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group" bis_skin_checked="1">
                                                 <VueDatePicker  :enable-time-picker="true" :range="true"
-                                                :timezone="'Asia/Ho_Chi_Minh'"
+                                                
                                                 :clearable="true" :month-change-on-scroll="false" 
                                                 auto-apply  v-model="times"/>
                                             </div>

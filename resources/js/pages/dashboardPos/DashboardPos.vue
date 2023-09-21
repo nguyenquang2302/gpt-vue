@@ -43,10 +43,7 @@
                                     <div class="row customize-row" v-show="hideForm"  bis_skin_checked="1">
                                         <div class="col-md-8">
                                             <div class="form-group" bis_skin_checked="1">
-                                                <VueDatePicker  :enable-time-picker="true" :range="true"
-                                                
-                                                :clearable="true" :month-change-on-scroll="false" 
-                                                auto-apply  v-model="times"/>
+                                                <flat-pickr v-model="times" :config="config"/>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -187,7 +184,16 @@ import { useDashboardPosListStore } from '@/pages/dashboardPos/useDashboardPosLi
 import { toast } from 'vue3-toastify';
 import { useGlobalStore } from '@/store/globalStore'
 import moment from "moment";
-import VueDatePicker from '@vuepic/vue-datepicker';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+
+const config = ref({
+    wrap: true, // set wrap to true only when using 'input-group'
+    altFormat: 'm/j/Y',
+    altInput: true,
+    dateFormat: 'Y-m-d',
+});
+
 import vue3Spinner from 'vue3-spinner'
 import { DotLoader } from "vue3-spinner";
 

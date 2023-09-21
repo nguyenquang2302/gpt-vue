@@ -74,9 +74,7 @@
                                                     <label for="name" class="col-form-label">Thời gian đối tác</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <VueDatePicker  v-model="userDataAddNew.time_partner" :enable-time-picker="true"
-                                                        :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                         auto-apply />
+                                                    <flat-pickr v-model="userDataAddNew.time_partner" :config="config"/>
                                                 </div>
                                             </div>
 
@@ -299,9 +297,7 @@
                                                     <label for="name" class="col-form-label">Thời gian đối tác</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <VueDatePicker  v-model="userData.time_partner" :enable-time-picker="true"
-                                                        :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                         auto-apply />
+                                                    <flat-pickr v-model="userData.time_partner" :config="config"/>
                                                 </div>
                                             </div>
 
@@ -498,8 +494,17 @@ import { useUserListStore } from '@/pages/users/useUserListStore'
 import { useBranchListStore } from '@/pages/branchs/useBranchListStore'
 import { toast } from 'vue3-toastify';
 import jquery from 'jquery';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
+
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+
+
+const config = ref({
+    wrap: true, // set wrap to true only when using 'input-group'
+    altFormat: 'm/j/Y',
+    altInput: true,
+    dateFormat: 'Y-m-d',
+});
 
 const headers: Header[] = [
     { text: "ID", value: "id" },

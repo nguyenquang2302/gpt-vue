@@ -204,9 +204,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker v-model="userDataAddNew.datetime" :enable-time-picker="true"
-                                                    :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                     auto-apply />
+                                                <flat-pickr v-model="userDataAddNew.datetime" :config="config"/>
 
                                             </div>
                                         </div>
@@ -510,9 +508,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker v-model="userData.datetime" :enable-time-picker="true"
-                                                    :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                     auto-apply />
+                                                <flat-pickr v-model="userData.datetime" :config="config"/>
 
                                             </div>
                                         </div>
@@ -772,9 +768,8 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker readonly disabled v-model="userDataShow.datetime" :enable-time-picker="true"
-                                                    :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                     auto-apply />
+
+                                                <flat-pickr v-model="userDataShow.datetime" :config="config"/>
 
                                             </div>
                                         </div>
@@ -918,12 +913,18 @@ import { toast } from 'vue3-toastify';
 import { useGlobalStore } from '@/store/globalStore'
 import { useRoute } from 'vue-router';
 import moment from "moment";
-import Datepicker from 'vue3-datepicker'
 
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+
 import jquery from 'jquery';
 
+const config = ref({
+    wrap: true, // set wrap to true only when using 'input-group'
+    altFormat: 'm/j/Y',
+    altInput: true,
+    dateFormat: 'Y-m-d',
+});
 
 const dateTime = (value) => {
     return moment(value).utc().format("DD/MM/YYYY");

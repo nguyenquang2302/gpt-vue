@@ -140,9 +140,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueDatePicker  v-model="userDataAddNew.birth_day" :enable-time-picker="true"
-                                                    :clearable="false" :month-change-on-scroll="false" ::preview-format="formatDate"
-                                                     auto-apply />
+                                                <flat-pickr v-model="userDataAddNew.birth_day" :config="config"/>
 
                                             </div>
                                         </div>
@@ -273,8 +271,15 @@ import { useCustomerCardListStore } from '@/pages/customerCard/useCustomerCardLi
 import { toast } from 'vue3-toastify';
 import { useGlobalStore } from '@/store/globalStore'
 import jquery from 'jquery';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+
+const config = ref({
+    wrap: true, // set wrap to true only when using 'input-group'
+    altFormat: 'm/j/Y',
+    altInput: true,
+    dateFormat: 'Y-m-d',
+});
 
 const formatPrice = (value) => {
     const val = (value / 1).toFixed(0).replace(',', '.')

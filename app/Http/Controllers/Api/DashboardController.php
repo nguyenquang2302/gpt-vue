@@ -232,10 +232,9 @@ class DashboardController
                         })->get();
                     } else if($type === 'operate') {
                         $data['expences']  = Expense::with('fundCategory')->whereHas('fundCategory', function (Builder $q1) {
-                            $q1->where('type',0);
+                            $q1->where('type',0)->orWhere('type',null);
                         })->get();
                     } else {
-                        die('a');
                         $data['expences']  = Expense::with('fundCategory')->get();
                     }
                     break;
@@ -252,14 +251,14 @@ class DashboardController
             if($type === 'invest') {
                 $data['expences']  = Expense::with('fundCategory')->whereHas('fundCategory', function (Builder $q1) {
                     $q1->where('type',1);
-                })->whereDate('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
+                })->whereBetween('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
             } else if($type === 'operate') {
                 $data['expences']  = Expense::with('fundCategory')->whereHas('fundCategory', function (Builder $q1) {
-                    $q1->where('type',0);
-                })->whereDate('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
+                    $q1->where('type',0)->orWhere('type',null);
+                })->whereBetween('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
 
             } else {
-                $data['expences']  = Expense::with('fundCategory')->whereDate('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
+                $data['expences']  = Expense::with('fundCategory')->whereBetween('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
             }
         }
         $data['totalCreditAmount'] =  $data['expences']->sum('creditAmount');

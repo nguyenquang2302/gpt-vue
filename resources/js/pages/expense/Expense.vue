@@ -8,7 +8,7 @@
                         <div class="card">
                             <div class="card-body">
                                 Thống kê
-                                <span class="btn btn-secondary bd-toggle-animated-progress">{{ formatDate(new Date(items.from)) }} -- {{  formatDate(new Date(items.to)) }}</span>
+                                <span class="btn btn-secondary bd-toggle-animated-progress" v-if="items.from">{{ formatDate(new Date(items.from)) }} -- {{  formatDate(new Date(items.to)) }}</span>
                                 <hr>
                                 <div class="dropdown" bis_skin_checked="1">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -159,6 +159,7 @@
         if(route.query.type =='invest') {
             searchValue.value.isChecked = 'invest'
         }
+        items.value = []
         useStore.fetchExpenses(times.value,searchValue.value).then(({ data }) => {
             loading.value = false;
             items.value = data.data

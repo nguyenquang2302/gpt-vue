@@ -187,7 +187,7 @@
                                         <router-link to="/expenses?type=invest" class="nav-link">
 
                                         <div class="info-box bg-orange" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+                                            <span class="info-box-icon bg-green"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
                                                 <span class="info-box-text">Tổng chi phí đầu tư</span>
                                                 <span class="info-box-number">{{ number_format(items.settings.total_expense2) }}</span>

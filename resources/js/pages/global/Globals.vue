@@ -15,18 +15,22 @@
                             <div class="card-body">
 
                                 <div class="row " v-if="items.settings">
-
                                     <div class="col-lg-4 col-6">
-                                        <div class="info-box bg-success" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                            <div class="info-box-content" >
-                                                <span class="info-box-text">Tổng tiền đầu tư</span>
-                                                <span class="info-box-number">{{ number_format(items.settings.investors) }}</span>
-                                                <div class="progress" >
-                                                    <div class="progress-bar" style="width: 70%" ></div>
+                                        <router-link to="/customer?type=invest" class="nav-link">
+
+                                            <div class="info-box bg-success" >
+                                                <span class="info-box-icon bg-red"><i class="far fa-bookmark"></i></span>
+                                                <div class="info-box-content" >
+                                                    <span class="info-box-text">Tổng tiền đầu tư</span>
+                                                    <span class="info-box-number">{{ number_format(items.settings.investors) }}</span>
+                                                    <div class="progress" >
+                                                        <div class="progress-bar" style="width: 70%" ></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </router-link>
+
+                                        
                                     </div>
 
                                     <div class="col-lg-4 col-6">
@@ -57,8 +61,10 @@
                                     </div>
 
                                     <div class="col-lg-4 col-6">
+                                        <router-link to="/customer?type=credit" class="nav-link">
+
                                         <div class="info-box bg-warning" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+                                            <span class="info-box-icon bg-red"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
                                                 <span class="info-box-text">Tổng Nợ phải trả</span>
                                                 <span class="info-box-number">{{ number_format(items.settings.total_money_plus) }}</span>
@@ -67,23 +73,29 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </router-link>
                                     </div>
                                   
+                                    
                                     <div class="col-lg-4 col-6">
-                                        <div class="info-box bg-danger" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                            <div class="info-box-content" >
-                                                <span class="info-box-text">Tổng nợ phải đòi</span>
-                                                <span class="info-box-number">{{ number_format(items.settings.total_money_minus) }}</span>
-                                                <div class="progress" >
-                                                    <div class="progress-bar" style="width: 70%" ></div>
+                                        <router-link to="/customer?type=debit" class="nav-link">
+                                            <div class="info-box bg-danger" >
+                                                <span class="info-box-icon bg-green"><i class="far fa-bookmark"></i></span>
+                                                <div class="info-box-content" >
+                                                    <span class="info-box-text">Tổng nợ phải đòi</span>
+                                                    <span class="info-box-number">{{ number_format(items.settings.total_money_minus) }}</span>
+                                                    <div class="progress" >
+                                                        <div class="progress-bar" style="width: 70%" ></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </router-link>
                                     </div>
                                     <div class="col-lg-4 col-6">
+                                        <router-link to="/dashboard-pos" class="nav-link">
+
                                         <div class="info-box bg-danger" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+                                            <span class="info-box-icon bg-green"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
                                                 <span class="info-box-text">Tổng tiền chưa về</span>
                                                 <span class="info-box-number">{{ number_format(items.settings.money_not_back_yet) }}</span>
@@ -92,11 +104,12 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </router-link>
                                     </div>
                                 </div>
                                 <hr>
 
-                                <div class="row">
+                                <div class="row" v-if="items.settings">
                                     <div class="col-lg-4 col-6">
                                         <div class="info-box bg-warning" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
@@ -124,8 +137,10 @@
                                     </div>
 
                                     <div class="col-lg-4 col-6">
+                                        <router-link to="/history" class="nav-link">
+
                                         <div class="info-box bg-danger" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+                                            <span class="info-box-icon bg-green"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
                                                 <span class="info-box-text">Tổng Tiền chuyển vào chưa xử lý</span>
                                                 <span class="info-box-number">{{ number_format(items.settings.total_banklogs_credit) }}</span>
@@ -134,33 +149,43 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </router-link>
+
                                     </div>
                                     <div class="col-lg-4 col-6">
-                                        <div class="info-box bg-warning" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                            <div class="info-box-content" >
-                                                <span class="info-box-text">Tổng Tiền Chuyển đi Chưa xử lý</span>
-                                                <span class="info-box-number">{{ number_format(items.settings.total_banklogs_debit) }}</span>
-                                                <div class="progress" >
-                                                    <div class="progress-bar" style="width: 70%" ></div>
+                                        <router-link to="/history" class="nav-link">
+                                        
+                                            <div class="info-box bg-warning" >
+                                                <span class="info-box-icon bg-green"><i class="far fa-bookmark"></i></span>
+                                                <div class="info-box-content" >
+                                                    <span class="info-box-text">Tổng Tiền Chuyển đi Chưa xử lý</span>
+                                                    <span class="info-box-number">{{ number_format(items.settings.total_banklogs_debit) }}</span>
+                                                    <div class="progress" >
+                                                        <div class="progress-bar" style="width: 70%" ></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </router-link>
                                     </div>
                                     <div class="col-lg-4 col-6">
-                                        <div class="info-box bg-success" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                            <div class="info-box-content" >
-                                                <span class="info-box-text">Tổng chi phí vận hành</span>
-                                                <span class="info-box-number">{{ number_format(items.settings.total_expense) }}</span>
-                                                <div class="progress" >
-                                                    <div class="progress-bar" style="width: 70%" ></div>
+                                        <router-link to="/expenses?type=operate" class="nav-link">
+
+                                            <div class="info-box bg-success" >
+                                                <span class="info-box-icon bg-red"><i class="far fa-bookmark"></i></span>
+                                                <div class="info-box-content" >
+                                                    <span class="info-box-text">Tổng chi phí vận hành</span>
+                                                    <span class="info-box-number">{{ number_format(items.settings.total_expense) }}</span>
+                                                    <div class="progress" >
+                                                        <div class="progress-bar" style="width: 70%" ></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </router-link>
                                     </div>
 
                                     <div class="col-lg-4 col-6">
+                                        <router-link to="/expenses?type=invest" class="nav-link">
+
                                         <div class="info-box bg-orange" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
@@ -171,19 +196,22 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </router-link>
                                     </div>
 
                                     <div class="col-lg-4 col-6">
-                                        <div class="info-box bg-orange" >
-                                            <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                            <div class="info-box-content" >
-                                                <span class="info-box-text">Lợi nhuận</span>
-                                                <span class="info-box-number">{{ number_format(items.settings.total_profit) }}</span>
-                                                <div class="progress" >
-                                                    <div class="progress-bar" style="width: 70%" ></div>
+                                        <router-link to="/transactions" class="nav-link">
+                                            <div class="info-box bg-orange" >
+                                                <span class="info-box-icon bg-green"><i class="far fa-bookmark"></i></span>
+                                                <div class="info-box-content" >
+                                                    <span class="info-box-text">Lợi nhuận</span>
+                                                    <span class="info-box-number">{{ number_format(items.settings.total_profit) }}</span>
+                                                    <div class="progress" >
+                                                        <div class="progress-bar" style="width: 70%" ></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </router-link>
                                     </div>
 
 

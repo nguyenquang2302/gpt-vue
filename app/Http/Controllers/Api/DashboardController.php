@@ -180,9 +180,12 @@ class DashboardController
     {
 
         $active = 1;
+        $data['from'] =  $from = Carbon::now();
+        $data['to'] =  $to = Carbon::now();
         if ($request->from && $request->to) {
             $data['from'] =  $from = Carbon::parse($request->get('0'));
             $data['to'] =  $to = Carbon::parse($request->get('1'));
+            
         } else if($case = $request->get('3')) {
             switch ($case) {
                 case 'toDay':
@@ -222,7 +225,19 @@ class DashboardController
                         $data['to'] =  $to = Carbon::now()->subMonth()->endOfMonth();
                         break;
                 case 'all':
-                    $data['expences']  = Expense::with('fundCategory')->get();
+                    $type = $request->get('type');
+                    if($type === 'invest') {
+                        $data['expences']  = Expense::with('fundCategory')->whereHas('fundCategory', function (Builder $q1) {
+                            $q1->where('type',1);
+                        })->get();
+                    } else if($type === 'operate') {
+                        $data['expences']  = Expense::with('fundCategory')->whereHas('fundCategory', function (Builder $q1) {
+                            $q1->where('type',0);
+                        })->get();
+                    } else {
+                        die('a');
+                        $data['expences']  = Expense::with('fundCategory')->get();
+                    }
                     break;
                 default:
                     $data['from'] =  $from = Carbon::now();
@@ -230,12 +245,23 @@ class DashboardController
                     break;
             }
         }
-        else {
-            $data['from'] =  $from = Carbon::now();
-            $data['to'] =  $to = Carbon::now();
+        
+        if(!isset($data['expences'])) {
+
+            $type = $request->get('type');
+            if($type === 'invest') {
+                $data['expences']  = Expense::with('fundCategory')->whereHas('fundCategory', function (Builder $q1) {
+                    $q1->where('type',1);
+                })->whereDate('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
+            } else if($type === 'operate') {
+                $data['expences']  = Expense::with('fundCategory')->whereHas('fundCategory', function (Builder $q1) {
+                    $q1->where('type',0);
+                })->whereDate('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
+
+            } else {
+                $data['expences']  = Expense::with('fundCategory')->whereDate('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
+            }
         }
-        if(!isset($data['expences']))
-            $data['expences']  = Expense::with('fundCategory')->where('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
         $data['totalCreditAmount'] =  $data['expences']->sum('creditAmount');
         $data['totalDebitAmount'] =  $data['expences']->sum('debitAmount');
         return response([

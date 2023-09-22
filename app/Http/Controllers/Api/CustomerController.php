@@ -49,6 +49,21 @@ class CustomerController
             $customers->where('money','<',0);
 
         }
+        if($isChecked === 'invest') {
+            $customers->where('type',2);
+            $customers->where('user_id',auth()->user()->id);
+            return response([
+                'customers' => $customers->select('id', 'name', 'phone', 'CMND')->with('user')
+                        ->when($request->input('search'), function ($query, $search) {
+                            $slug_name =  \Str::slug($search);
+                            $query->where('name', 'like', '%' . $search . '%')
+                                ->OrWhere('email', 'like', '%' . $search . '%')
+                                ->OrWhere('slug', 'like', '%' . $slug_name . '%');
+                        })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
+            ], Response::HTTP_OK);
+
+
+        }
         if (auth()->user()->checkRole(['partner'])) {
             $customers->where('user_id',auth()->user()->id);
             return response([

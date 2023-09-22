@@ -20,7 +20,7 @@
                                         bis_skin_checked="1">
                                         <label class="dropdown-item customize" v-on:click="hideForm = true">Tuỳ chỉnh</label>
                                         <li class="dropdown-item" v-on:click="setTimes('toDay')">Hôm nay</li>
-                                        <li class="dropdown-item" v-on:click="setTimes('sub7Day')">Hôm qua</li>
+                                        <li class="dropdown-item" v-on:click="setTimes('tomorrow')">Hôm qua</li>
 
                                         <li class="dropdown-item" v-on:click="setTimes('sub7Day')">7 Ngày
                                             qua</li>
@@ -120,6 +120,10 @@
     import { useGlobalStore } from '@/store/globalStore'
     import VueDatePicker from '@vuepic/vue-datepicker';
     import moment from "moment";
+    import { useRoute } from 'vue-router';
+
+    const route = useRoute();
+    
     const formatPrice = (value) => {
         const val = (value / 1).toFixed(0).replace(',', '.')
         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -127,7 +131,7 @@
     const formatDate = (date) => {
         return moment(date).format("DD/MM/YYYY hh:mm");
     }
-    const times =  ref({'0':'','1':'','2':''})
+    const times =  ref({'0':'','1':'','2':'','3':''})
     const userLogin = JSON.parse(localStorage.getItem('user'))
     const  hideForm = ref(false)
     const items = ref([])
@@ -137,7 +141,10 @@
     const reRender = ref(0);
     const useStore = useExpenseListStore()
     const globalStore = useGlobalStore()
-    const searchValue = ref()
+    const searchValue = ref( {
+            isChecked:'',
+            search:''
+        })
     const setTimes = (time) => {
         times.value[0] = '';
         times.value[1] = '';
@@ -146,7 +153,13 @@
     };
     const fetchAll = () => {
         loading.value = true;
-        useStore.fetchExpenses(times.value).then(({ data }) => {
+        if(route.query.type =='operate') {
+            searchValue.value.isChecked = 'operate'
+        }
+        if(route.query.type =='invest') {
+            searchValue.value.isChecked = 'invest'
+        }
+        useStore.fetchExpenses(times.value,searchValue.value).then(({ data }) => {
             loading.value = false;
             items.value = data.data
         }).catch(error => {

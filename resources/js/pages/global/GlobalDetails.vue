@@ -20,7 +20,7 @@
                                             >
                                             <label class="dropdown-item customize" v-on:click="hideForm = true">Tuỳ chỉnh</label>
                                             <li class="dropdown-item" v-on:click="setTimes('toDay')">Hôm nay</li>
-                                            <li class="dropdown-item" v-on:click="setTimes('sub7Day')">Hôm qua</li>
+                                            <li class="dropdown-item" v-on:click="setTimes('tomorrow')">Hôm qua</li>
                                             <li class="dropdown-item" v-on:click="setTimes('sub7Day')">7 Ngày
                                                 qua</li>
                                             <li class="dropdown-item" v-on:click="setTimes('sub14Day')">14 ngày

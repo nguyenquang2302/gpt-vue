@@ -40,6 +40,7 @@ class Expense extends Model
         'active',
         'bank_log_id',
         'refNo',
+        'created_at'
     ];
 
     /**

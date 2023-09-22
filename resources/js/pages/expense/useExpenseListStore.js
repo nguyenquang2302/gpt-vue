@@ -5,8 +5,9 @@ import axios from '@/plugins/axios'
 export const useExpenseListStore = defineStore('ExpenseListStore', {
   actions: {
     // 👉 Fetch customers data
-    fetchExpenses(params) { 
-        return axios.get('/expenses',{params}) },
+    fetchExpenses(params,searchValue) { 
+      const params_merge = Object.assign( {}, params, searchValue );
+      return axios.get('/expenses', { params:params_merge }) },
   },
 })
 

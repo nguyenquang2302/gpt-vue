@@ -25,6 +25,7 @@
 
                     <div class="justify-content-between">
                         <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked === '') ? 'btn-primary' : 'btn-default']" data-bs-dismiss="modal" @click="setSearchValue('')"> Tất cả </button>
+                        <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked === 'invest') ? 'btn-primary' : 'btn-default']" data-bs-dismiss="modal" @click="setSearchValue('invest')"> Đâu tư </button>
                         <button type="button"  class="btn  mx-2 my-2" :class="[(searchValue.isChecked == true) ? 'btn-primary' : 'btn-default']" data-bs-dismiss="modal" @click="setSearchValue(true)"> Dư </button>
                         <button type="button"  class="btn " :class="[(searchValue.isChecked === false) ? 'btn-primary' : 'btn-default']" @click="setSearchValue(false)" > Nợ</button>
                     </div>
@@ -553,10 +554,13 @@ import { useCustomerListStore } from '@/pages/customers/useCustomerListStore'
 import { useCustomerCardListStore } from '@/pages/customerCard/useCustomerCardListStore'
 import { toast } from 'vue3-toastify';
 import { useGlobalStore } from '@/store/globalStore'
+import { useRoute } from 'vue-router';
 import jquery from 'jquery';
 
 import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
+
+const route = useRoute();
 
 const config = ref({
     wrap: true, // set wrap to true only when using 'input-group'
@@ -570,7 +574,7 @@ const formatPrice = (value) => {
 };
 
 const userLogin  = JSON.parse(localStorage.getItem('user'))
-
+const type = route.query.type;
 const headers: Header[] = [
     { text: "ID", value: "id", sortable: true },
     { text: "Chi nhánh", value: "branch.name" },
@@ -665,6 +669,15 @@ const askAddCard = dataInfo => {
 
 const fetchAll = () => {
     loading.value = true;
+    if(route.query.type =='debit') {
+        searchValue.value.isChecked = false
+    }
+    if(route.query.type =='credit') {
+        searchValue.value.isChecked = true
+    }
+    if(route.query.type =='invest') {
+        searchValue.value.isChecked = 'invest'
+    }
     useStore.fetchCustomers(serverOptions.value, searchValue.value).then(({ data }) => {
         serverItemsLength.value = data.customers.total
         loading.value = false;

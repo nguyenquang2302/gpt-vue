@@ -425,6 +425,19 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Phí mong muốn <span class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+
+                                                <VueNumberFormat :class="'form-control'"
+                                                    v-model:value="userData.fee_customer"
+                                                    :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                </VueNumberFormat>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalEdit"

@@ -56,6 +56,7 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
      // customer
      Route::get('/customers/search', [CustomerController::class, 'search']);
      Route::get('/customers', [CustomerController::class, 'index']);
+     Route::get('/customers/{customer}', [CustomerController::class, 'show']);
      Route::post('/customers', [CustomerController::class, 'store']);
     Route::get('/transaction-partner', [PartnerController::class, 'partner'])->name('partner'); 
 
@@ -67,7 +68,7 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
         
         Route::get('list-pos', [ApiGlobalController::class, 'listPos']);
 
-        Route::apiResource('customers', CustomerController::class)->except(['index','store']);
+        Route::apiResource('customers', CustomerController::class)->except(['index','store','show']);
         Route::patch('/users/password/change/{user}', [UserPasswordController::class, 'update']);
 
         Route::post('/users/{user}', [UserPasswordController::class, 'update']);

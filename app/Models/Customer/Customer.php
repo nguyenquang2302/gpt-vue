@@ -55,6 +55,7 @@ class Customer extends Model
         'last_transaction_time',
         'branch_id',
         'type',
+        'fee_customer'
     ];
 
     /**

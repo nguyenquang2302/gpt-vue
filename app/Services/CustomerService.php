@@ -73,7 +73,8 @@ class CustomerService extends BaseService
                 'ward_id' => $data['ward_id']?? null,
                 'type' => $data['type']?? null,
                 'active' => isset($data['active']) && $data['active'] === '1',
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'fee_customer'=> $data['fee_customer']??0
             ]);
         // } catch (Exception $e) {
         //     DB::rollBack();
@@ -300,6 +301,7 @@ class CustomerService extends BaseService
             'active' => isset($data['active']) && $data['active'] == '1',
             'branch_id' => Auth::user()->branch_id,
             'type' => $data['type'],
+            'fee_customer'=> $data['fee_customer']??0
         ]);
     }
 }

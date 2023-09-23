@@ -13,6 +13,9 @@ import GlobalDetails from '../pages/global/GlobalDetails.vue'
 import DashboardPos from '../pages/dashboardPos/DashboardPos.vue'
 import Historys from '../pages/history/History.vue'
 
+import TransactionPartner from '../pages/partner/Partner.vue'
+
+
 import Login from '../layouts/Login.vue'
 
 const routes =  [
@@ -81,6 +84,11 @@ const routes =  [
                 path:"/customer-partners",
                 name: "CustomerPantner",
                 component: CustomerPantner
+            },
+            {
+                path:"/transaction-partners",
+                name: "TransactionPartner",
+                component: TransactionPartner
             }
         ]
     },

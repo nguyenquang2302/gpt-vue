@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\DrawalController;
 use App\Http\Controllers\Api\WithdrawalController;
 use App\Http\Controllers\Api\BankLogController;
 use App\Http\Controllers\Api\CommandCheckController;
+use App\Http\Controllers\Api\PartnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,10 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
      Route::get('/customers/search', [CustomerController::class, 'search']);
      Route::get('/customers', [CustomerController::class, 'index']);
      Route::post('/customers', [CustomerController::class, 'store']);
+    Route::get('/transaction-partner', [PartnerController::class, 'partner'])->name('partner'); 
+
 });
+
 Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manager_vip_2,staff'])->group(function () {
     Route::group(['middleware', ['json.force']], function() {
         // global
@@ -95,6 +99,9 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
         Route::get('/globals', [DashboardController::class, 'indexGlobal'])->name('indexGlobal');
         Route::get('/global-details', [DashboardController::class, 'indexGlobalDetail'])->name('indexGlobalDetail');
         Route::get('/dasboard-pos', [DashboardController::class, 'dashboardPos'])->name('dashboardPos');
+
+
     
     });
+    
 });

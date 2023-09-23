@@ -261,6 +261,14 @@ class DashboardController
                 $data['expences']  = Expense::with('fundCategory')->with('bankLog')->whereBetween('created_at', [$from->startOfDay(), $to->endOfDay()])->get();
             }
         }
+        foreach($data['expences']  as $expence) {
+            if($expence->note === 'N/A') {
+                if($banklog = $expence->bankLog) {
+                    $expence->note = $banklog->benAccountNo;
+                    $expence->save();
+                }
+            }
+        }
         $data['totalCreditAmount'] =  $data['expences']->sum('creditAmount');
         $data['totalDebitAmount'] =  $data['expences']->sum('debitAmount');
         return response([

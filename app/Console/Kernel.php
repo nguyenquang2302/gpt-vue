@@ -12,6 +12,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('bank:MBCheck')
+                ->everyThirtyMinutes()->withoutOverlapping();
+        $schedule->command('banklogs:check')->everyThirtyMinutes()->withoutOverlapping();
+
         // $schedule->command('inspire')->hourly();
     }
 

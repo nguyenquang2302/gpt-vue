@@ -80,6 +80,7 @@
                                             <th scope="col">{{formatPrice(items.totalDebitAmount)}}</th>
                                             <th scope="col">#</th>
                                             <th scope="col">#</th>
+                                            <th scope="col">histor ID</th>
 
                                         </tr>
 
@@ -92,6 +93,7 @@
                                             <td>{{ formatPrice(tran.debitAmount) }}</td>
                                             <td>{{ formatDate(tran.created_at) }}</td>
                                             <td>{{ (tran.bank_log.note) }}</td>
+                                            <td>{{ (tran.bank_log.id) }}</td>
                                         </tr>
                                        
                                         

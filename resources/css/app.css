@@ -58,7 +58,7 @@
 * Add "left" or "right" in modal parent div, after class="modal".
 * Get free snippets on bootpen.com
 *******************************/
-@media only screen and (min-width: 380px) {
+@media only screen and (min-width: 500px) {
 	.modal.left .modal-dialog,
 	.modal.right .modal-dialog {
 		position: fixed;
@@ -126,7 +126,7 @@
 	}
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 499px) {
 	.modal.left .modal-dialog,
 	.modal.right .modal-dialog {
 		position: fixed;

@@ -118,7 +118,7 @@ class checkMBBank extends Command
         DB::beginTransaction();
 
         try {
-            var_dump($user->id . '-' . $data['debitAmount'] . '-' . $data['creditAmount']);
+            var_dump($user->name . '-' . $data['debitAmount'] . '-' . $data['creditAmount']);
             if ($bankLogs = BankLog::where('refNo', $data['refNo'])->where('creditAmount', $data['creditAmount'])->where('debitAmount', $data['debitAmount'])->first()) {
                 // return;
             } else {

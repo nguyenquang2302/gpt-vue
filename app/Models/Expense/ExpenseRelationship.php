@@ -4,6 +4,7 @@ namespace App\Models\Expense;
 
 use App\Domains\Auth\Models\User;
 use App\Models\Bank\Bank;
+use App\Models\BankLog\BankLog;
 use App\Models\Customer\Customer;
 use App\Models\CustomerCard\CustomerCard;
 use App\Models\Drawal\Drawal;
@@ -27,6 +28,10 @@ trait ExpenseRelationship
     public function fundCategory()
     {
         return $this->belongsTo(FundCategory::class);
+    }
+    public function bankLog()
+    {
+        return $this->belongsTo(BankLog::class);
     }
 
 }

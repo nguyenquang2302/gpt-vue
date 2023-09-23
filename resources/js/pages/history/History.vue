@@ -389,6 +389,8 @@ const headers: Header[] = [
     { text: "accountNo", value: "accountNo" },
     { text: "refNo", value: "refNo" },
     { text: "created_at", value: "created_at" },
+    { text: "transactionDate", value: "transactionDate" },
+    
     { text: "creditAmount", value: "creditAmount", sortable: true },
     { text: "debitAmount", value: "debitAmount", sortable: true },
     { text: "content", value: "content" },

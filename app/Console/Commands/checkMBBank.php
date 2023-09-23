@@ -79,7 +79,6 @@ class checkMBBank extends Command
 
             $users = User::where('accountName', '!=', NULL)->get();
             foreach ($users as $user) {
-                sleep(5);
                 if ($user->id == 0) {
                 } else {
 
@@ -110,6 +109,7 @@ class checkMBBank extends Command
                 }
             }
         }
+        var_dump('done');
     }
 
     public function excuteData($data, $user)

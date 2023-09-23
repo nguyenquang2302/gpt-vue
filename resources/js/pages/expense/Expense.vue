@@ -91,7 +91,7 @@
                                             <td>{{ formatPrice(tran.creditAmount) }}</td>
                                             <td>{{ formatPrice(tran.debitAmount) }}</td>
                                             <td>{{ formatDate(tran.created_at) }}</td>
-                                            <td>{{ (tran.note) }}</td>
+                                            <td>{{ (tran.bank_log.note) }}</td>
                                         </tr>
                                        
                                         

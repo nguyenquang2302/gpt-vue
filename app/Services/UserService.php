@@ -122,8 +122,10 @@ class UserService extends BaseService
         }
             
         try {
-
-            $time_partner  = $data['time_partner']?Carbon::parse(($data['time_partner']),'utc'):null;
+            $time_partner =null;
+            if(isset($data['time_partner'])) {
+                $time_partner  = $data['time_partner']?Carbon::parse(($data['time_partner'])):null;
+            }
 
             $user = $this->createUser([
                 'type' => $data['type'],
@@ -141,15 +143,12 @@ class UserService extends BaseService
                 'branch_id' => $data['branch_id'] ?? null,
                 'posName' => $posName ?? null,
                 'time_partner' => $time_partner,
-                'fee_partner' => $data['fee_partner'],
+                'fee_partner' => $data['fee_partner']??0,
+                'email_verified' => true,
 
             ]);
 
-            $user->syncRoles($data['roles'] ?? []);
-
-            if (! config('boilerplate.access.user.only_roles')) {
-                $user->syncPermissions($data['permissions'] ?? []);
-            }
+           
         } catch (Exception $e) {
             DB::rollBack();
 
@@ -159,11 +158,6 @@ class UserService extends BaseService
         event(new UserCreated($user));
 
         DB::commit();
-
-        // They didn't want to auto verify the email, but do they want to send the confirmation email to do so?
-        if (! isset($data['email_verified']) && isset($data['send_confirmation_email']) && $data['send_confirmation_email'] === '1') {
-            $user->sendEmailVerificationNotification();
-        }
 
         return $user;
     }
@@ -200,7 +194,7 @@ class UserService extends BaseService
                 'branch_id' => $data['branch_id'] ?? null,
                 'posName' => $posName ?? null,
                 'time_partner' => $time_partner,
-                'fee_partner' => $data['fee_partner'],
+                'fee_partner' => $data['fee_partner']??0,
 
             ]);
             if(isset($data['branch_ids']) && $data['branch_ids']) {

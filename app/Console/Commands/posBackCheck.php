@@ -64,7 +64,7 @@ class posBackCheck extends Command
                 foreach ($users as $user) {
                     
                     foreach ($user->pos as $p) {
-                        $posConsignments = $p->posConsignment()->orderBy('id','asc')->get();
+                        $posConsignments = $p->posConsignment()->where('isDone',0)->orderBy('id','asc')->get();
                         foreach ($posConsignments  as $posConsignment) {
                             
                             if ($posConsignment->getMoneyBack() == $posConsignment->getTotalMoney()) {

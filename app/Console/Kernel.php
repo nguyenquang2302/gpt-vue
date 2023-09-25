@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('bank:MBCheck')
                 ->everyThirtyMinutes()->withoutOverlapping();
         $schedule->command('banklogs:check')->everyThirtyMinutes()->withoutOverlapping();
+        $schedule->command('posback:check')->everyFifteenMinutes()->withoutOverlapping();
 
         // $schedule->command('inspire')->hourly();
     }

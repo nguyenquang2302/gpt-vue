@@ -165,4 +165,15 @@ class CommandCheckController
 
     }
 
+    public  function activitiPosback() {
+        settings()->set([
+            'activitiposBack' => true,
+        ]);
+        
+        return response([
+            'message' => 'Đã xác nhận vui lòng đợi 15p',
+        ], Response::HTTP_OK);
+
+    }
+
 }

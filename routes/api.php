@@ -61,7 +61,9 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
     Route::get('/transaction-partner', [PartnerController::class, 'partner'])->name('partner'); 
 
 });
-
+Route::middleware(['auth:sanctum','is_admin:admin,manager,manager_vip'])->group(function () {
+    Route::post('/activitiPosback', [CommandCheckController::class, 'activitiPosback']);
+});
 Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manager_vip_2,staff'])->group(function () {
     Route::group(['middleware', ['json.force']], function() {
         // global

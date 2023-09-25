@@ -52,12 +52,19 @@ class posBackCheck extends Command
             }
             $now = Carbon::now();
             $caculator_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
+            $activitiposBack = settings()->get('activitiposBack',false);
+            if(!$activitiposBack ) {
+                return;
+            }
+
             if ($caculator_minutes >= 4) {
                 settings()->set([
                     'time_check_pos_back' => Carbon::now()
                 ]);
             try {
-
+                settings()->set([
+                    'activitiposBack' => false
+                ]);
                 DB::beginTransaction();
 
                 $users = User::where('autoPosBack',1)->whereHas('pos')->with('pos')->get();
@@ -118,7 +125,7 @@ class posBackCheck extends Command
             } catch (\Throwable $th) {
                 DB::rollBack();
             }
-            DB::commit();
+                DB::commit();
             }
     }
 }

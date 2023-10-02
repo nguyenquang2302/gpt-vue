@@ -38,7 +38,7 @@
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
                                                 <span class="info-box-text">Tổng vốn dự kiến</span>
-                                                <span class="info-box-number">{{ number_format(parseInt(items.settings.investors) + parseInt(items.settings.total_ship) + parseInt(items.settings.total_profit)  - parseInt(items.settings.total_expense) - parseInt(items.settings.total_expense2) ) }}</span>
+                                                <span class="info-box-number">{{ number_format(parseInt(items.settings.investors)  + parseInt(items.settings.total_profit)  - parseInt(items.settings.total_expense) - parseInt(items.settings.total_expense2) ) }}</span>
                                                 <div class="progress" >
                                                     <div class="progress-bar" style="width: 70%" ></div>
                                                 </div>
@@ -52,7 +52,7 @@
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
                                                 <span class="info-box-text">Tổng vốn thực</span>
-                                                <span class="info-box-number">{{ number_format(parseInt(items.settings.money_auth)-parseInt(items.settings.total_money_minus)-parseInt(items.settings.total_money_plus)) }}</span>
+                                                <span class="info-box-number">{{ number_format(parseInt(items.settings.money_auth)-parseInt(items.settings.total_money_minus)-parseInt(items.settings.total_money_plus) - parseInt(items.settings.total_ship)) }}</span>
                                                 <div class="progress" >
                                                     <div class="progress-bar" style="width: 70%" ></div>
                                                 </div>

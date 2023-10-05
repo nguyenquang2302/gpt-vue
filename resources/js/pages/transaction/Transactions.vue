@@ -105,7 +105,7 @@
                                 </table>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-lg-4 col-6" v-for="(pos) in items.posLists">
+                                    <div class="col-lg-4 col-12" v-for="(pos) in items.posLists">
                                         <div class="info-box bg-warning" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >

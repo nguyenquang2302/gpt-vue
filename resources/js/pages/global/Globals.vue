@@ -15,7 +15,7 @@
                             <div class="card-body">
 
                                 <div class="row " v-if="items.settings">
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/customer?type=invest" class="nav-link">
 
                                             <div class="info-box bg-success" >
@@ -33,7 +33,7 @@
                                         
                                     </div>
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <div class="info-box bg-success" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
@@ -47,7 +47,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <div class="info-box bg-success" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/customer?type=credit" class="nav-link">
 
                                         <div class="info-box bg-warning" >
@@ -77,7 +77,7 @@
                                     </div>
                                   
                                     
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/customer?type=debit" class="nav-link">
                                             <div class="info-box bg-danger" >
                                                 <span class="info-box-icon bg-green"><i class="far fa-bookmark"></i></span>
@@ -91,7 +91,7 @@
                                             </div>
                                         </router-link>
                                     </div>
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/dashboard-pos" class="nav-link">
 
                                         <div class="info-box bg-danger" >
@@ -110,7 +110,7 @@
                                 <hr>
 
                                 <div class="row" v-if="items.settings">
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <div class="info-box bg-warning" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
@@ -123,7 +123,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <div class="info-box bg-danger" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
@@ -136,7 +136,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/history" class="nav-link">
 
                                         <div class="info-box bg-danger" >
@@ -152,7 +152,7 @@
                                         </router-link>
 
                                     </div>
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/history" class="nav-link">
                                         
                                             <div class="info-box bg-warning" >
@@ -167,7 +167,7 @@
                                             </div>
                                         </router-link>
                                     </div>
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/expenses?type=operate" class="nav-link">
 
                                             <div class="info-box bg-success" >
@@ -183,7 +183,7 @@
                                         </router-link>
                                     </div>
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/expenses?type=invest" class="nav-link">
 
                                         <div class="info-box bg-orange" >
@@ -199,7 +199,7 @@
                                         </router-link>
                                     </div>
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <router-link to="/transactions" class="nav-link">
                                             <div class="info-box bg-orange" >
                                                 <span class="info-box-icon bg-green"><i class="far fa-bookmark"></i></span>
@@ -215,7 +215,7 @@
                                     </div>
 
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <div class="info-box bg-orange" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
@@ -228,7 +228,7 @@
                                         </div>
                                     </div>
                                   
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-4 col-12">
                                         <div class="info-box bg-success" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >
@@ -247,7 +247,7 @@
                                     <h3>Tài Khoản</h3>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4 col-6" v-for="(detail, loop) in items.users">
+                                    <div class="col-lg-4 col-12" v-for="(detail, loop) in items.users">
                                         <div class="info-box bg-success" >
                                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                             <div class="info-box-content" >

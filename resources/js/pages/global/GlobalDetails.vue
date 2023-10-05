@@ -51,7 +51,7 @@
                                     <h3 class="mx-2 my-5 text-center"> ALL</h3>
                                     <div>
                                         <div class="row">
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-success" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -65,7 +65,7 @@
                                                 </div>
                                             </div>
                                            
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-success" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -79,7 +79,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-success" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -93,7 +93,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-warning" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -106,7 +106,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-warning" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -120,7 +120,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-success" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -134,7 +134,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-info" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -148,7 +148,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-info" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -162,7 +162,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-info" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -175,7 +175,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-6">
+                                            <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-info" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
@@ -195,7 +195,7 @@
                                     <hr>
                                     <h3 class="text-center mx-2 my-5">{{ detail.name }}</h3>
                                     <div class="row">
-                                        <div class="col-lg-4 col-6">
+                                        <div class="col-lg-4 col-12">
                                             <div class="info-box bg-warning" >
                                                 <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                 <div class="info-box-content" >
@@ -208,7 +208,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-6">
+                                        <div class="col-lg-4 col-12">
                                             <div class="info-box bg-danger" >
                                                 <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                 <div class="info-box-content" >
@@ -224,7 +224,7 @@
                                       
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-4 col-6">
+                                        <div class="col-lg-4 col-12">
                                             <div class="info-box bg-success" >
                                                 <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                 <div class="info-box-content" >
@@ -238,7 +238,7 @@
                                             </div>
                                         </div>
                                       
-                                        <div class="col-lg-4 col-6">
+                                        <div class="col-lg-4 col-12">
                                             <div class="info-box bg-info" >
                                                 <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                 <div class="info-box-content" >
@@ -252,7 +252,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-4 col-6">
+                                        <div class="col-lg-4 col-12">
                                             <div class="info-box bg-pink" >
                                                 <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                 <div class="info-box-content" >

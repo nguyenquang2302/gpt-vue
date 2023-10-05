@@ -6,7 +6,7 @@ const axiosIns = axios.create({
   // ================================
   // baseURL: 'http://gpt.x/api',
   baseURL: 'https://hotrothe.vn/api/',
-  // timeout: 1000,
+  timeout: 10000,
   // headers: {'X-Custom-Header': 'foobar'}
 })
 

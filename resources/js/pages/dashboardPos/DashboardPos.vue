@@ -8,7 +8,7 @@
                         <div class="card">
                             <div class="card-body">
                                 Thống kê POS
-                                <span class="btn btn-secondary bd-toggle-animated-progress">{{ formatDate(new Date(items.from)) }} -- {{  formatDate(new Date(items.to)) }}</span>
+                                <span class="btn btn-secondary bd-toggle-animated-progress" v-if="items.from" >{{ formatDate(new Date(items.from)) }} -- {{  formatDate(new Date(items.to)) }}</span>
                                 <hr>
                                 <div class="dropdown" bis_skin_checked="1">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"

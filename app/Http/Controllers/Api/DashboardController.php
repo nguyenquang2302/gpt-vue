@@ -290,7 +290,6 @@ class DashboardController
 
     public function dashboardPos(DashboardRequest $request)
     {
-        
         $data['now'] = Carbon::now();
         if ($request->from && $request->to) {
             $data['from'] =  $from = Carbon::parse($request->get('0'));
@@ -386,7 +385,6 @@ class DashboardController
             $data['statisticals']['drawal']['fee_bank_money'] += $drawal_statisticals['fee_bank_money'];
             $data['statisticals']['drawal']['money_back'] += $drawal_statisticals['money_back'];
             $data['statisticals']['drawal']['profit_money'] += $drawal_statisticals['profit_money'];
-
             // //Đáo hạn
             $moneyBack = $pos->getMoneyBack($active, $from, $to);
             $pos_back_money = $moneyBack['moneyback'];
@@ -398,8 +396,11 @@ class DashboardController
             $data['statisticals']['withdrawal']['money_back'] += ($statisticals['money_drawal'] - $statisticals['fee_bank_money']);
             $data['statisticals']['pos_back_money'] += $pos_back_money;
             $data['statisticals']['money_not_back_yet'] += $money_not_back_yet;
-            $moneyBack = $pos->getMoneyBack($active, $from, $to);
+
+            // $moneyBack = $pos->getMoneyBack($active, $from, $to);
+
             $pos->pos_back_money =  $pos_back_money = $moneyBack['moneyback'];
+
 
         }
 

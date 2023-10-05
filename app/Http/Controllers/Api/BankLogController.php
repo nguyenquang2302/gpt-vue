@@ -44,7 +44,6 @@ class BankLogController
         $sortBy = $request->get('sortBy','transactionDate');
         $sortType = $request->get('sortType','desc');
         $banklogs = BankLog::query()->with('user');
-
         if($isChecked === 'true') {
             $banklogs->where('isChecked',1);
         }

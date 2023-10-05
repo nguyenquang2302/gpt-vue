@@ -423,7 +423,7 @@ const items = ref([])
 const serverOptions = ref<ServerOptions>({
     page: 1,
     rowsPerPage: 25,
-    sortBy: 'id',
+    sortBy: 'transactionDate',
     sortType: 'desc',
 });
 const objDefault = {

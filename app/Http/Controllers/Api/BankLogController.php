@@ -41,7 +41,7 @@ class BankLogController
         $isChecked = $request->query('isChecked', null);
         $rowsPerPage = $request->input('rowsPerPage'); 
         $page = $request->input('page'); 
-        $sortBy = $request->get('sortBy','id');
+        $sortBy = $request->get('sortBy','transactionDate');
         $sortType = $request->get('sortType','desc');
         $banklogs = BankLog::query()->with('user');
 

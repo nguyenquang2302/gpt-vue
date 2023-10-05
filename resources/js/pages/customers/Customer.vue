@@ -42,7 +42,7 @@
                         </template>
                         <template #item-user="item">
                             <div class="operation-wrapper">
-                                <div v-if="item.user"  :class="[(item.user.type === 'partner')?'text-red':'']">{{ (item.name) }}</div>
+                                <div v-if="item.user"  :class="[(item.user.type === 'partner')?'text-red':'']">{{ (item.user.name) }}</div>
                             </div>
                         </template>
 

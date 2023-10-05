@@ -53,8 +53,9 @@ class BankLogController
 
         return response([
             'banklogs' =>  $banklogs ->when($request->input('search'), function ($query, $search) {
-                $query->where('name', 'like', '%' . $search . '%');
-                    // ->OrWhere('content', 'like', '%' . $search . '%');
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->OrWhere('creditAmount',str_replace(',','',$search ))
+                    ->OrWhere('debitAmount',str_replace(',','',$search ));
             })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
         ], Response::HTTP_OK);
     }

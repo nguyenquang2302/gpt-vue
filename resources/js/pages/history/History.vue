@@ -30,9 +30,19 @@
                         <template #item-creditAmount="item">
                             <div class="operation-wrapper">
                                 <div>{{ formatPrice(item.creditAmount) }}</div>
-
                             </div>
                         </template>
+
+                        <template #item-content="item">
+                            <div class="operation-wrapper">
+                                <div>
+                                    {{ item.content }}
+                                    <br>
+                                    {{ item.description }}
+                                </div>
+                            </div>
+                        </template>
+
 
                         <template #item-debitAmount="item">
                             <div class="operation-wrapper">
@@ -46,13 +56,18 @@
 
                             </div>
                         </template>
-                        <template #item-isChecked="item">
+
+                        <template #item-content_fix="item">
                             <div class="operation-wrapper">
                                 <div>{{ item.isChecked?'Đã xác nhận':'Chưa'}}</div>
-
+                                <br>
+                                <div> {{ item.content_fix }}</div>
                             </div>
                         </template>
                         
+
+
+
                         <template #item-operation="item">
                             <div class="operation-wrapper">
                                 <i class="fa fa-eye operation-icon" title="Xem" @click="askEdit(item)" data-bs-toggle="modal"
@@ -394,7 +409,7 @@ const headers: Header[] = [
     { text: "creditAmount", value: "creditAmount", sortable: true },
     { text: "debitAmount", value: "debitAmount", sortable: true },
     { text: "content", value: "content" },
-    { text: "description", value: "description" },
+    // { text: "description", value: "description" },
     { text: "user", value: "user.name" },
     { text: "SỬA", value: "content_fix" },
     { text: "isChecked", value: "isChecked" },

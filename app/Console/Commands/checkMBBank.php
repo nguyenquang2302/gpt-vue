@@ -65,7 +65,7 @@ class checkMBBank extends Command
         if ($time_check_mb) {
             $time_check_mb_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_mb);
         } else {
-            $time_check_mb_carbon = Carbon::now()->subHour(5);
+            $time_check_mb_carbon = Carbon::now();
         }
 
         $now = Carbon::now();
@@ -100,8 +100,10 @@ class checkMBBank extends Command
                     // }
                     $lists = ($response->object());
                     if (isset($lists->data)) {
-                        foreach ($lists->data as $transaction) {
+                        foreach ($lists->data as $key => $transaction) {
                             $data = array_reverse((array)$transaction);
+                            
+                            var_dump($user->name.'-'.$data['refNo'].'-'.$data['debitAmount'].'-'.$data['creditAmount']);
 
                             $this->excuteData($data, $user);
                         }
@@ -118,7 +120,6 @@ class checkMBBank extends Command
         DB::beginTransaction();
 
         try {
-            var_dump($user->name . '-' . $data['debitAmount'] . '-' . $data['creditAmount']);
             if ($bankLogs = BankLog::where('refNo', $data['refNo'])->where('creditAmount', $data['creditAmount'])->where('debitAmount', $data['debitAmount'])->first()) {
                 // return;
             } else {
@@ -412,7 +413,7 @@ class checkMBBank extends Command
                     $creditAmount = $bankLogs->creditAmount;
                     $debitAmount = $bankLogs->debitAmount;
                     if ($creditAmount > 0) {
-                        if ($user1 = User::where('posName', $detail[1])->first()) {
+                        if ($user1 = User::where('posName',$detail[1])->first()) {
                             $bankLogs->isChecked = true;
                             $bankLogs->content = $description[0];
                             $bankLogs->save();
@@ -446,18 +447,10 @@ class checkMBBank extends Command
                             $fundTransactionService1 = new FundTransactionService($fundTransaction1);
                             $fundTransactionService1->store($dataCreateTransUserTrans);
 
-                            // $drawals = DrawalDetail::whereIn('pos_id',$list_ids)->whereHas('drawal',function (Builder $q1) {
-                            //     $q1->where('isDone',1);
-                            // })->sum('money_back');
-
-
-                            // foreach($posLists as $pos) {
-
-                            // }
                         }
                     } elseif ($debitAmount > 0) {
                         // trừ tiền Chủ pos
-                        $user = User::where('posName', $detail[1])->first();
+                        $user = User::where('posName',$detail[1])->first();
                         $userTranfer = User::where('accountNo', $bankLogs->accountNo)->first();
                         if ($user && $userTranfer) {
                             $bankLogs->isChecked = true;
@@ -554,6 +547,7 @@ class checkMBBank extends Command
             }
             DB::commit();
         } catch (\Throwable $th) {
+            var_dump($th);
             DB::rollBack();
             return;
         }

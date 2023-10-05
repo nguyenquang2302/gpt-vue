@@ -36,7 +36,9 @@
                         <template #item-content="item">
                             <div class="operation-wrapper">
                                 <div>
-                                    {{ item.content }}
+                                    <div class="text-red">
+                                        {{ item.content }}
+                                    </div>
                                     <br>
                                     {{ item.description }}
                                 </div>
@@ -57,11 +59,11 @@
                             </div>
                         </template>
 
-                        <template #item-content_fix="item">
+                        <template #item-isChecked="item">
                             <div class="operation-wrapper">
                                 <div>{{ item.isChecked?'Đã xác nhận':'Chưa'}}</div>
                                 <br>
-                                <div> {{ item.content_fix }}</div>
+                                <div class="text-red"> {{ item.content_fix }}</div>
                             </div>
                         </template>
                         
@@ -411,7 +413,7 @@ const headers: Header[] = [
     { text: "content", value: "content" },
     // { text: "description", value: "description" },
     { text: "user", value: "user.name" },
-    { text: "SỬA", value: "content_fix" },
+    // { text: "SỬA", value: "content_fix" },
     { text: "isChecked", value: "isChecked" },
 
     { text: "Operation", value: "operation" },

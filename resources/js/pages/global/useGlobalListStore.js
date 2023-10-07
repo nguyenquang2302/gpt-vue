@@ -8,8 +8,11 @@ export const useGlobalListStore = defineStore('GlobalListStore', {
     fetchGlobals() { 
       return axios.get('/globals')
     },
-    fetchGlobalDetails(params) { 
-      return axios.get('/global-details',{params})
+
+    fetchGlobalDetails(params) {
+      return new Promise((resolve, reject) => {
+        axios.get('/global-details',{ params}).then(response => resolve(response)).catch(error => reject(error))
+      })
     },
   },
 })

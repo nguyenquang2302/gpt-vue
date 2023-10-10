@@ -141,7 +141,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.money_withdrawal"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -154,7 +154,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.fee_ship"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -166,7 +166,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.fee_user"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -179,7 +179,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.fee_customer"
-                                                    :options="{ precision: 2, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -192,7 +192,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userDataAddNew.fee_money_customer"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -248,7 +248,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.money"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -265,7 +265,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.money_drawal"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -282,7 +282,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.group_bill"
-                                                                    :options="{ precision: 3, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 3, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -448,7 +448,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userData.money_withdrawal"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -460,7 +460,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'" v-model:value="userData.fee_ship"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -471,7 +471,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'" v-model:value="userData.fee_user"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -484,7 +484,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userData.fee_customer"
-                                                    :options="{ precision: 2, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -497,7 +497,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
                                                     v-model:value="userData.fee_money_customer"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -556,7 +556,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.money"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -573,7 +573,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.money_drawal"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -590,7 +590,7 @@
                                                             <div>
                                                                 <VueNumberFormat :class="'form-control'"
                                                                     v-model:value="detail.group_bill"
-                                                                    :options="{ precision: 3, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 3, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -708,7 +708,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly disabled :class="'form-control'"
                                                     v-model:value="userDataShow.money_withdrawal"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -720,7 +720,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly disabled :class="'form-control'" v-model:value="userDataShow.fee_ship"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -731,7 +731,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly disabled :class="'form-control'" v-model:value="userDataShow.fee_user"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -744,7 +744,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly disabled :class="'form-control'"
                                                     v-model:value="userDataShow.fee_customer"
-                                                    :options="{ precision: 2, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -757,7 +757,7 @@
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly disabled :class="'form-control'"
                                                     v-model:value="userDataShow.fee_money_customer"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
@@ -814,7 +814,7 @@
                                                             <div>
                                                                 <VueNumberFormat readonly disabled :class="'form-control'"
                                                                     v-model:value="detail.money"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -831,7 +831,7 @@
                                                             <div>
                                                                 <VueNumberFormat readonly disabled :class="'form-control'"
                                                                     v-model:value="detail.money_drawal"
-                                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>
@@ -848,7 +848,7 @@
                                                             <div>
                                                                 <VueNumberFormat readonly disabled :class="'form-control'"
                                                                     v-model:value="detail.group_bill"
-                                                                    :options="{ precision: 3, prefix: '', suffix: ' ', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
+                                                                    :options="{ precision: 3, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                                 </VueNumberFormat>
                                                             </div>
                                                         </div>

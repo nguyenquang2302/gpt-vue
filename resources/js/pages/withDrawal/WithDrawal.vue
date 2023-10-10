@@ -527,7 +527,7 @@
                                                 <div class="col-md-10">
                                                     <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span>
                                                         &nbsp;
-                                                        <button type="button">NTDH {{userData.id}} {{userData.customer_id}} </button>
+                                                        <button type="button" @click="copyText('NTDH '+userData.id+' '+userData.customer_id)">NTDH {{userData.id}} {{userData.customer_id}} </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 text-right"> 
@@ -787,7 +787,7 @@
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }} &nbsp;</span>
-                                                        <button type="button"  >NTDH {{userDataShow.id}} {{userDataShow.customer_id}} </button>
+                                                        <button type="button"  @click="copyText('NTDH '+userDataShow.id+' '+userDataShow.customer_id)"  >NTDH {{userDataShow.id}} {{userDataShow.customer_id}} </button>
 
                                                     </div>
                                                 </div>
@@ -936,6 +936,29 @@ const formatPrice = (value) => {
     const val = (value / 1).toFixed(0).replace(',', '.')
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 };
+
+const copyText = (text) => {
+        const storage = document.createElement('input');
+        storage.setAttribute('type', 'text')
+        // storage.setAttribute('value', text)
+        document.body.appendChild(storage)
+        storage.value = text;
+        storage.select();
+        storage.setSelectionRange(0, 99999);
+
+        storage.focus();
+        try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        alert('Copied ' + text);
+        } catch (err) {
+        alert('Oops, unable to copy');
+        }
+        /* unselect the range */
+        document.body.removeChild(storage);
+        window.getSelection().removeAllRanges()
+};
+
 
 const headers: Header[] = [
     { text: "ID", value: "id", sortable: true },

@@ -198,7 +198,7 @@ class BankLogsCheck extends Command
                                             $bankLogs->save();
                                             $dataCreateTrans['name'] = 'Nạp tiền đáo hạn: ' . $customer->name . ' - ' . $customer->id;
                                             $dataCreateTrans['type'] = 2;
-                                            $dataCreateTrans['note'] = '<a href="' . route('admin.withdrawal.show', ['withdrawal' => $withdrawal->id]) . '">' . $description[0] . '</a>';
+                                            $dataCreateTrans['note'] =  $description[0];
                                             $dataCreateTrans['fund_category_id'] = 4; // Nạp tiền đáo hạn
                                             $dataCreateTrans['debitAmount'] = $withdrawalDetail->money;
                                             $dataCreateTrans['user_id'] = $user->id;
@@ -272,7 +272,7 @@ class BankLogsCheck extends Command
 
                                                 $dataCreateTrans['name'] = 'Chuyển khoản cho user:' . $customer->id;
                                                 $dataCreateTrans['type'] = 2;
-                                                $dataCreateTrans['note'] = '<a href="https://crm.giaiphapthe.com/admin/customerTransaction/' . $customerTransaction->id . '">URL</a>';
+                                                $dataCreateTrans['note'] = $customerTransaction->id ;
                                                 $dataCreateTrans['fund_category_id'] = 5; // Customer rút tiền
                                                 $dataCreateTrans['debitAmount'] = $data['debitAmount'];
                                                 $dataCreateTrans['user_id'] = $user->id;

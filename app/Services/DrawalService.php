@@ -236,15 +236,15 @@ class DrawalService extends BaseService
                     foreach ($data['details'] as $k => $detail) {
                         
                         $group_bill = explode('.', $detail['group_bill']);
-                        if($group_bill[0] <100)
-                        $group_bill[0] = ($group_bill[0]<100)?'00'.$group_bill[0]:$group_bill[0];
+                        if($group_bill[0] <10)
+                        $group_bill[0] = ($group_bill[0]<10)?'00'.$group_bill[0]:$group_bill[0];
                         else
-                        $group_bill[0] = ($group_bill[0]<10)?'0'.$group_bill[0]:$group_bill[0];
-                        if($group_bill[1] <100)
-                        $group_bill[1] = ($group_bill[1]<100)?'00'.$group_bill[1]:$group_bill[1];
+                        $group_bill[0] = ($group_bill[0]<100)?'0'.$group_bill[0]:$group_bill[0];
+                        if($group_bill[1] <10)
+                        $group_bill[1] = ($group_bill[1]<10)?'00'.$group_bill[1]:$group_bill[1];
                         else
-                        $group_bill[1] = ($group_bill[1]<10)?'0'.$group_bill[1]:$group_bill[1];
-                        
+                        $group_bill[1] = ($group_bill[1]<100)?'0'.$group_bill[1]:$group_bill[1];
+
                         $pos = Pos::find($detail['pos_id']);
                         $drawalDetail = new DrawalDetail();
                         $drawalDetail->pos_id = $detail['pos_id'];

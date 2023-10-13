@@ -243,7 +243,7 @@ class DrawalService extends BaseService
 
                         if((int)$group_bill[1] <10)
                         $group_bill[1] = ($group_bill[1]<10)?'00'.$group_bill[1]:$group_bill[1];
-                        else
+                        else if((int)$group_bill[1] <100)
                         $group_bill[1] = ($group_bill[1]<100)?'0'.$group_bill[1]:$group_bill[1];
 
                         $pos = Pos::find($detail['pos_id']);

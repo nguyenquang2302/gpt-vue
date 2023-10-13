@@ -236,6 +236,9 @@ class DrawalService extends BaseService
                     foreach ($data['details'] as $k => $detail) {
                         
                         $group_bill = explode('.', $detail['group_bill']);
+                        $group_bill[0] = ($group_bill[0]<100)?'0'.$group_bill[0]:$group_bill[0];
+                        $group_bill[0] = ($group_bill[0]<10)?'00'.$group_bill[0]:$group_bill[0];
+
                         $group_bill[1] = ($group_bill[1]<100)?'0'.$group_bill[1]:$group_bill[1];
                         $group_bill[1] = ($group_bill[1]<10)?'00'.$group_bill[1]:$group_bill[1];
                         $pos = Pos::find($detail['pos_id']);

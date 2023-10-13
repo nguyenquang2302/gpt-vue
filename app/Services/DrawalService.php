@@ -240,6 +240,8 @@ class DrawalService extends BaseService
                         $group_bill[0] = ($group_bill[0]<10)?'00'.$group_bill[0]:$group_bill[0];
                         else
                         $group_bill[0] = ($group_bill[0]<100)?'0'.$group_bill[0]:$group_bill[0];
+                        
+                        $group_bill[1] = (int)$group_bill[1];
 
                         if((int)$group_bill[1] <10)
                         $group_bill[1] = ($group_bill[1]<10)?'00'.$group_bill[1]:$group_bill[1];

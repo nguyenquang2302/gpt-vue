@@ -424,8 +424,8 @@ class DashboardController
         
         $data['now'] = Carbon::now();
         if ($request->from && $request->to) {
-            $data['from'] =  $from = Carbon::parse($request->get('0'));
-            $data['to'] =  $to = Carbon::parse($request->get('1'));
+            $data['from'] =  $from = Carbon::parse($request->get('from'));
+            $data['to'] =  $to = Carbon::parse($request->get('to'));
         } else if($case = $request->get('3')) {
             switch ($case) {
                 case 'toDay':
@@ -474,6 +474,9 @@ class DashboardController
             $data['from'] =  $from = Carbon::now();
             $data['to'] =  $to = Carbon::now();
         }
+
+        $data['from'] = $data['from']->startOfDay();
+        $data['to'] =  $data['to']->endOfDay();
 
         $data['thu_chi'] = BankLog::where('isChecked', 1)->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->where('content_fix', 'THUCHI')->sum('debitAmount');
         $data['users'] = User::where('activeBank',true)->get();

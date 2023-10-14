@@ -37,9 +37,14 @@
                                     </div>
                                     <br>
                                     <div class="row customize-row" v-show="hideForm"  >
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
                                             <div class="form-group" >
-                                                <flat-pickr v-model="times" :config="config"/>
+                                                <flat-pickr v-model="from" :config="config"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group" >
+                                                <flat-pickr v-model="to" :config="config"/>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -311,6 +316,8 @@ const formatDate = (date) => {
     return moment(date).format("DD/MM/YYYY");
 }
 const times = ref({ '0': '', '1': '', '2': '' })
+const from = ref()
+const to = ref()
 const userLogin = JSON.parse(localStorage.getItem('user'))
 const  hideForm = ref(false)
 
@@ -320,13 +327,16 @@ const useStore = useGlobalListStore()
 const globalStore = useGlobalStore()
 
 const setTimes = (time) => {
-        times.value[0] = '';
-        times.value[1] = '';
-        times.value[3] = time;
-        fetchAll()
-    };
+    times.value[0] = '';
+    times.value[1] = '';
+    times.value[3] = time;
+    fetchAll()
+};
+
 const fetchAll = () => {
     loading.value = true;
+    times.value['from'] = from.value
+    times.value['to'] = to.value
     useStore.fetchGlobalDetails(times.value).then(({ data }) => {
         items.value = data.data
         loading.value = false

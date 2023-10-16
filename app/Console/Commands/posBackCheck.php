@@ -52,12 +52,13 @@ class posBackCheck extends Command
             }
             $now = Carbon::now();
             $caculator_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
+            
             $activitiposBack = settings()->get('activitiposBack',false);
             if(!$activitiposBack ) {
                 return;
             }
 
-            if ($caculator_minutes >= 4) {
+            if ($caculator_minutes >= 0) {
                 settings()->set([
                     'time_check_pos_back' => Carbon::now()
                 ]);
@@ -66,15 +67,17 @@ class posBackCheck extends Command
                     'activitiposBack' => false
                 ]);
                 DB::beginTransaction();
-
+                die('a');
                 $users = User::where('autoPosBack',1)->whereHas('pos')->with('pos')->get();
                 foreach ($users as $user) {
                     
                     foreach ($user->pos as $p) {
-                        $posConsignments = $p->posConsignment()->where('isDone',0)->orderBy('id','asc')->get();
+                        $posConsignments = $p->posConsignment()->orderBy('id','asc')->get();
                         foreach ($posConsignments  as $posConsignment) {
                             
                             if ($posConsignment->getMoneyBack() == $posConsignment->getTotalMoney()) {
+                                $posConsignment->total_pos = $posConsignment->getTotalMoney();
+                                $posConsignment->money = $posConsignment->getTotalMoney();
                                 $posConsignment->isDone = 1;
                                 $posConsignment->save();
                             
@@ -90,8 +93,15 @@ class posBackCheck extends Command
                                     if($lastest->money_after > $money_need_back) {
                                         $money_back = $money_need_back;
                                         $posConsignment->isDone = 1;
+                                        $posConsignment->total_pos = $posConsignment->getTotalMoney();
+                                        $posConsignment->money = $posConsignment->getTotalMoney();
                                         $posConsignment->save();
                                     } else {
+
+                                        $posConsignment->total_pos = $posConsignment->getTotalMoney();
+                                        $posConsignment->money += $lastest->money_after;
+                                        $posConsignment->save();
+
                                         $money_back = $lastest->money_after;
                                     }
                                     PosBack::create([

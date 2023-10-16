@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('pos_consignments', function (Blueprint $table) {
             $table->double('money')->nullable()->default(0);
             $table->double('total_pos')->nullable()->default(0);
-
         });
     }
 
@@ -24,10 +23,6 @@ return new class extends Migration
     public function down(): void
     {
 
-    Schema::create('customers', function (Blueprint $table) {
-        $table->dropColumn('pos_consignments');
-        
-    });
-        //
+     
     }
 };

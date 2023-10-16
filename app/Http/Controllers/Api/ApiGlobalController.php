@@ -22,7 +22,7 @@ class ApiGlobalController
 
     public function listPos()
     {
-        $pos = Pos::all();
+        $pos = Pos::where('active',1)->all();
 
         return response()->json($pos, Response::HTTP_OK);
     }

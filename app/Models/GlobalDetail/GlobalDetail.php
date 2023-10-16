@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Models\PosConsignment;
+namespace App\Models\GlobalDetail;
 
-use App\Models\PosConsignment\PosConsignmentAttribute;
-use App\Models\PosConsignment\PosConsignmentMethod;
-use App\Models\PosConsignment\PosConsignmentRelationship;
-use App\Models\PosConsignment\PosConsignmentScope;
+use App\Models\GlobalDetail\GlobalDetailAttribute;
+use App\Models\GlobalDetail\GlobalDetailMethod;
+use App\Models\GlobalDetail\GlobalDetailRelationship;
+use App\Models\GlobalDetail\GlobalDetailScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User.
  */
-class PosConsignment extends Model
+class GlobalDetail extends Model
 {
-    protected $table = "pos_consignments";
+    protected $table = "global_details";
     use 
         SoftDeletes,
-        PosConsignmentAttribute,
-        PosConsignmentMethod,
+        GlobalDetailAttribute,
+        GlobalDetailMethod,
 
-        PosConsignmentRelationship,
-        PosConsignmentScope;
+        GlobalDetailRelationship,
+        GlobalDetailScope;
 
 
     /**
@@ -30,12 +30,13 @@ class PosConsignment extends Model
      * @var array
      */
     protected $fillable = [
-        'pos_id',
-        'lo',
-        'isDone',
-        'active',
-        'money',
-        'total_pos'
+        'totalTransactions',
+        'totalDrawals',
+        'totalCustomerNew',
+        'fee_ship',
+        'expense',
+        'totalProfit',
+        'perDay',
     ];
 
     /**
@@ -50,6 +51,7 @@ class PosConsignment extends Model
      * @var array
      */
     protected $dates = [
+        'perDay'
     ];
 
     /**

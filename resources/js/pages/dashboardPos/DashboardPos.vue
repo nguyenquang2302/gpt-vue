@@ -41,16 +41,21 @@
                                     </div>
                                     <br>
                                     <div class="row customize-row" v-show="hideForm"  bis_skin_checked="1">
-                                        <div class="col-md-8">
-                                            <div class="form-group" bis_skin_checked="1">
-                                                <flat-pickr v-model="times" :config="config"/>
+                                        <div class="col-md-4">
+                                            <div class="form-group" >
+                                                <flat-pickr v-model="from" :config="config"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group" >
+                                                <flat-pickr v-model="to" :config="config"/>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <button class="btn btn-sm btn-primary" @click="fetchAll()" type="submit">Lọc</button>
                                         </div>
                                     </div>
-                                <div v-if="items.statisticals && !loading">
+                                <div v-if="items.status && !loading">
                                     <hr>
                                     <h3 class="mx-2 my-5 text-center"> ALL</h3>
                                     <div>
@@ -60,7 +65,20 @@
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
                                                         <span class="info-box-text">Đã về</span>
-                                                        <span class="info-box-number">{{ number_format(items.statisticals.pos_back_money) }}</span>
+                                                        <span class="info-box-number">{{ number_format(items.total) }}</span>
+                                                        <div class="progress" >
+                                                            <div class="progress-bar" style="width: 70%" ></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-12">
+                                                <div class="info-box bg-warning" >
+                                                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+                                                    <div class="info-box-content" >
+                                                        <span class="info-box-text">Đã về</span>
+                                                        <span class="info-box-number">{{ number_format(items.pos_back_money) }}</span>
                                                         <div class="progress" >
                                                             <div class="progress-bar" style="width: 70%" ></div>
                                                         </div>
@@ -73,7 +91,7 @@
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
                                                         <span class="info-box-text">Chưa về</span>
-                                                        <span class="info-box-number">{{ number_format(items.statisticals.money_not_back_yet) }}</span>
+                                                        <span class="info-box-number">{{ number_format(items.total - items.pos_back_money) }}</span>
                                                         <div class="progress" >
                                                             <div class="progress-bar" style="width: 70%" ></div>
                                                         </div>
@@ -84,10 +102,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div  v-if="items.statisticals && !loading" v-for="(detail, loop) in items.all_pos">
+                                <div  v-if="items.status && !loading" v-for="(detail, loop) in items.all_pos">
                                     <hr>
                                     <h3 class="text-center mx-2 my-5">{{ detail.name }}</h3>
                                     <div class="row">
+                                        <div class="col-lg-4 col-12">
+                                            <div class="info-box bg-warning" >
+                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+                                                <div class="info-box-content" >
+                                                    <span class="info-box-text">Tổng</span>
+                                                    <span class="info-box-number">{{ number_format(detail.total) }}</span>
+                                                    <div class="progress" >
+                                                        <div class="progress-bar" style="width: 70%" ></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                         <div class="col-lg-4 col-12">
                                             <div class="info-box bg-warning" >
                                                 <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
@@ -106,7 +137,7 @@
                                                 <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                 <div class="info-box-content" >
                                                     <span class="info-box-text">Chưa về</span>
-                                                    <span class="info-box-number">{{ number_format(detail.money_not_back_yet) }}</span>
+                                                    <span class="info-box-number">{{ number_format(detail.total - detail.pos_back_money) }}</span>
                                                     <div class="progress" >
                                                         <div class="progress-bar" style="width: 70%" ></div>
                                                     </div>
@@ -115,49 +146,6 @@
                                             </div>
                                         </div>
                                       
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-12">
-                                            <div class="info-box bg-success" >
-                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                <div class="info-box-content" >
-                                                    <span class="info-box-text">Rút [Rút tiền]</span>
-                                                    <span class="info-box-number">{{ number_format(detail.drawal_statisticals.money) }}</span>
-                                                    <div class="progress" >
-                                                        <div class="progress-bar" style="width: 70%" ></div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                      
-                                        <div class="col-lg-4 col-12">
-                                            <div class="info-box bg-info" >
-                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                <div class="info-box-content" >
-                                                    <span class="info-box-text">RÚT [Đáo hạn]</span>
-                                                    <span class="info-box-number">{{ number_format(detail.statisticals.money_drawal) }}</span>
-                                                    <div class="progress" >
-                                                        <div class="progress-bar" style="width: 70%" ></div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-12">
-                                            <div class="info-box bg-pink" >
-                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                <div class="info-box-content" >
-                                                    <span class="info-box-text">PHÍ [Ngân hàng]</span>
-                                                    <span class="info-box-number">{{ number_format(detail.statisticals.fee_bank_money+detail.drawal_statisticals.fee_bank_money) }}</span>
-                                                    <div class="progress" >
-                                                        <div class="progress-bar" style="width: 70%" ></div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -206,6 +194,8 @@ const formatDate = (date) => {
     return moment(date).format("DD/MM/YYYY");
 }
 const times = ref({ '0': '', '1': '', '2': '' })
+const from = ref()
+const to = ref()
 const userLogin = JSON.parse(localStorage.getItem('user'))
 const  hideForm = ref(false)
 
@@ -222,6 +212,8 @@ const setTimes = (time) => {
     };
 const fetchAll = () => {
     loading.value = true;
+    times.value['from'] = from.value
+    times.value['to'] = to.value
     useStore.fetchDashboardPos(times.value).then(({ data }) => {
         items.value = data.data
         loading.value = false

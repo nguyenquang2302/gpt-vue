@@ -10,6 +10,7 @@ use App\Models\CustomerTransaction\CustomerTransaction;
 use App\Models\Drawal\Drawal;
 use App\Models\DrawalDetail\DrawalDetail;
 use App\Models\Expense\Expense;
+use App\Models\GlobalDetail\GlobalDetail;
 use App\Models\Pos\Pos;
 use App\Models\Users\User;
 use App\Models\Withdrawal\Withdrawal;
@@ -29,8 +30,8 @@ class DashboardController
 
         $active = 1;
         if ($request->from && $request->to) {
-            $data['from'] =  $from = Carbon::parse($request->get('0'));
-            $data['to'] =  $to = Carbon::parse($request->get('1'));
+            $data['from'] =  $from = Carbon::parse($request->get('from'));
+            $data['to'] =  $to = Carbon::parse($request->get('to'));
         } else if($case = $request->get('3')) {
             switch ($case) {
                 case 'toDay':
@@ -290,10 +291,81 @@ class DashboardController
 
     public function dashboardPos(DashboardRequest $request)
     {
+
         $data['now'] = Carbon::now();
         if ($request->from && $request->to) {
-            $data['from'] =  $from = Carbon::parse($request->get('0'));
-            $data['to'] =  $to = Carbon::parse($request->get('1'));
+            $data['from'] =  $from = Carbon::parse($request->get('from'));
+            $data['to'] =  $to = Carbon::parse($request->get('to'));
+        } else if($case = $request->get('3')) {
+            switch ($case) {
+                case 'toDay':
+                    $data['from'] =  $from = Carbon::now();
+                    $data['to'] =  $to = Carbon::now();
+                    break;
+                case 'tomorrow':
+                        $data['from'] =  $from = Carbon::now()->subDay();
+                        $data['to'] =  $to = Carbon::now()->subDay();
+                        break;
+                case 'sub7Day':
+                        $data['from'] =  $from = Carbon::now()->subDays(7);
+                        $data['to'] =  $to = Carbon::now();
+                        break;
+                case 'sub14Day':
+                        $data['from'] =  $from = Carbon::now()->subDays(14);
+                        $data['to'] =  $to = Carbon::now();
+                        break;
+                case 'sub30Day':
+                        $data['from'] =  $from = Carbon::now()->subDays(30);
+                        $data['to'] =  $to = Carbon::now();
+                        break;
+                case 'thisWeek':
+                        $data['from'] =  $from = Carbon::now()->startOfWeek();
+                        $data['to'] =  $to = Carbon::now()->endOfWeek();
+                        break;
+                case 'lastWeek':
+                        $data['from'] =  $from = Carbon::now()->subWeek()->startOfWeek();
+                        $data['to'] =  $to = Carbon::now()->subWeek()->endOfWeek();
+                        break;
+                case 'thisMonth':
+                        $data['from'] =  $from = Carbon::now()->startOfMonth();
+                        $data['to'] =  $to = Carbon::now()->endOfMonth();
+                        break;
+                case 'lastMonth':
+                        $data['from'] =  $from = Carbon::now()->subMonth()->startOfMonth();
+                        $data['to'] =  $to = Carbon::now()->subMonth()->endOfMonth();
+                        break;
+                default:
+                    $data['from'] =  $from = Carbon::now();
+                    $data['to'] =  $to = Carbon::now();
+                    break;
+            }
+        }
+        else {
+            $data['from'] =  $from = Carbon::now();
+            $data['to'] =  $to = Carbon::now();
+        }
+
+        // $data['all_pos'] = Pos::with(['posConsignment' => function ($query) use ($from, $to) { 
+            $data['all_pos'] = Pos::where('active',true)->with(['posConsignment' => function ($query) use ($from, $to) { 
+            // $query->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"]);
+        }])->get();
+        $data['total'] = 0;
+        $data['pos_back_money'] = 0;
+        foreach($data['all_pos'] as $pos) {
+            $data['pos_back_money']+= $pos->pos_back_money = $pos->posConsignment->sum('money');
+            $data['total'] += $pos->total = $pos->posConsignment->sum('total_pos');
+        }
+        $data['status']   =true;
+        return response([
+            'data' =>  $data,
+            'message' => 'Danh sách thành công'
+        ], Response::HTTP_OK);
+
+
+        $data['now'] = Carbon::now();
+        if ($request->from && $request->to) {
+            $data['from'] =  $from = Carbon::parse($request->get('from'));
+            $data['to'] =  $to = Carbon::parse($request->get('to'));
         } else if($case = $request->get('3')) {
             switch ($case) {
                 case 'toDay':
@@ -474,6 +546,123 @@ class DashboardController
             $data['from'] =  $from = Carbon::now();
             $data['to'] =  $to = Carbon::now();
         }
+        $globalDetails = GlobalDetail::whereBetween('perDay', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"])->get();
+        $data['totalTransactions'] = $globalDetails->sum('totalTransactions');
+        $data['totalDrawals'] = $globalDetails->sum('totalDrawals');
+        $data['totalCustomerNew'] = $globalDetails->sum('totalCustomerNew');
+        $data['fee_ship'] = $globalDetails->sum('fee_ship');
+        $data['expense'] = $globalDetails->sum('expense');
+        $data['totalProfit'] = $globalDetails->sum('totalProfit');
+        $data['status'] = true;
+        
+        if($data['to']>=$data['now'])
+        {
+                $drawals = Drawal::whereBetween('datetime', [$data['now']->format('Y-m-d') . " 00:00:00", $data['now']->format('Y-m-d') . " 23:59:59"])->with('details')->where('isDone', 1)->get();
+
+                $withDrawals = Withdrawal::whereBetween('datetime', [$data['now']->format('Y-m-d') . " 00:00:00", $data['now']->format('Y-m-d') . " 23:59:59"])->with('withdrawalDetail')->where('isDone', 1)->get();
+                
+                $totalTransactions = $drawals->count() + $withDrawals->count();
+                $totalDrawals = 0;
+                $totalProfit = 0;
+                $fee_ship = 0;
+                $expense = 0;
+
+
+                $expense = Expense::whereBetween('created_at', [$data['now']->format('Y-m-d') . " 00:00:00", $data['now']->format('Y-m-d') . " 23:59:59"])->sum('debitAmount');
+                $expense -= Expense::whereBetween('created_at', [$data['now']->format('Y-m-d') . " 00:00:00", $data['now']->format('Y-m-d') . " 23:59:59"])->sum('creditAmount');
+                $totalCustomerNew = Customer::whereBetween('created_at', [$data['now']->format('Y-m-d') . " 00:00:00", $data['now']->format('Y-m-d') . " 23:59:59"])->count();
+                
+                foreach($drawals as  $drawal) {
+                    foreach($drawal->details as $detail) {
+                        $totalDrawals +=  $detail->money;
+                        $totalProfit += $detail->profit;
+                    }
+                    
+                    $fee_ship += $drawal->fee_ship;
+                }
+
+
+                foreach($withDrawals as  $withDrawal) {
+
+                    foreach($withDrawal->withdrawalDetail as $detail) {
+                        $totalDrawals +=  $detail->money_drawal;
+                        $totalProfit += $detail->profit;
+                    }
+                    $fee_ship += $drawal->fee_ship;
+                }
+
+                $data['totalTransactions'] += $totalTransactions;
+                $data['totalDrawals'] += $totalDrawals;
+                $data['totalCustomerNew'] += $totalCustomerNew;
+                $data['fee_ship'] += $fee_ship;
+                $data['expense'] += $expense;
+                $data['totalProfit'] += $totalProfit;
+
+            }
+
+        return response([
+            'data' =>  $data,
+            'message' => 'Danh sách thành công'
+        ], Response::HTTP_OK);
+
+
+
+        // 
+        $data['now'] = Carbon::now();
+        if ($request->from && $request->to) {
+            $data['from'] =  $from = Carbon::parse($request->get('from'));
+            $data['to'] =  $to = Carbon::parse($request->get('to'));
+        } else if($case = $request->get('3')) {
+            switch ($case) {
+                case 'toDay':
+                    $data['from'] =  $from = Carbon::now();
+                    $data['to'] =  $to = Carbon::now();
+                    break;
+                case 'tomorrow':
+                        $data['from'] =  $from = Carbon::now()->subDay();
+                        $data['to'] =  $to = Carbon::now()->subDay();
+                        break;
+                case 'sub7Day':
+                        $data['from'] =  $from = Carbon::now()->subDays(7);
+                        $data['to'] =  $to = Carbon::now();
+                        break;
+                case 'sub14Day':
+                        $data['from'] =  $from = Carbon::now()->subDays(14);
+                        $data['to'] =  $to = Carbon::now();
+                        break;
+                case 'sub30Day':
+                        $data['from'] =  $from = Carbon::now()->subDays(30);
+                        $data['to'] =  $to = Carbon::now();
+                        break;
+                case 'thisWeek':
+                        $data['from'] =  $from = Carbon::now()->startOfWeek();
+                        $data['to'] =  $to = Carbon::now()->endOfWeek();
+                        break;
+                case 'lastWeek':
+                        $data['from'] =  $from = Carbon::now()->subWeek()->startOfWeek();
+                        $data['to'] =  $to = Carbon::now()->subWeek()->endOfWeek();
+                        break;
+                case 'thisMonth':
+                        $data['from'] =  $from = Carbon::now()->startOfMonth();
+                        $data['to'] =  $to = Carbon::now()->endOfMonth();
+                        break;
+                case 'lastMonth':
+                        $data['from'] =  $from = Carbon::now()->subMonth()->startOfMonth();
+                        $data['to'] =  $to = Carbon::now()->subMonth()->endOfMonth();
+                        break;
+                default:
+                    $data['from'] =  $from = Carbon::now();
+                    $data['to'] =  $to = Carbon::now();
+                    break;
+            }
+        }
+        else {
+            $data['from'] =  $from = Carbon::now();
+            $data['to'] =  $to = Carbon::now();
+        }
+
+
+        
 
         $data['from'] = $data['from']->startOfDay();
         $data['to'] =  $data['to']->endOfDay();

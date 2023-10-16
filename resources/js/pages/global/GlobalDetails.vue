@@ -51,7 +51,7 @@
                                             <button class="btn btn-sm btn-primary" @click="fetchAll()" type="submit">Lọc</button>
                                         </div>
                                     </div>
-                                <div v-if="items.statisticals && !loading">
+                                <div v-if="items.status && !loading">
                                     <hr>
                                     <h3 class="mx-2 my-5 text-center"> ALL</h3>
                                     <div>
@@ -75,7 +75,7 @@
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
                                                         <span class="info-box-text">Tổng Rút</span>
-                                                        <span class="info-box-number">{{ number_format(items.statisticals.drawal.money + items.statisticals.withdrawal.money_drawal) }}</span>
+                                                        <span class="info-box-number">{{ number_format(items.totalDrawals) }}</span>
                                                         <div class="progress" >
                                                             <div class="progress-bar" style="width: 70%" ></div>
                                                         </div>
@@ -84,33 +84,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-12">
-                                                <div class="info-box bg-success" >
-                                                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                    <div class="info-box-content" >
-                                                        <span class="info-box-text">Chuyển khoản KH</span>
-                                                        <span class="info-box-number">{{ number_format(items.total_ckrt_comfirm +items.statisticals.withdrawal.money) }}</span>
-                                                        <div class="progress" >
-                                                            <div class="progress-bar" style="width: 70%" ></div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-12">
-                                                <div class="info-box bg-warning" >
-                                                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                    <div class="info-box-content" >
-                                                        <span class="info-box-text">Tổng khách hàng</span>
-                                                        <span class="info-box-number">{{ number_format(items.totalCustomer) }}</span>
-                                                        <div class="progress" >
-                                                            <div class="progress-bar" style="width: 70%" ></div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
                                             <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-warning" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
@@ -144,7 +117,7 @@
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
                                                     <div class="info-box-content" >
                                                         <span class="info-box-text">CHI PHÍ</span>
-                                                        <span class="info-box-number">{{ number_format(items.thu_chi) }}</span>
+                                                        <span class="info-box-number">{{ number_format(items.expense) }}</span>
                                                         <div class="progress" >
                                                             <div class="progress-bar" style="width: 70%" ></div>
                                                         </div>
@@ -153,33 +126,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-12">
-                                                <div class="info-box bg-info" >
-                                                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                    <div class="info-box-content" >
-                                                        <span class="info-box-text">ĐÃ VỀ</span>
-                                                        <span class="info-box-number">{{ number_format(items.statisticals.pos_back_money) }}</span>
-                                                        <div class="progress" >
-                                                            <div class="progress-bar" style="width: 70%" ></div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-12">
-                                                <div class="info-box bg-info" >
-                                                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                    <div class="info-box-content" >
-                                                        <span class="info-box-text">Chưa về</span>
-                                                        <span class="info-box-number">{{ number_format(items.statisticals.money_not_back_yet) }}</span>
-                                                        <div class="progress" >
-                                                            <div class="progress-bar" style="width: 70%" ></div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
                                             <div class="col-lg-4 col-12">
                                                 <div class="info-box bg-info" >
                                                     <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
@@ -192,82 +138,6 @@
                                                     </div>
 
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div  v-if="items.statisticals && !loading" v-for="(detail, loop) in items.all_pos">
-                                    <hr>
-                                    <h3 class="text-center mx-2 my-5">{{ detail.name }}</h3>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-12">
-                                            <div class="info-box bg-warning" >
-                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                <div class="info-box-content" >
-                                                    <span class="info-box-text">Đã về</span>
-                                                    <span class="info-box-number">{{ number_format(detail.pos_back_money) }}</span>
-                                                    <div class="progress" >
-                                                        <div class="progress-bar" style="width: 70%" ></div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-12">
-                                            <div class="info-box bg-danger" >
-                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                <div class="info-box-content" >
-                                                    <span class="info-box-text">Chưa về</span>
-                                                    <span class="info-box-number">{{ number_format(detail.money_not_back_yet) }}</span>
-                                                    <div class="progress" >
-                                                        <div class="progress-bar" style="width: 70%" ></div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                      
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-12">
-                                            <div class="info-box bg-success" >
-                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                <div class="info-box-content" >
-                                                    <span class="info-box-text">Rút [Rút tiền]</span>
-                                                    <span class="info-box-number">{{ number_format(detail.drawal_statisticals.money_drawal) }}</span>
-                                                    <div class="progress" >
-                                                        <div class="progress-bar" style="width: 70%" ></div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                      
-                                        <div class="col-lg-4 col-12">
-                                            <div class="info-box bg-info" >
-                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                <div class="info-box-content" >
-                                                    <span class="info-box-text">RÚT [Đáo hạn]</span>
-                                                    <span class="info-box-number">{{ number_format(detail.statisticals.money_drawal) }}</span>
-                                                    <div class="progress" >
-                                                        <div class="progress-bar" style="width: 70%" ></div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-12">
-                                            <div class="info-box bg-pink" >
-                                                <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-                                                <div class="info-box-content" >
-                                                    <span class="info-box-text">PHÍ [Ngân hàng]</span>
-                                                    <span class="info-box-number">{{ number_format(detail.statisticals.fee_bank_money+detail.drawal_statisticals.fee_bank_money) }}</span>
-                                                    <div class="progress" >
-                                                        <div class="progress-bar" style="width: 70%" ></div>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>

@@ -588,7 +588,7 @@ class DashboardController
                         $totalDrawals +=  $detail->money_drawal;
                         $totalProfit += $detail->profit;
                     }
-                    $fee_ship += $drawal->fee_ship;
+                    $fee_ship += $withDrawal->fee_ship;
                 }
 
                 $data['totalTransactions'] += $totalTransactions;

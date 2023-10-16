@@ -81,8 +81,8 @@ class caculatorTotal extends Command
         $total_banklogs_credit = BankLog::where('isChecked',0)->sum('creditAmount');
         $data['customer_cart_save'] = CustomerCard::where('save',1)->count();
 
-        $data['total_money_plus'] = Customer::where('money','>',0)->where('type',1)->sum('money');
-        $data['total_money_minus'] = Customer::where('money','<',0)->where('type',1)->sum('money');
+        $data['total_money_plus'] = Customer::where('money','>',0)->where('type','!=',2)->sum('money');
+        $data['total_money_minus'] = Customer::where('money','<',0)->where('type','!=',2)->sum('money');
         $data['users'] = User::where('activeBank',true)->get();
         // $data['money_auth'] = -$data['total_money_minus'] - $data['total_money_plus']+$data['settings']->get('money_not_back_yet');
         $data['money_auth'] = $money_not_back_yet;

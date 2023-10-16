@@ -72,69 +72,60 @@ class posBackCheck extends Command
                     
                     foreach ($user->pos as $p) {
                         $posConsignments = $p->posConsignment()->orderBy('id','asc')->get();
+                        
                         foreach ($posConsignments  as $posConsignment) {
+                            
+                            if ($posConsignment->getMoneyBack() == $posConsignment->getTotalMoney()) {
+                                $posConsignment->isDone = 1;
+                                // $posConsignment->save();
+                            
+                            } if($posConsignment->getMoneyBack() > $posConsignment->getTotalMoney()) {
+                                //  chưa xử lý
+                            }
+                            else {
+                                $lastest = FundTransaction::where('user_id', $user->id)->latest('id')->first();
+                                
+                                if ($lastest && $lastest->money_after > 0) {
+                                    $money_need_back =  $posConsignment->getTotalMoney() - $posConsignment->getMoneyBack();
+                                
+                                    if($lastest->money_after > $money_need_back) {
+                                        $money_back = $money_need_back;
+                                        $posConsignment->isDone = 1;
+                                        // $posConsignment->save();
+                                    } else {
+                                        $money_back = $lastest->money_after;
+                                    }
+                                    PosBack::create([
+                                        'name' => 'Auto add posBack Lô:'.$posConsignment->lo,
+                                        'money' => $money_back,
+                                        'pos_id' => $p->id,
+                                        'note' => 'Tự động chia tiền pos',
+                                        'lo' => $posConsignment->lo,
+                                        'active' => 1,
+                                    ]);
+
+                                    $dataCreateTrans['name'] = 'Nạp tiền pos:' . $p->name;
+                                    $dataCreateTrans['type'] = 2;
+                                    $dataCreateTrans['note'] = 'Auto tiền về pos :'.$p->name.' || lô: '.$posConsignment->lo;
+                                    $dataCreateTrans['fund_category_id'] = 3; //
+                                    $dataCreateTrans['debitAmount'] = $money_back;
+                                    $dataCreateTrans['user_id'] = $user->id;
+
+                                    $fundTransaction =  new FundTransaction();
+                                    $fundTransactionService = new FundTransactionService($fundTransaction);
+                                    $fundTransactionService->store($dataCreateTrans);
+
+                                } else {
+                                    $posConsignment->isDone = 0;
+
+                                }
+                            }
+
                             $posConsignment->total_pos = $posConsignment->getTotalMoney();
                             $posConsignment->money = $posConsignment->getMoneyBack();
                             $posConsignment->save();
+                            
                         }
-                        // foreach ($posConsignments  as $posConsignment) {
-                            
-                        //     if ($posConsignment->getMoneyBack() == $posConsignment->getTotalMoney()) {
-                        //         $posConsignment->total_pos = $posConsignment->getTotalMoney();
-                        //         $posConsignment->money = $posConsignment->getTotalMoney();
-                        //         $posConsignment->isDone = 1;
-                        //         $posConsignment->save();
-                            
-                        //     } if($posConsignment->getMoneyBack() > $posConsignment->getTotalMoney()) {
-                        //         //  chưa xử lý
-                        //     }
-                        //     else {
-                        //         $lastest = FundTransaction::where('user_id', $user->id)->latest('id')->first();
-                                
-                        //         if ($lastest && $lastest->money_after > 0) {
-                        //             $money_need_back =  $posConsignment->getTotalMoney() - $posConsignment->getMoneyBack();
-                                
-                        //             if($lastest->money_after > $money_need_back) {
-                        //                 $money_back = $money_need_back;
-                        //                 $posConsignment->isDone = 1;
-                        //                 $posConsignment->total_pos = $posConsignment->getTotalMoney();
-                        //                 $posConsignment->money = $posConsignment->getTotalMoney();
-                        //                 $posConsignment->save();
-                        //             } else {
-
-                        //                 $posConsignment->total_pos = $posConsignment->getTotalMoney();
-                        //                 $posConsignment->money += $lastest->money_after;
-                        //                 $posConsignment->save();
-
-                        //                 $money_back = $lastest->money_after;
-                        //             }
-                        //             PosBack::create([
-                        //                 'name' => 'Auto add posBack Lô:'.$posConsignment->lo,
-                        //                 'money' => $money_back,
-                        //                 'pos_id' => $p->id,
-                        //                 'note' => 'Tự động chia tiền pos',
-                        //                 'lo' => $posConsignment->lo,
-                        //                 'active' => 1,
-                        //             ]);
-
-                        //             $dataCreateTrans['name'] = 'Nạp tiền pos:' . $p->name;
-                        //             $dataCreateTrans['type'] = 2;
-                        //             $dataCreateTrans['note'] = 'Auto tiền về pos :'.$p->name.' || lô: '.$posConsignment->lo;
-                        //             $dataCreateTrans['fund_category_id'] = 3; //
-                        //             $dataCreateTrans['debitAmount'] = $money_back;
-                        //             $dataCreateTrans['user_id'] = $user->id;
-
-                        //             $fundTransaction =  new FundTransaction();
-                        //             $fundTransactionService = new FundTransactionService($fundTransaction);
-                        //             $fundTransactionService->store($dataCreateTrans);
-
-                        //         } else {
-                        //             $posConsignment->total_pos = $posConsignment->getTotalMoney();
-                        //             $posConsignment->isDone = 0;
-                        //             $posConsignment->save();
-                        //         }
-                        //     }
-                        // }
                     }
                 }
             } catch (\Throwable $th) {

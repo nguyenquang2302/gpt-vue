@@ -52,12 +52,12 @@ class posBackCheck extends Command
             }
             $now = Carbon::now();
             $caculator_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
-            $activitiposBack = settings()->get('activitiposBack',false);
-            if(!$activitiposBack ) {
-                return;
-            }
+            // $activitiposBack = settings()->get('activitiposBack',false);
+            // if(!$activitiposBack ) {
+            //     return;
+            // }
 
-            if ($caculator_minutes >= 4) {
+            if ($caculator_minutes >= 0) {
                 settings()->set([
                     'time_check_pos_back' => Carbon::now()
                 ]);
@@ -71,7 +71,7 @@ class posBackCheck extends Command
                 foreach ($users as $user) {
                     
                     foreach ($user->pos as $p) {
-                        $posConsignments = $p->posConsignment()->orderBy('id','asc')->get();
+                        $posConsignments = $p->posConsignment()->where('isDone',0)->orderBy('id','asc')->get();
                         foreach ($posConsignments  as $posConsignment) {
                             
                             if ($posConsignment->getMoneyBack() == $posConsignment->getTotalMoney()) {
@@ -124,6 +124,7 @@ class posBackCheck extends Command
                                     $fundTransactionService->store($dataCreateTrans);
 
                                 } else {
+                                    $posConsignment->total_pos = $posConsignment->getTotalMoney();
                                     $posConsignment->isDone = 0;
                                     $posConsignment->save();
                                 }

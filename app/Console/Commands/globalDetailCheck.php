@@ -98,7 +98,7 @@ class globalDetailCheck extends Command
                         $totalDrawals +=  $detail->money_drawal;
                         $totalProfit += $detail->profit;
                     }
-                    $fee_ship += $drawal->fee_ship;
+                    $fee_ship += $withDrawal->fee_ship;
                 }
 
                 $globalDetail =  new GlobalDetail();

@@ -347,7 +347,7 @@ class DashboardController
 
         // $data['all_pos'] = Pos::with(['posConsignment' => function ($query) use ($from, $to) { 
             $data['all_pos'] = Pos::where('active',true)->with(['posConsignment' => function ($query) use ($from, $to) { 
-            // $query->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"]);
+            $query->whereBetween('created_at', [$from->format('Y-m-d') . " 00:00:00", $to->format('Y-m-d') . " 23:59:59"]);
         }])->get();
         $data['total'] = 0;
         $data['pos_back_money'] = 0;

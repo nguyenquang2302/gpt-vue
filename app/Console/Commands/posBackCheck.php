@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\FundTransaction\FundTransaction;
 use App\Models\PosBack\PosBack;
+use App\Models\PosConsignment\PosConsignment;
 use App\Models\Users\User;
 use App\Services\FundTransactionService;
 use Carbon\Carbon;
@@ -57,7 +58,7 @@ class posBackCheck extends Command
                 return;
             }
 
-            if ($caculator_minutes >= 4) {
+            if ($caculator_minutes >= 0) {
                 settings()->set([
                     'time_check_pos_back' => Carbon::now()
                 ]);
@@ -66,8 +67,16 @@ class posBackCheck extends Command
                     'activitiposBack' => false
                 ]);
                 DB::beginTransaction();
-
+                $PosConsignments = PosConsignment::where('isDone',0)->get();
+                foreach($PosConsignments as $PosConsignment)
+                {
+                    if ($PosConsignment->getMoneyBack() == $PosConsignment->getTotalMoney()) {
+                        $PosConsignment->isDone = 1;
+                        // $posConsignment->save();
+                    }
+                }
                 $users = User::where('autoPosBack',1)->whereHas('pos')->with('pos')->get();
+                
                 foreach ($users as $user) {
                     
                     foreach ($user->pos as $p) {

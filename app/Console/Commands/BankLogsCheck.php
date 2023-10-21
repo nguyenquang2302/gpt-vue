@@ -287,27 +287,7 @@ class BankLogsCheck extends Command
                                         }
                                     }
                                 } else if (!CustomerTransaction::where('refNo', $data['refNo'])->count()) {
-                                    // $bankLogs->isChecked = true;
-                                    // $bankLogs->content = $description[0];
-                                    // $bankLogs->isChecked = 1;
-                                    // $bankLogs->save();
-
-                                    // $customerTransaction->isBankChecked = 1;
-                                    // $customerTransaction->save();
-
-                                    // $dataCreateTrans['name'] = 'Chuyển khoản cho user:' . $customer->id;
-                                    // $dataCreateTrans['type'] = 2;
-                                    // $dataCreateTrans['note'] = '<a href="https://crm.giaiphapthe.com/admin/customerTransaction/' . $customerTransaction->id . '">URL</a>';
-                                    // $dataCreateTrans['fund_category_id'] = 5; // Customer rút tiền
-                                    // $dataCreateTrans['debitAmount'] = $data['debitAmount'];
-                                    // $dataCreateTrans['user_id'] = $user->id;
-                                    // $dataCreateTrans['bank_log_id'] = $bankLogs->id;
-                                    // $dataCreateTrans['refNo'] = $data['refNo'];
-
-                                    // $fundTransaction =  new FundTransaction();
-
-                                    // $fundTransactionService = new FundTransactionService($fundTransaction);
-                                    // $fundTransactionService->store($dataCreateTrans);
+                               
                                 }
                             }
                         }

@@ -70,6 +70,7 @@ class posBackCheck extends Command
                 $PosConsignments = PosConsignment::get();
                 foreach($PosConsignments as $PosConsignment)
                 {
+                    var_dump($PosConsignment->id);
                     if ((int)$PosConsignment->getMoneyBack() == (int)$PosConsignment->getTotalMoney()) {
                         $PosConsignment->isDone = 1;
                     }

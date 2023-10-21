@@ -70,7 +70,7 @@ class posBackCheck extends Command
                 $PosConsignments = PosConsignment::where('isDone',0)->get();
                 foreach($PosConsignments as $PosConsignment)
                 {
-                    if ($PosConsignment->getMoneyBack() == $PosConsignment->getTotalMoney()) {
+                    if ((int)$PosConsignment->getMoneyBack() == (int)$PosConsignment->getTotalMoney()) {
                         $PosConsignment->isDone = 1;
                         // $posConsignment->save();
                     }

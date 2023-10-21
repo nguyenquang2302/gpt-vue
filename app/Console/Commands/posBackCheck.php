@@ -67,13 +67,15 @@ class posBackCheck extends Command
                     'activitiposBack' => false
                 ]);
                 DB::beginTransaction();
-                $PosConsignments = PosConsignment::where('isDone',0)->get();
+                $PosConsignments = PosConsignment::get();
                 foreach($PosConsignments as $PosConsignment)
                 {
                     if ((int)$PosConsignment->getMoneyBack() == (int)$PosConsignment->getTotalMoney()) {
                         $PosConsignment->isDone = 1;
-                        // $posConsignment->save();
                     }
+                    $PosConsignment->total_pos = $PosConsignment->getTotalMoney();
+                    $PosConsignment->money = $PosConsignment->getMoneyBack();
+                    $PosConsignment->save();
                 }
                 $users = User::where('autoPosBack',1)->whereHas('pos')->with('pos')->get();
                 

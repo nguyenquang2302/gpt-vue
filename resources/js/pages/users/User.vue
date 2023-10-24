@@ -96,8 +96,9 @@
                                                 <label for="name" class="col-form-label">Tên POS</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.posName" :options="allBranchs" label="name"
-                                                    :reduce="branch => branch.id"></v-select>
+                                                <input type="text" v-model="userDataAddNew.posName" 
+                                                    class="form-control" placeholder="Tên POS" maxlength="255"
+                                                    required />
                                             </div>
                                         </div>
                                         <div class="form-group row" >
@@ -320,8 +321,9 @@
                                                 <label for="name" class="col-form-label">Tên POS</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.posName" :options="allBranchs" label="name"
-                                                    :reduce="branch => branch.id"></v-select>
+                                                <input type="text" v-model="userData.posName" 
+                                                    class="form-control" placeholder="Tên POS" maxlength="255"
+                                                    required />
                                             </div>
                                         </div>
                                         <div class="form-group row">

@@ -218,6 +218,7 @@
                                             </div>
                                         </div>
                                         <hr>
+                                        
                                         <div class="card-header">
                                             <div class="form-group row" >
                                                 <label for="name" class="col-md-4 col-form-label">Chi tiết đáo hạn</label>
@@ -523,6 +524,43 @@
                                         </div>
                                         <hr>
                                         <div class="card-header">
+                                            <div class="form-group row"  v-if="userData.customerCard">
+                                                <label for="name" class="col-md-12 col-form-label">Thông tin nạp tiền</label>
+                                                <div class="form-group row">
+                                                    <label for="name" class="col-md-4 col-form-label">Tên Chủ thẻ<span
+                                                            class="text-danger">(*)</span></label>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <input readonly disabled type="text" v-model="userData.customerCard.name" name="name" class="form-control"
+                                                            placeholder="Nhập tên gd" maxlength="100" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row" v-if="userData.customerCard.is_account">
+                                                    <label for="name" class="col-md-4 col-form-label">Số Tài khoản<span
+                                                            class="text-danger">(*)</span></label>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <label class="btn btn-info" readonly disabled  @click="copyText(userData.customerCard.account_number)" >{{ userData.customerCard.account_number }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" v-if="userData.customerCard.is_account == false">
+                                                    <label for="name" class="col-md-4 col-form-label">Số Thẻ<span
+                                                            class="text-danger">(*)</span></label>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <label class="btn btn-info" readonly disabled  @click="copyText(userData.customerCard.card_number)" >{{ userData.customerCard.card_number }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="card-header">
                                             <div class="form-group row" >
                                                 <label for="name" class="col-md-4 col-form-label">Chi tiết đáo hạn</label>
                                             </div>
@@ -784,11 +822,47 @@
                                         </div>
                                         <hr>
                                         <div class="card-header">
+                                            <div class="form-group row"  v-if="userDataShow.customerCard">
+                                                <label for="name" class="col-md-12 col-form-label">Thông tin nạp tiền</label>
+                                                <div class="form-group row">
+                                                    <label for="name" class="col-md-4 col-form-label">Tên Chủ thẻ<span
+                                                            class="text-danger">(*)</span></label>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <input readonly disabled type="text" v-model="userDataShow.customerCard.name" name="name" class="form-control"
+                                                            placeholder="Nhập tên gd" maxlength="100" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row" v-if="userDataShow.customerCard.is_account">
+                                                    <label for="name" class="col-md-4 col-form-label">Số Tài khoản<span
+                                                            class="text-danger">(*)</span></label>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <label class="btn btn-info" readonly disabled  @click="copyText(userDataShow.customerCard.account_number)" >{{ userDataShow.customerCard.account_number }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row" v-if="userDataShow.customerCard.is_account == false">
+                                                    <label for="name" class="col-md-4 col-form-label">Số Thẻ<span
+                                                            class="text-danger">(*)</span></label>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <label class="btn btn-info" readonly disabled  @click="copyText(userDataShow.customerCard.card_number)" >{{ userDataShow.customerCard.card_number }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="card-header">
                                             <div class="form-group row" >
                                                 <label for="name" class="col-md-4 col-form-label">Chi tiết đáo hạn</label>
                                             </div>
                                         </div>
-                                        <hr>
                                         <div v-for="(detail, loop) in userDataShow.details">
                                             <div class="col-md-12">
                                                 <hr>

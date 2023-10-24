@@ -84,6 +84,7 @@ class WithdrawalController
     public function show(Withdrawal $withdrawal)
     {
         $withdrawal->details = $withdrawal->withdrawalDetail;
+        $withdrawal->customerCard = $withdrawal->customerCard;
         return response([
             'withdrawal' => $withdrawal
         ], Response::HTTP_OK);

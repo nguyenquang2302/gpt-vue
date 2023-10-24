@@ -39,7 +39,9 @@ class StoreCustomerCardRequest extends FormRequest
             'customer_id' => ['required'],
             'bank_id' => ['required'],
             'note' => ['sometimes'],
+            'account_number' => ['sometimes',],
             'active' => ['sometimes', 'boolean'],
+            'is_account' => ['sometimes', 'boolean'],
         ];
     }
 

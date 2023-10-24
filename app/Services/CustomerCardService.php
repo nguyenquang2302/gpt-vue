@@ -71,7 +71,9 @@ class CustomerCardService extends BaseService
                 'note' => $data['note'],
                 'due_date' => $data['due_date'],
                 'card_number' => $data['card_number'],
+                'account_number' => $data['account_number']??'',
                 'active' => isset($data['active']) && $data['active'] === '1',
+                'is_account' => $data['is_account']??false
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -107,7 +109,9 @@ class CustomerCardService extends BaseService
                 'note' => $data['note'],
                 'due_date' => $data['due_date'],
                 'card_number' => $data['card_number'],
+                'account_number' => $data['account_number']??'',
                 'active' => isset($data['active']) && $data['active'] === '1',
+                'is_account' => $data['is_account']??false
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -213,7 +217,9 @@ class CustomerCardService extends BaseService
             'due_date' => $data['due_date'],
             'card_number' => $data['card_number'],
             'branch_id' => Customer::find($data['customer_id'])->branch_id,
-            'active' => isset($data['active']) && $data['active'] == '1',
+            'account_number' => $data['account_number']??'',
+            'active' => isset($data['active']) && $data['active'] === '1',
+            'is_account' => $data['is_account']??false
         ]);
     }
 

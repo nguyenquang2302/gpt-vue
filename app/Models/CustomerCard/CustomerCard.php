@@ -53,7 +53,9 @@ class CustomerCard extends Model
         'due_date2',
         'currency_payment',
         'date_comlate',
-        'branch_id'
+        'branch_id',
+        'account_number',
+        'is_account'
     ];
 
     /**
@@ -81,6 +83,7 @@ class CustomerCard extends Model
      */
     protected $casts = [
         'active' => 'boolean',
+        'is_account' => 'boolean',
     ];
 
     /**

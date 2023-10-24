@@ -833,7 +833,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <button type="button"  @click="copyText(userDataShow.bank_code)"   > {{userDataShow.bank_code}}</button>
+                                                <label class="btn btn-info"  @click="copyText(userDataShow.bank_code)"   > {{userDataShow.bank_code}}</label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -842,7 +842,7 @@
                                                     class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <button type="button"  @click="copyText('CKRT '+userDataShow.id+' '+userDataShow.customer_id)"   >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </button>
+                                                <label class="btn btn-info"  type="button"  @click="copyText('CKRT '+userDataShow.id+' '+userDataShow.customer_id)"   >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </label>
                                             </div>
                                         </div>
 

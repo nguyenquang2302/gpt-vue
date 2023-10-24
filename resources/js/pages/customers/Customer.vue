@@ -518,6 +518,38 @@
                                                     class="form-control" placeholder="Số thẻ" maxlength="100" required />
                                             </div>
                                         </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Số tài khoản</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="number" v-model="userData.account_number" name="card_number"
+                                                    class="form-control" placeholder="Số thẻ" maxlength="100" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Chuyển khoản bằng</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="check-box-customize">
+                                                    <input
+                                                        class="form-check-input" v-bind:value="true"  id ="card_number_check_edit" 
+                                                        type="radio" v-model="userData.is_account">
+                                                    <label
+                                                        class="form-check-label" for="card_number_check_edit">Số thẻ</label>
+                                                </div>
+                                                <div class="check-box-customize">
+                                                    <input
+                                                        class="form-check-input" v-bind:value="false" id="account_number_check_edit"
+                                                        type="radio" v-model="userData.is_account">
+                                                    <label
+                                                        class="form-check-label" for="account_number_check_edit">Số Tài khoản</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Hạn mức</label>
@@ -645,6 +677,8 @@ const userCard = ref({
     'bank_id': '',
     'note': '',
     'birth_day': '',
+    'account_number':'',
+    'is_account':false,
     active: true,
 })
 

@@ -27,6 +27,15 @@
                         :loading="loading" :headers="headers" :items="items" :key="reRender" buttons-pagination
                         table-class-name="customize-table">
 
+                        <template #item-id="item">
+                            <div class="operation-wrapper">
+                                <div>
+                                    <i title="Chỉnh sửa"  @click="askShow(item)"
+                                    data-bs-toggle="modal" data-bs-target="#modal-show">{{ (item.id) }}</i>
+                                </div>                                    
+                            </div>
+                        </template>
+                        
                         <template #item-money_withdrawal="item">
                             <div class="operation-wrapper">
                                 <div>{{ formatPrice(item.money_withdrawal) }}</div>

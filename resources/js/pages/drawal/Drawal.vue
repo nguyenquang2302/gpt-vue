@@ -411,6 +411,8 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Sửa giao dịch</h4>
+                                        &nbsp;
+                                        <button type="button" @click="copyText('CKRT '+userData.id+' '+userData.customer_id)"  >CKRT {{userData.id}} {{userData.customer_id}} </button>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
@@ -696,6 +698,8 @@
                                 <div class="modal-content" v-if="userData">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Xem giao dịch</h4>
+                                        &nbsp;
+                                        <button type="button"  @click="copyText('CKRT '+userDataShow.id+' '+userDataShow.customer_id)"   >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </button>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>

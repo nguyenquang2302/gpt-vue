@@ -90,6 +90,7 @@ class CustomerCard extends Model
      * @var array
      */
     protected $appends = [
+        'bank_name'
     ];
 
     /**

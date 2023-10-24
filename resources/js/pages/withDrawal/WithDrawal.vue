@@ -537,6 +537,17 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group row">
+                                                    <label for="name" class="col-md-4 col-form-label">Ngân hàng<span
+                                                            class="text-danger">(*)</span></label>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <input readonly disabled type="text" v-model="userData.customerCard.bank_name" class="form-control"
+                                                            maxlength="100" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group row" v-if="userData.customerCard.is_account">
                                                     <label for="name" class="col-md-4 col-form-label">Số Tài khoản<span
                                                             class="text-danger">(*)</span></label>
@@ -829,12 +840,21 @@
                                                             class="text-danger">(*)</span></label>
                                                     <div class="col-md-8">
                                                         <div>
-                                                            <input readonly disabled type="text" v-model="userDataShow.customerCard.name" name="name" class="form-control"
-                                                            placeholder="Nhập tên gd" maxlength="100" required />
+                                                            <input readonly disabled type="text" v-model="userDataShow.customerCard.name" class="form-control"
+                                                            maxlength="100" required />
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <div class="form-group row">
+                                                    <label for="name" class="col-md-4 col-form-label">Ngân hàng<span
+                                                            class="text-danger">(*)</span></label>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <input readonly disabled type="text" v-model="userDataShow.customerCard.bank_name" class="form-control"
+                                                            maxlength="100" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group row" v-if="userDataShow.customerCard.is_account">
                                                     <label for="name" class="col-md-4 col-form-label">Số Tài khoản<span
                                                             class="text-danger">(*)</span></label>

@@ -25,4 +25,11 @@ trait CustomerCardAttribute
         }
         return null;
     }
+
+    public function getBankNameAttribute($value)
+    {
+        if($this->bank)
+        return $this->bank->short_name;
+        return '';
+    }
 }

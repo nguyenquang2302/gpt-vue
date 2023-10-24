@@ -705,8 +705,6 @@
                                 <div class="modal-content" v-if="userData">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Xem giao dịch</h4>
-                                        &nbsp;
-                                        <button type="button"  @click="copyText('CKRT '+userDataShow.id+' '+userDataShow.customer_id)"   >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </button>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
@@ -835,14 +833,22 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" readonly v-model="userDataShow.bank_code" name="bank_code"
-                                                    class="form-control" placeholder="Số tài khoản" maxlength="100"
-                                                    required />
+                                                <button type="button"  @click="copyText(userDataShow.bank_code)"   > {{userDataShow.bank_code}}</button>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Tên GD <span
+                                                <label for="name" class="col-form-label">Nội dung <span
+                                                    class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <button type="button"  @click="copyText('CKRT '+userDataShow.id+' '+userDataShow.customer_id)"   >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Tên chủ TK <span
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">

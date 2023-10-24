@@ -522,6 +522,39 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Ngân hàng <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <v-select v-model="userData.bank_id" :options="globalStore.listBank"  
+                                                    label="shortName" :reduce="bank => bank.id"></v-select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Số tài khoản <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" v-model="userData.bank_code" name="bank_code"
+                                                    class="form-control" placeholder="Số tài khoản" maxlength="100"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Tên GD <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" v-model="userData.bank_customer_name"
+                                                    name="bank_customer_name" class="form-control"
+                                                    placeholder="Tên chủ tài khoản" maxlength="100" required />
+                                            </div>
+                                        </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
@@ -774,6 +807,39 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Ngân hàng <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <v-select disable v-model="userDataShow.bank_id" :options="globalStore.listBank"  
+                                                    label="shortName" :reduce="bank => bank.id"></v-select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Số tài khoản <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" readonly v-model="userDataShow.bank_code" name="bank_code"
+                                                    class="form-control" placeholder="Số tài khoản" maxlength="100"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Tên GD <span
+                                                                class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" readonly v-model="userDataShow.bank_customer_name"
+                                                    name="bank_customer_name" class="form-control"
+                                                    placeholder="Tên chủ tài khoản" maxlength="100" required />
+                                            </div>
+                                        </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">

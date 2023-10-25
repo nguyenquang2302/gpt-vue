@@ -1370,6 +1370,7 @@ watch(userData, (value) => {
     if (value.money_drawal != userDataAddNewWatch.value.money_drawal
         || value.fee_customer != userDataAddNewWatch.value.fee_customer
         || value.fee_ship != userDataAddNewWatch.value.fee_ship) {
+
         userDataAddNewWatch.value.fee_ship = value.fee_ship
         userDataAddNewWatch.value.money_drawal = value.money_drawal
         userDataAddNewWatch.value.fee_customer = value.fee_customer
@@ -1378,12 +1379,13 @@ watch(userData, (value) => {
             timer.value = 0;
         }
         timer.value = setTimeout(() => {
-            userDataAddNew.value.fee_money_customer = (value.money_drawal * value.fee_customer / 100) + value.fee_ship;
+
+            userData.value.fee_money_customer = (value.money_drawal * value.fee_customer / 100) + value.fee_ship;
             const rest = value.fee_money_customer % 1000;
             if (rest > 500) {
-                userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest + 1000;
+                userData.value.fee_money_customer = userData.value.fee_money_customer - rest + 1000;
             } else {
-                userDataAddNew.value.fee_money_customer = userDataAddNew.value.fee_money_customer - rest;
+                userData.value.fee_money_customer = userData.value.fee_money_customer - rest;
 
             }
         }, 500);

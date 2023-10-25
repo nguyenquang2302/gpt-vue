@@ -128,13 +128,13 @@ class DrawalService extends BaseService
 
                 if ($data['details']) {
                     foreach ($data['details'] as $k => $detail) {
-                        $detail['lo'] = (int)$detail['lo'];
+                        $detail['lo'] = (int)$detail['lo']??0;
                         if($detail['lo'] <10)
                         $detail['lo'] = ($detail['lo']<10)?'00'.$detail['lo']:$detail['lo'];
                         else
                         $detail['lo'] = ($detail['lo']<100)?'0'.$detail['lo']:$detail['lo'];
                         
-                        $detail['bill'] = (int)$detail['bill'];
+                        $detail['bill'] = (int)$detail['bill']??0;
 
                         if((int)$detail['bill'] <10)
                         $detail['bill'] = ($detail['bill']<10)?'00'.$detail['bill']:$detail['bill'];
@@ -244,7 +244,7 @@ class DrawalService extends BaseService
                 $drawal->drawalDetail()->delete();
                 if ($data['details']) {
                     foreach ($data['details'] as $k => $detail) {
-                        $detail['lo'] = (int)$detail['lo'];
+                        $detail['lo'] = (int)$detail['lo']??0;
                         if($detail['lo'] <10)
                         $detail['lo'] = ($detail['lo']<10)?'00'.$detail['lo']:$detail['lo'];
                         else

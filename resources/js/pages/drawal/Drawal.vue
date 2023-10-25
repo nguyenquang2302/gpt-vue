@@ -1291,10 +1291,10 @@ const actionCreate = () => {
     })
 }
 const addItem = () => {
-    userData.value.details.push({ customer_card_id: 0, money: '', group_bill: '', pos_id: '' })
+    userData.value.details.push({ customer_card_id: 0, money: '', lo: 0, bill:0, pos_id: '' })
 }
 const addItemAddNew = () => {
-    userDataAddNew.value.details.push({ customer_card_id: 0, money: '', group_bill: '', pos_id: '' })
+    userDataAddNew.value.details.push({ customer_card_id: 0, money: '', lo: 0, bill:0, pos_id: '' })
 }
 
 const removeItem =(obj,loop) => {

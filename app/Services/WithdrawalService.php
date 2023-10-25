@@ -114,13 +114,13 @@ class WithdrawalService extends BaseService
                 }
 
                 foreach ($data['details'] ?? [] as $k => $detail) {
-                    $detail['lo'] = (int)$detail['lo'];
+                    $detail['lo'] = (int)$detail['lo']??0;
                     if($detail['lo'] <10)
                     $detail['lo'] = ($detail['lo']<10)?'00'.$detail['lo']:$detail['lo'];
                     else
                     $detail['lo'] = ($detail['lo']<100)?'0'.$detail['lo']:$detail['lo'];
                     
-                    $detail['bill'] = (int)$detail['bill'];
+                    $detail['bill'] = (int)$detail['bill']??0;
 
                     if((int)$detail['bill'] <10)
                     $detail['bill'] = ($detail['bill']<10)?'00'.$detail['bill']:$detail['bill'];
@@ -222,22 +222,21 @@ class WithdrawalService extends BaseService
                     }
                 }
                 foreach ($data['details'] ?? [] as $k => $detail) {
-                    $detail['lo'] = (int)$detail['lo'];
+                    $detail['lo'] = (int)$detail['lo']??0;
                     if($detail['lo'] <10)
                     $detail['lo'] = ($detail['lo']<10)?'00'.$detail['lo']:$detail['lo'];
                     else
                     $detail['lo'] = ($detail['lo']<100)?'0'.$detail['lo']:$detail['lo'];
                     
-                    $detail['bill'] = (int)$detail['bill'];
+                    $detail['bill'] = (int)$detail['bill']??0;
 
                     if((int)$detail['bill'] <10)
                     $detail['bill'] = ($detail['bill']<10)?'00'.$detail['bill']:$detail['bill'];
                     else if((int)$detail['bill'] <100)
                     $detail['bill'] = ($detail['bill']<100)?'0'.$detail['bill']:$detail['bill'];
-                    
                     $pos = Pos::find($detail['pos_id']);
                     $withdrawalDetail = new WithdrawalDetail();
-                    $withdrawalDetail->pos_id = $detail['pos_id'];
+                    $withdrawalDetail->pos_id = $detail['pos_id']??null;
                     $withdrawalDetail->money = (float)(str_replace(',', '', $detail['money']));
                     $withdrawalDetail->money_drawal = (float)(str_replace(',', '', $detail['money_drawal']));
                     $withdrawalDetail->fee_bank = $pos->fee_bank;

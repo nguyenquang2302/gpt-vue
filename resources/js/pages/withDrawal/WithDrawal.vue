@@ -1331,10 +1331,10 @@ const actionCreate = () => {
     })
 }
 const addItem = () => {
-    userData.value.details.push({ money_drawal: 0, money: '', group_bill: '', pos_id: '' })
+    userData.value.details.push({ money_drawal: 0, money: '', bill: 0, lo:0, pos_id: '' })
 }
 const addItemAddNew = () => {
-    userDataAddNew.value.details.push({ money_drawal: 0, money: '', group_bill: '', pos_id: '' })
+    userDataAddNew.value.details.push({ money_drawal: 0, money: '', bill:0, lo:0, pos_id: '' })
 }
 
 const removeItem =(obj,loop) => {

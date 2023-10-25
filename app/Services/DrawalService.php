@@ -128,19 +128,18 @@ class DrawalService extends BaseService
 
                 if ($data['details']) {
                     foreach ($data['details'] as $k => $detail) {
-                        $group_bill = explode('.', $detail['group_bill']);
-                       
-                        if($group_bill[0] <10)
-                        $group_bill[0] = ($group_bill[0]<10)?'00'.$group_bill[0]:$group_bill[0];
+                        $detail['lo'] = (int)$detail['lo'];
+                        if($detail['lo'] <10)
+                        $detail['lo'] = ($detail['lo']<10)?'00'.$detail['lo']:$detail['lo'];
                         else
-                        $group_bill[0] = ($group_bill[0]<100)?'0'.$group_bill[0]:$group_bill[0];
+                        $detail['lo'] = ($detail['lo']<100)?'0'.$detail['lo']:$detail['lo'];
                         
-                        $group_bill[1] = (int)$group_bill[1];
+                        $detail['bill'] = (int)$detail['bill'];
 
-                        if((int)$group_bill[1] <10)
-                        $group_bill[1] = ($group_bill[1]<10)?'00'.$group_bill[1]:$group_bill[1];
-                        else if((int)$group_bill[1] <100)
-                        $group_bill[1] = ($group_bill[1]<100)?'0'.$group_bill[1]:$group_bill[1];
+                        if((int)$detail['bill'] <10)
+                        $detail['bill'] = ($detail['bill']<10)?'00'.$detail['bill']:$detail['bill'];
+                        else if((int)$detail['bill'] <100)
+                        $detail['bill'] = ($detail['bill']<100)?'0'.$detail['bill']:$detail['bill'];
                         
                         $pos = Pos::find($detail['pos_id']);
                         $drawalDetail = new DrawalDetail();
@@ -152,8 +151,8 @@ class DrawalService extends BaseService
                         $drawalDetail->money_back = $drawalDetail->money - $drawalDetail->fee_bank_money;
                         $drawalDetail->time = Carbon::now();
                         $drawalDetail->user_id = Auth::user()->id;
-                        $drawalDetail->lo = $group_bill[0];
-                        $drawalDetail->bill = $group_bill[1];
+                        $drawalDetail->lo =  $detail['lo'];
+                        $drawalDetail->bill =  $detail['bill'];
                         $drawalDetail->profit = ($drawalDetail->money * $drawal->fee_customer / 100) - ($drawalDetail->money * $drawalDetail->fee_bank / 100);
                         $drawalDetail->branch_id = $branch_id;
                         // phí đối ứng
@@ -245,19 +244,18 @@ class DrawalService extends BaseService
                 $drawal->drawalDetail()->delete();
                 if ($data['details']) {
                     foreach ($data['details'] as $k => $detail) {
-                        
-                        $group_bill = explode('.', $detail['group_bill']);
-                        if($group_bill[0] <10)
-                        $group_bill[0] = ($group_bill[0]<10)?'00'.$group_bill[0]:$group_bill[0];
+                        $detail['lo'] = (int)$detail['lo'];
+                        if($detail['lo'] <10)
+                        $detail['lo'] = ($detail['lo']<10)?'00'.$detail['lo']:$detail['lo'];
                         else
-                        $group_bill[0] = ($group_bill[0]<100)?'0'.$group_bill[0]:$group_bill[0];
+                        $detail['lo'] = ($detail['lo']<100)?'0'.$detail['lo']:$detail['lo'];
+                        
+                        $detail['bill'] = (int)$detail['bill'];
 
-                        $group_bill[1] = (int)$group_bill[1];
-
-                        if((int)$group_bill[1] <10)
-                        $group_bill[1] = ($group_bill[1]<10)?'00'.$group_bill[1]:$group_bill[1];
-                        else if((int)$group_bill[1] <100)
-                        $group_bill[1] = ($group_bill[1]<100)?'0'.$group_bill[1]:$group_bill[1];
+                        if((int)$detail['bill'] <10)
+                        $detail['bill'] = ($detail['bill']<10)?'00'.$detail['bill']:$detail['bill'];
+                        else if((int)$detail['bill'] <100)
+                        $detail['bill'] = ($detail['bill']<100)?'0'.$detail['bill']:$detail['bill'];
 
                         $pos = Pos::find($detail['pos_id']);
                         $drawalDetail = new DrawalDetail();
@@ -269,8 +267,8 @@ class DrawalService extends BaseService
                         $drawalDetail->money_back = $drawalDetail->money - $drawalDetail->fee_bank_money;
                         $drawalDetail->time = Carbon::now();
                         $drawalDetail->user_id = Auth::user()->id;
-                        $drawalDetail->lo = $group_bill[0];
-                        $drawalDetail->bill = $group_bill[1];
+                        $drawalDetail->lo = $detail['lo'];
+                        $drawalDetail->bill = $detail['bill'];
                         $drawalDetail->profit = ($drawalDetail->money * $drawal->fee_customer / 100) - ($drawalDetail->money * $drawalDetail->fee_bank / 100);
                         $drawalDetail->branch_id = $drawal->branch_id;
 

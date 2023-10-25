@@ -114,20 +114,18 @@ class WithdrawalService extends BaseService
                 }
 
                 foreach ($data['details'] ?? [] as $k => $detail) {
-                    $group_bill = explode('.', $detail['group_bill']);
-
-                    if($group_bill[0] <10)
-                    $group_bill[0] = ($group_bill[0]<10)?'00'.$group_bill[0]:$group_bill[0];
+                    $detail['lo'] = (int)$detail['lo'];
+                    if($detail['lo'] <10)
+                    $detail['lo'] = ($detail['lo']<10)?'00'.$detail['lo']:$detail['lo'];
                     else
-                    $group_bill[0] = ($group_bill[0]<100)?'0'.$group_bill[0]:$group_bill[0];
+                    $detail['lo'] = ($detail['lo']<100)?'0'.$detail['lo']:$detail['lo'];
                     
-                    $group_bill[1] = (int)$group_bill[1];
+                    $detail['bill'] = (int)$detail['bill'];
 
-                    if((int)$group_bill[1] <10)
-                    $group_bill[1] = ($group_bill[1]<10)?'00'.$group_bill[1]:$group_bill[1];
-                    else if((int)$group_bill[1] <100)
-                    $group_bill[1] = ($group_bill[1]<100)?'0'.$group_bill[1]:$group_bill[1];
-
+                    if((int)$detail['bill'] <10)
+                    $detail['bill'] = ($detail['bill']<10)?'00'.$detail['bill']:$detail['bill'];
+                    else if((int)$detail['bill'] <100)
+                    $detail['bill'] = ($detail['bill']<100)?'0'.$detail['bill']:$detail['bill'];
                     
                     // if (!$group_bill[0] || !$group_bill[1]) {
                     // }
@@ -142,11 +140,11 @@ class WithdrawalService extends BaseService
                     $withdrawalDetail->fee_money_bank = ($withdrawalDetail->money_drawal * $pos->fee_bank / 100);
                     $withdrawalDetail->profit = ($withdrawalDetail->money_drawal * $withdrawal->fee_customer) / 100 - ($withdrawalDetail->money_drawal * $withdrawalDetail->fee_bank) / 100;
                     $withdrawalDetail->branch_id = $branch_id;
-                    if (isset($group_bill[0])) {
-                        $withdrawalDetail->lo = $group_bill[0];
+                    if (isset($detail['lo'])) {
+                        $withdrawalDetail->lo = $detail['lo'];
                     }
-                    if (isset($group_bill[1])) {
-                        $withdrawalDetail->bill = $group_bill[1];
+                    if (isset($detail['bill'])) {
+                        $withdrawalDetail->bill = $detail['bill'];
                     }
                     $withdrawalDetail->money_back = $withdrawalDetail->money_drawal - $withdrawalDetail->fee_money_bank;
 
@@ -224,21 +222,19 @@ class WithdrawalService extends BaseService
                     }
                 }
                 foreach ($data['details'] ?? [] as $k => $detail) {
-                    $group_bill = explode('.', $detail['group_bill']);
-
-                    if($group_bill[0] <10)
-                    $group_bill[0] = ($group_bill[0]<10)?'00'.$group_bill[0]:$group_bill[0];
+                    $detail['lo'] = (int)$detail['lo'];
+                    if($detail['lo'] <10)
+                    $detail['lo'] = ($detail['lo']<10)?'00'.$detail['lo']:$detail['lo'];
                     else
-                    $group_bill[0] = ($group_bill[0]<100)?'0'.$group_bill[0]:$group_bill[0];
+                    $detail['lo'] = ($detail['lo']<100)?'0'.$detail['lo']:$detail['lo'];
                     
-                    $group_bill[1] = (int)$group_bill[1];
+                    $detail['bill'] = (int)$detail['bill'];
 
-                    if((int)$group_bill[1] <10)
-                    $group_bill[1] = ($group_bill[1]<10)?'00'.$group_bill[1]:$group_bill[1];
-                    else if((int)$group_bill[1] <100)
-                    $group_bill[1] = ($group_bill[1]<100)?'0'.$group_bill[1]:$group_bill[1];
+                    if((int)$detail['bill'] <10)
+                    $detail['bill'] = ($detail['bill']<10)?'00'.$detail['bill']:$detail['bill'];
+                    else if((int)$detail['bill'] <100)
+                    $detail['bill'] = ($detail['bill']<100)?'0'.$detail['bill']:$detail['bill'];
                     
-
                     $pos = Pos::find($detail['pos_id']);
                     $withdrawalDetail = new WithdrawalDetail();
                     $withdrawalDetail->pos_id = $detail['pos_id'];
@@ -251,11 +247,11 @@ class WithdrawalService extends BaseService
                     $withdrawalDetail->fee_money_bank = ($withdrawalDetail->money_drawal * $pos->fee_bank / 100);
                     $withdrawalDetail->profit = ($withdrawalDetail->money_drawal * $withdrawal->fee_customer) / 100 - ($withdrawalDetail->money_drawal * $withdrawalDetail->fee_bank) / 100;
                     $withdrawalDetail->branch_id = $withdrawal->branch_id;
-                    if (isset($group_bill[0])) {
-                        $withdrawalDetail->lo = $group_bill[0];
+                    if (isset($detail['lo'])) {
+                        $withdrawalDetail->lo = $detail['lo'];
                     }
-                    if (isset($group_bill[1])) {
-                        $withdrawalDetail->bill = $group_bill[1];
+                    if (isset($detail['bill'])) {
+                        $withdrawalDetail->bill = $detail['bill'];
                     }
 
                     $withdrawalDetail->money_back = $withdrawalDetail->money_drawal - $withdrawalDetail->fee_money_bank;

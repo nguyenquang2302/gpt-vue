@@ -46,6 +46,7 @@ class UpdateWithdrawalRequest extends FormRequest
             'group_bill' => ['sometimes','array'],
             'group_bill.*'=>['nullable', 'sometimes', 'regex:/^[0-9]{0,}\.[0-9]{0,}$/'],
             'stt' => ['sometimes'],
+            'addFee' => ['sometimes'],
 
         ];
     }

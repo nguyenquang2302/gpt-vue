@@ -55,7 +55,8 @@ class Withdrawal extends Model
         'datetime',
         'isOwnerPos',
         'branch_id',
-        'stt'
+        'stt',
+        'addFee'
     ];
 
     /**

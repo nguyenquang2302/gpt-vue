@@ -195,6 +195,16 @@
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Cộng Phí <span
+                                                    class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" class="btn btn-info" @click=caculator(userDataAddNew)>Cộng thêm phí</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [vnđ] <span
                                                                 class="text-danger">(*)</span></label>
                                             </div>
@@ -497,7 +507,6 @@
                                                 </VueNumberFormat>
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [%] <span
@@ -508,6 +517,16 @@
                                                     v-model:value="userData.fee_customer"
                                                     :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Cộng Phí <span
+                                                    class="text-danger">(*)</span></label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" class="btn btn-info" @click=caculator(userData)>Cộng thêm phí</label>
                                             </div>
                                         </div>
 
@@ -704,7 +723,7 @@
                                         
                                             <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
                                                 tiền Đáo hạn :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(userData.money_withdrawal) }}</span>
+                                                <span  class="total_money_transfer">{{ formatPrice(userData.money_withdrawal - (userData.addFee?userData.addFee:0)) }}</span>
 
                                             </div>
 
@@ -1186,6 +1205,12 @@ const formatDate = (date) => {
     const tzOffset = date.getTimezoneOffset() * 60 * 1000
     return new Date(date - tzOffset).toISOString().split('T')[0]
 }
+const caculator = (data) => {
+    data.fee_money_customer += (data.fee_money_customer * data.fee_customer / 100) + data.fee_ship;
+    data.money_withdrawal+= data.fee_money_customer
+    data.addFee = data.fee_money_customer
+}
+
 const askDelete = dataInfo => {
     idDelete.value = dataInfo.id
 }
@@ -1348,7 +1373,7 @@ const sumTotalDetail = (data) => {
         });
     }
     
-    return data.money_withdrawal - total;
+    return data.money_withdrawal - total -(data.addFee?data.addFee:0);
 }
 
 const sumTotalDetailDrawal = (data) => {
@@ -1360,7 +1385,7 @@ const sumTotalDetailDrawal = (data) => {
     data.details.forEach(element => {
         total_drawal += element.money_drawal
     });
-    return total  - total_drawal
+    return total  - total_drawal + data.addFee
 }
 
 fetchAll()

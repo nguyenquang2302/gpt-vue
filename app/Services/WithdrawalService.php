@@ -98,7 +98,8 @@ class WithdrawalService extends BaseService
                 'profit_money' => $profit_money,
                 'datetime' => Carbon::parse(($data['datetime']), 'utc'),
                 'branch_id' => $branch_id,
-                'stt' => $data['stt']
+                'stt' => $data['stt'],
+                'addFee' => $data['addFee']??0
             ]);
 
             if ($data['details']) {
@@ -205,7 +206,9 @@ class WithdrawalService extends BaseService
                 'profit_money' => $profit_money,
                 'note' => $data['note'],
                 'datetime' => Carbon::parse(($data['datetime']), 'utc'),
-                'stt' => $data['stt']
+                'stt' => $data['stt'],
+                'addFee' => $data['addFee']??0
+
 
             ]);
 
@@ -582,7 +585,8 @@ class WithdrawalService extends BaseService
             'profit_money' => $data['profit_money'],
             'datetime' => $data['datetime'],
             'branch_id' => $data['branch_id'],
-            'stt' => $data['stt']
+            'stt' => $data['stt'],
+            'addFee' => $data['addFee']??0
 
         ]);
     }

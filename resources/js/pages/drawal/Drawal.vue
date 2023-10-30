@@ -300,14 +300,26 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group row">
-                                                        <label for="name" class="col-md-4 col-form-label">Lô.Bill<span
+                                                        <label for="name" class="col-md-4 col-form-label">Lô<span
                                                                 class="text-danger">(*)</span></label>
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <VueNumberFormat :class="'form-control'"
-                                                                    v-model:value="detail.group_bill"
-                                                                    :options="{ precision: 3, prefix: '', suffix: '', decimal: '.', thousand: '', acceptNegative: false, isInteger: false }">
-                                                                </VueNumberFormat>
+                                                                <input  type="number" v-model="detail.lo" name="name" class="form-control"
+                                                                    placeholder="Nhập lô" maxlength="100" required />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group row">
+                                                        <label for="name" class="col-md-4 col-form-label">Bill<span
+                                                                class="text-danger">(*)</span></label>
+                                                        <div class="col-md-8">
+                                                            <div>
+                                                                <input type="number"  v-model="detail.bill" name="name" class="form-control"
+                                                                    placeholder="Nhập Bill" maxlength="100" required />
                                                             </div>
                                                         </div>
                                                     </div>

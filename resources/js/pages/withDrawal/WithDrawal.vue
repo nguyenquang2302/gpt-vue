@@ -198,9 +198,14 @@
                                                 <label for="name" class="col-form-label">Cộng Phí <span
                                                     class="text-danger">(*)</span></label>
                                             </div>
-                                            <div class="col-md-8">
-                                                <label for="" class="btn btn-info" @click=caculator(userDataAddNew)>Cộng thêm phí</label>
+
+                                            <div class="col-md-4">
+                                                <label for="" class="btn btn-info" v-bind:class="{'btn-danger':(userDataAddNew.addFee>0)}" @click=caculator(userDataAddNew,true)>Có</label>
                                             </div>
+                                            <div class="col-md-4">
+                                                <label for="" class="btn btn-info" v-bind:class="{'btn-danger':(userDataAddNew.addFee<=0)}" @click=caculator(userDataAddNew,false)>Không</label>
+                                            </div>
+
                                         </div>
 
                                         <div class="form-group row">
@@ -525,9 +530,14 @@
                                                 <label for="name" class="col-form-label">Cộng Phí <span
                                                     class="text-danger">(*)</span></label>
                                             </div>
-                                            <div class="col-md-8">
-                                                <label for="" class="btn btn-info" @click=caculator(userData)>Cộng thêm phí</label>
+
+                                            <div class="col-md-4">
+                                                <label for="" class="btn btn-info" v-bind:class="{'btn-danger':(userData.addFee>0)}" @click=caculator(userData,true)>Có</label>
                                             </div>
+                                            <div class="col-md-4">
+                                                <label for="" class="btn btn-info" v-bind:class="{'btn-danger':(userData.addFee<=0)}" @click=caculator(userData,false)>Không</label>
+                                            </div>
+
                                         </div>
 
                                         <div class="form-group row">
@@ -860,6 +870,12 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-4">
+                                                <label for="" class="btn btn-info" v-bind:class="{'btn-danger':(userDataAddNew.addFee>0)}" @click=caculator(userDataAddNew,true)>Có</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="" class="btn btn-info" v-bind:class="{'btn-danger':(userDataAddNew.addFee<=0)}" @click=caculator(userDataAddNew,false)>Không</label>
+                                        </div>
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [vnđ] <span
@@ -1205,10 +1221,14 @@ const formatDate = (date) => {
     const tzOffset = date.getTimezoneOffset() * 60 * 1000
     return new Date(date - tzOffset).toISOString().split('T')[0]
 }
-const caculator = (data) => {
+const caculator = (data,flag) => {
+    if(flag) {
     data.fee_money_customer += (data.fee_money_customer * data.fee_customer / 100) + data.fee_ship;
     data.money_withdrawal+= data.fee_money_customer
     data.addFee = data.fee_money_customer
+    } else {
+        data.addFee = 0;
+    }
 }
 
 const askDelete = dataInfo => {

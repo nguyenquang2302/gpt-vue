@@ -229,7 +229,7 @@ class DrawalService extends BaseService
                 'stt' => $data['stt']
 
             ]);
-            if (Auth::user()->checkRole(['admin', 'manager', 'mod'])) {
+            if (Auth::user()->checkRole(['admin', 'manager', 'mod', 'staff'])) {
                 $customer = Customer::where('id',$drawal->customer_id)->first();
                 if($customer) {
                     $userCreate = User::find($customer->user_id);

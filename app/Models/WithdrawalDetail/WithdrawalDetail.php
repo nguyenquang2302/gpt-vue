@@ -52,7 +52,8 @@ class WithdrawalDetail extends Model
         'branch_id',
         'fee_partner',
         'user_partner_id',
-        'fee_partner_money'
+        'fee_partner_money',
+        'bill_return'
     ];
 
     /**
@@ -76,6 +77,7 @@ class WithdrawalDetail extends Model
      */
     protected $casts = [
         'active' => 'boolean',
+        'bill_return' => 'boolean',
     ];
 
     /**

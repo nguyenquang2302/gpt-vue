@@ -108,9 +108,11 @@ class DashboardController
             $data['money'] += $d->profit;
             $d->drawal->stt = $d->drawal->stt??0;
             $key =  str_replace('_','',$d->pos_id.$d->lo.$d->bill);
-
             $array[$key]['pos_name'] = $d->pos->name;
             $array[$key]['stt'] = $d->drawal->stt;
+            $array[$key]['id'] = $d->id;
+            $array[$key]['bill_return'] = $d->bill_return;
+            $array[$key]['type'] = 'drawal';
             $array[$key]['lo'] = $d->lo;
             $array[$key]['bill'] = $d->bill;
             $array[$key]['money'] = $d->money;
@@ -142,7 +144,10 @@ class DashboardController
             $data['money'] += $d->profit;
             $d->withdrawal->stt = $d->withdrawal->stt??0;
             $key =  str_replace('_','',$d->pos_id.$d->lo.$d->bill);
-
+            
+            $array[$key]['id'] = $d->id;
+            $array[$key]['bill_return'] = $d->bill_return;
+            $array[$key]['type'] = 'withdrawal';
             $array[$key]['pos_name'] = $d->pos->name;
             $array[$key]['stt'] = $d->withdrawal->stt;
             $array[$key]['lo'] = $d->withdrawal->stt.$d->lo;

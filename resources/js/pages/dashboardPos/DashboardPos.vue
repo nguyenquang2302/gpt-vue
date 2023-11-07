@@ -177,7 +177,7 @@ import 'flatpickr/dist/flatpickr.css';
 
 const config = ref({
     wrap: true, // set wrap to true only when using 'input-group'
-    altFormat: 'm/j/Y',
+    altFormat: 'd/m/Y',
     altInput: true,
     dateFormat: 'Y-m-d',
 });

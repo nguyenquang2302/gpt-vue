@@ -357,7 +357,7 @@
 
                                         <button type="button" class="btn btn-default CloseModalCreate"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button type="button" class="btn btn-primary" @click="actionCreate()">Đồng
+                                        <button  type="button"  v-bind:disabled="loading" class="btn btn-primary" @click="actionCreate()">Đồng
                                             ý</button>
 
                                     </div>
@@ -388,7 +388,7 @@
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default closeModalDelete"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button type="button" class="btn btn-primary" @click="actionDelete()">Đồng
+                                        <button  v-bind:disabled="loading" type="button" class="btn btn-primary" @click="actionDelete()">Đồng
                                             ý</button>
                                     </div>
                                 </div>
@@ -414,7 +414,7 @@
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default closeModalReDone"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button type="button" class="btn btn-primary" @click="actionReDone()">Đồng
+                                        <button  v-bind:disabled="loading" type="button" class="btn btn-primary" @click="actionReDone()">Đồng
                                             ý</button>
                                     </div>
                                 </div>
@@ -710,7 +710,7 @@
 
                                         <button type="button" class="btn btn-default CloseModalEdit"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
+                                        <button  v-bind:disabled="loading" type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
                                             ý</button>
 
                                     </div>

@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DrawalController;
 use App\Http\Controllers\Api\WithdrawalController;
 use App\Http\Controllers\Api\BankLogController;
+use App\Http\Controllers\Api\BillReturnController;
 use App\Http\Controllers\Api\CommandCheckController;
 use App\Http\Controllers\Api\PartnerController;
 
@@ -63,6 +64,7 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
 });
 Route::middleware(['auth:sanctum','is_admin:admin,manager,manager_vip'])->group(function () {
     Route::post('/activitiPosback', [CommandCheckController::class, 'activitiPosback']);
+    Route::post('/bill-return', [BillReturnController::class, 'billReturn']);
 });
 Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manager_vip_2,staff'])->group(function () {
     Route::group(['middleware', ['json.force']], function() {

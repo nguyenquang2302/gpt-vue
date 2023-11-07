@@ -71,6 +71,7 @@ class DrawalDetail extends Model
      */
     protected $casts = [
         'active' => 'boolean',
+        'bill_return' => 'boolean',
     ];
 
     /**

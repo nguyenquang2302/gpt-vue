@@ -103,7 +103,7 @@
                                             <td>{{ (tran.fee_customer) }}</td>
                                             <td>{{ (tran.fee_ship ?? 0) }}</td>
                                             <td>{{ formatPrice(tran.money_back) }}</td>
-                                            <td>{{ formatPrice(tran.fee_bank) }}</td>
+                                            <td>{{ (tran.fee_bank) }}</td>
                                             <td>{{ formatPrice(tran.fee_bank_money) }}</td>
                                             <td>{{ formatPrice(tran.fee_customer_money) }}</td>
                                             <td>{{ formatPrice(tran.profit) }}</td>

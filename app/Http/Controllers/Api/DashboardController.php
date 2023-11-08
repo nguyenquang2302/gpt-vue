@@ -97,8 +97,9 @@ class DashboardController
         $data['total_fee_customer'] =0;
         $data['total_profit'] =0;
         $data['total_fee_bank_money'] =0;
-
+        $k = 0;
         foreach ($detail1 as $d) {
+            $k++;
             if(!isset($data['posLists'][$d->pos_id])) {
                 $data['posLists'][$d->pos_id]['profit'] = 0;
                 $data['posLists'][$d->pos_id]['name'] = $d->pos->name;
@@ -107,7 +108,7 @@ class DashboardController
             $data['sl'] ++;
             $data['money'] += $d->profit;
             $d->drawal->stt = $d->drawal->stt??0;
-            $key =  str_replace('_','',$d->pos_id.$d->lo.$d->bill);
+            $key =  $k.'_'.str_replace('_','',$d->pos_id.$d->lo.$d->bill);
             $array[$key]['pos_name'] = $d->pos->name;
             $array[$key]['stt'] = $d->drawal->stt;
             $array[$key]['id'] = $d->id;
@@ -135,6 +136,7 @@ class DashboardController
 
         }
         foreach ($detail2 as $d) {
+            $k++;
             if(!isset($data['posLists'][$d->pos_id])) {
                 $data['posLists'][$d->pos_id]['profit'] = 0;
                 $data['posLists'][$d->pos_id]['name'] = $d->pos->name;
@@ -143,7 +145,7 @@ class DashboardController
             $data['sl'] ++;
             $data['money'] += $d->profit;
             $d->withdrawal->stt = $d->withdrawal->stt??0;
-            $key =  str_replace('_','',$d->pos_id.$d->lo.$d->bill);
+            $key =  $k.'_'.str_replace('_','',$d->pos_id.$d->lo.$d->bill);
             
             $array[$key]['id'] = $d->id;
             $array[$key]['bill_return'] = $d->bill_return;

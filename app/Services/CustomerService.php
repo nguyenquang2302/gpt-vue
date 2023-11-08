@@ -59,7 +59,7 @@ class CustomerService extends BaseService
     {
         DB::beginTransaction();
         $birth_day  = Carbon::parse(($data['birth_day']));
-        // try {
+        try {
             $customer = $this->createCustomer([
                 'name' => $data['name'],
                 'email' => $data['email']??'',
@@ -72,15 +72,15 @@ class CustomerService extends BaseService
                 'district_id' => $data['district_id']?? null,
                 'ward_id' => $data['ward_id']?? null,
                 'type' => $data['type']?? null,
-                'active' => isset($data['active']) && $data['active'] === '1',
+                'active' => 1,//isset($data['active']) && $data['active'] === '1',
                 'user_id' => Auth::user()->id,
                 'fee_customer'=> $data['fee_customer']??0
             ]);
-        // } catch (Exception $e) {
-        //     DB::rollBack();
+        } catch (Exception $e) {
+            DB::rollBack();
 
-        //     throw new Exception(__('There was a problem creating this customer. Please try again.'));
-        // }
+            throw new Exception(__('There was a problem creating this customer. Please try again.'));
+        }
 
         event(new CustomerCreated($customer));
 
@@ -113,8 +113,7 @@ class CustomerService extends BaseService
                 'province_id' => $data['province_id'],
                 'district_id' => $data['district_id'],
                 'ward_id' => $data['ward_id'],
-                'type' => $data['type'],
-                'active' => isset($data['active']) && $data['active'] === '1',
+                'active' => 1,//isset($data['active']) && $data['active'] === '1',
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -300,7 +299,7 @@ class CustomerService extends BaseService
             'user_id' => $data['user_id'],
             'active' => isset($data['active']) && $data['active'] == '1',
             'branch_id' => Auth::user()->branch_id,
-            'type' => $data['type'],
+            'type' => $data['type']??1,
             'fee_customer'=> $data['fee_customer']??0
         ]);
     }

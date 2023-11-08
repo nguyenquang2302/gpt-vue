@@ -133,7 +133,7 @@ class UserService extends BaseService
                 'email' => $data['email'],
                 'password' => $data['password'],
                 'email_verified_at' => now(),
-                'active' => isset($data['active']) && $data['active'] === '1',
+                'active' => true,//isset($data['active']) && $data['active'] === '1',
                 'accountName' => $data['accountName'] ?? null,
                 'accountNo' => $data['accountNo'] ?? null,
                 'benAccountNo' => $data['benAccountNo'] ?? null,

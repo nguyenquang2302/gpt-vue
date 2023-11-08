@@ -35,7 +35,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Cập nhật tài khoản</h4>
+                                        <h4 class="modal-title">Thêm tài khoản</h4>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
@@ -149,8 +149,8 @@
                                                     <input
                                                         class="custom-control-input custom-control-input-danger custom-control-input-outline"
                                                         type="checkbox" v-model="userDataAddNew.autoPosBack"
-                                                        id="customCheckbox-User-Edit">
-                                                    <label for="customCheckbox-User-Edit" class="custom-control-label">Tự
+                                                        id="customCheckbox-User-Add">
+                                                    <label for="customCheckbox-User-Add" class="custom-control-label">Tự
                                                         động</label>
                                                 </div>
                                             </div>
@@ -165,8 +165,8 @@
                                                     <input
                                                         class="custom-control-input custom-control-input-danger custom-control-input-outline"
                                                         type="checkbox" v-model="userDataAddNew.activeBank"
-                                                        id="customCheckbox-User-Edit-MB">
-                                                    <label for="customCheckbox-User-Edit-MB"
+                                                        id="customCheckbox-User-Add-MB">
+                                                    <label for="customCheckbox-User-Add-MB"
                                                         class="custom-control-label">Kích
                                                         hoạt</label>
                                                 </div>

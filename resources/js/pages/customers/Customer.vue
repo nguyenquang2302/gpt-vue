@@ -182,11 +182,10 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <flat-pickr v-model="userDataAddNew.birth_day"/>
-
+                                                <flat-pickr  :class="'from-control'" v-model="userDataAddNew.birth_day"/>
                                             </div>
                                         </div>
-
+                                        
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
@@ -322,8 +321,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <flat-pickr v-model="userCard.birth_day" :config="config"/>
-
+                                                <flat-pickr :class="'from-control'" v-model="userCard.birth_day" :config="config"/>
                                             </div>
                                         </div>
 
@@ -570,6 +568,7 @@
                                                     label="shortName" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
+
 
                                     </div>
                                     <div class="modal-footer justify-content-between">

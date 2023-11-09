@@ -1354,26 +1354,36 @@ const actionDelete = () => {
 }
 
 const actionUpdate = () => {
-    loading.value = false;
-    useWithDrawalStore.updateData(userData.value).then(response => {
-        loading.value = true
-        toast.success(response.data.message)
-        jquery('.CloseModalEdit').click()
-        fetchAll()
-    }).catch(({ response }) => {
-        toast.error(response.data.message);
-    })
+    if(loading.value == false)
+    {
+        loading.value = true;
+        useWithDrawalStore.updateData(userData.value).then(response => {
+            loading.value = false
+            toast.success(response.data.message)
+            jquery('.CloseModalEdit').click()
+            fetchAll()
+        }).catch(({ response }) => {
+            toast.error(response.data.message);
+            loading.value = false
+
+        })
+    }
 }
 const actionCreate = () => {
-    loading.value = false;
-    useWithDrawalStore.addWithDrawal(userDataAddNew.value).then(response => {
-        loading.value = true
-        toast.success(response.data.message)
-        jquery('.CloseModalCreate').click()
-        fetchAll()
-    }).catch(({ response }) => {
-        toast.error(response.data.message);
-    })
+    if(loading.value == false)
+    {
+        loading.value = true;
+        useWithDrawalStore.addWithDrawal(userDataAddNew.value).then(response => {
+            loading.value = false
+            toast.success(response.data.message)
+            jquery('.CloseModalCreate').click()
+            fetchAll()
+        }).catch(({ response }) => {
+            toast.error(response.data.message);
+            loading.value = false
+
+        })
+    }
 }
 const addItem = () => {
     userData.value.details.push({ money_drawal: 0, money: '', bill: 0, lo:0, pos_id: '' })

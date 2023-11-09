@@ -6,7 +6,7 @@
                 <div class="card-header">
                     <div class="card-header-actions row">
                         <div class="card-header-actions col-md-6">
-                            <div class="input-group mb-3" >
+                            <div class="input-group mb-3">
                                 <input type="text" class="form-control" v-model="searchValue"
                                     placeholder="Nhập từ khoá ...">
                                 <div class="input-group-append">
@@ -16,7 +16,8 @@
                             </div>
                         </div>
                         <div class="text-right col-md-6">
-                            <button class="card-header-action" data-bs-toggle="modal" data-bs-target="#modal-add-new" @click="fetchCustomerFirst">
+                            <button class="card-header-action" data-bs-toggle="modal" data-bs-target="#modal-add-new"
+                                @click="fetchCustomerFirst">
                                 <i class="fa fa-plus"></i> Thêm</button>
                         </div>
                     </div>
@@ -29,8 +30,8 @@
 
                         <template #item-id="item">
                             <div class="operation-wrapper">
-                                <div>  <i title="Chỉnh sửa text-danger cursor-pointer"  @click="askShow(item)"
-                                    data-bs-toggle="modal" data-bs-target="#modal-show">{{ (item.id) }}</i></div>
+                                <div> <i title="Chỉnh sửa text-danger cursor-pointer" @click="askShow(item)"
+                                        data-bs-toggle="modal" data-bs-target="#modal-show">{{ (item.id) }}</i></div>
                             </div>
                         </template>
 
@@ -57,12 +58,13 @@
 
                         <template #item-operation="item">
                             <div class="operation-wrapper">
-                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa"  @click="askShow(item)"
+                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa" @click="askShow(item)"
                                     data-bs-toggle="modal" data-bs-target="#modal-show"></i>
 
-                                <i class="fa fa-edit operation-icon" title="Chỉnh sửa" v-if="!item.isDone" @click="askEdit(item)"
-                                    data-bs-toggle="modal" data-bs-target="#modal-edit"></i>
-                                <i class="fa fa-trash operation-icon text-danger" v-if="!item.isDone && userLogin.type=='admin'" @click="askDelete(item)" 
+                                <i class="fa fa-edit operation-icon" title="Chỉnh sửa" v-if="!item.isDone"
+                                    @click="askEdit(item)" data-bs-toggle="modal" data-bs-target="#modal-edit"></i>
+                                <i class="fa fa-trash operation-icon text-danger"
+                                    v-if="!item.isDone && userLogin.type == 'admin'" @click="askDelete(item)"
                                     data-bs-toggle="modal" title="Xoá Thẻ KH" data-bs-target="#modal-delete"></i>
                                 <i class="fas fa-sync operation-icon text-danger" v-if="item.isDone" @click="asReDone(item)"
                                     data-bs-toggle="modal" title="Cho phép sửa/xoá" data-bs-target="#modal-reDone"></i>
@@ -88,12 +90,13 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Khách hàng <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.customer_id" :options="customerSearch" :filterable="false"
-                                                    label="name_phone" :reduce="customer => customer.id"
-                                                    @search="fetchCustomer" @search:focus="fetchCustomer" @option:selected="selectedCustomer"></v-select>
+                                                <v-select v-model="userDataAddNew.customer_id" :options="customerSearch"
+                                                    :filterable="false" label="name_phone" :reduce="customer => customer.id"
+                                                    @search="fetchCustomer" @search:focus="fetchCustomer"
+                                                    @option:selected="selectedCustomer"></v-select>
                                             </div>
                                         </div>
 
@@ -101,7 +104,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">STT <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="number" v-model="userDataAddNew.stt" name="name"
@@ -112,7 +115,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Tên GD <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" v-model="userDataAddNew.name" name="name"
@@ -124,10 +127,10 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">NV SHIP <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.user_fee_id"  
+                                                <v-select v-model="userDataAddNew.user_fee_id"
                                                     :options="globalStore.listUser" label="name"
                                                     :reduce="customer => customer.id"></v-select>
                                             </div>
@@ -135,7 +138,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Số tiền Rút <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
@@ -148,7 +151,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí ship <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
@@ -160,7 +163,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí nhân viên <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
@@ -173,7 +176,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [%] <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
@@ -186,7 +189,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [vnđ] <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
@@ -199,10 +202,10 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Ngân hàng <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.bank_id" :options="globalStore.listBank"  
+                                                <v-select v-model="userDataAddNew.bank_id" :options="globalStore.listBank"
                                                     label="shortName" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
@@ -210,7 +213,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Số tài khoản <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" v-model="userDataAddNew.bank_code" name="bank_code"
@@ -221,7 +224,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Tên GD <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" v-model="userDataAddNew.bank_customer_name"
@@ -233,28 +236,30 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Ngày <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <flat-pickr v-model="userDataAddNew.datetime" :config="config"/>
+                                                <flat-pickr v-model="userDataAddNew.datetime" :config="config" />
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="card-header">
-                                            <div class="form-group row" >
+                                            <div class="form-group row">
                                                 <label for="name" class="col-md-4 col-form-label">Chi tiết rút tiền</label>
                                             </div>
                                         </div>
                                         <br>
                                         <div v-for="(detail, loop) in userDataAddNew.details">
-                                            
+
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 text-right"> 
-                                                    <button class="fa fa-trash operation-icon text-danger" title="Xoá Thẻ KH" @click="removeItem(userDataAddNew,loop)"></button>
+                                                <div class="col-md-2 text-right">
+                                                    <button class="fa fa-trash operation-icon text-danger"
+                                                        title="Xoá Thẻ KH"
+                                                        @click="removeItem(userDataAddNew, loop)"></button>
                                                 </div>
                                             </div>
                                             <br>
@@ -263,7 +268,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.customer_card_id" :options="listCards"  
+                                                        <v-select v-model="detail.customer_card_id" :options="listCards"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -274,7 +279,7 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"  
+                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"
                                                             label="name" :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
@@ -304,8 +309,9 @@
                                                                 class="text-danger">(*)</span></label>
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <input  type="number" v-model="detail.lo" name="name" class="form-control"
-                                                                    placeholder="Nhập lô" maxlength="100" required />
+                                                                <input type="number" v-model="detail.lo" name="name"
+                                                                    class="form-control" placeholder="Nhập lô"
+                                                                    maxlength="100" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -318,8 +324,9 @@
                                                                 class="text-danger">(*)</span></label>
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <input type="number"  v-model="detail.bill" name="name" class="form-control"
-                                                                    placeholder="Nhập Bill" maxlength="100" required />
+                                                                <input type="number" v-model="detail.bill" name="name"
+                                                                    class="form-control" placeholder="Nhập Bill"
+                                                                    maxlength="100" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -328,27 +335,30 @@
 
                                             <hr>
                                         </div>
-                                        <div class="col-md-8" >
+                                        <div class="col-md-8">
                                             <label class="btn btn-sm btn-primary float-left add-detail" type="button "
                                                 @click="addItemAddNew()">Thêm</label>
                                         </div>
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        
-                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
                                             tiền sẽ Chuyển :<br>
-                                            <span  class="total_money_transfer">{{ formatPrice(userDataAddNew.money_drawal-userDataAddNew.fee_money_customer) }}</span>
+                                            <span class="total_money_transfer">{{
+                                                formatPrice(userDataAddNew.money_drawal - userDataAddNew.fee_money_customer)
+                                            }}</span>
                                         </div>
 
-                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
                                             tiền sẽ rút :<br>
-                                            <span  class="total_money_transfer">{{ formatPrice(userDataAddNew.money_drawal) }}</span>
+                                            <span class="total_money_transfer">{{ formatPrice(userDataAddNew.money_drawal)
+                                            }}</span>
                                         </div>
 
-                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                            tiền cần rút :<br>{{ sumTotalDetail(userData)  }}<br>
-                                            <span  class="total_money_transfer"></span>
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
+                                            tiền cần rút :<br>{{ sumTotalDetail(userData) }}<br>
+                                            <span class="total_money_transfer"></span>
 
                                         </div>
                                     </div>
@@ -357,11 +367,12 @@
 
                                         <button type="button" class="btn btn-default CloseModalCreate"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button  type="button"  v-bind:disabled="loading" class="btn btn-primary" @click="actionCreate()">Đồng
+                                        <button type="button" v-bind:disabled="loading" class="btn btn-primary"
+                                            @click="actionCreate()">Đồng
                                             ý</button>
 
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -388,7 +399,8 @@
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default closeModalDelete"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button  v-bind:disabled="loading" type="button" class="btn btn-primary" @click="actionDelete()">Đồng
+                                        <button v-bind:disabled="loading" type="button" class="btn btn-primary"
+                                            @click="actionDelete()">Đồng
                                             ý</button>
                                     </div>
                                 </div>
@@ -414,7 +426,8 @@
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default closeModalReDone"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button  v-bind:disabled="loading" type="button" class="btn btn-primary" @click="actionReDone()">Đồng
+                                        <button v-bind:disabled="loading" type="button" class="btn btn-primary"
+                                            @click="actionReDone()">Đồng
                                             ý</button>
                                     </div>
                                 </div>
@@ -424,14 +437,15 @@
                     <!-- Edit Card -->
 
                     <div>
-                        <div class="modal right fade" id="modal-edit"
-                            aria-hidden="true">
+                        <div class="modal right fade" id="modal-edit" aria-hidden="true">
                             <div class="modal-dialog" v-if="userData">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Sửa giao dịch</h4>
                                         &nbsp;
-                                        <button type="button" @click="copyText('CKRT '+userData.id+' '+userData.customer_id)"  >CKRT {{userData.id}} {{userData.customer_id}} </button>
+                                        <button type="button"
+                                            @click="copyText('CKRT ' + userData.id + ' ' + userData.customer_id)">CKRT
+                                            {{ userData.id }} {{ userData.customer_id }} </button>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
@@ -442,7 +456,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Khách hàng <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div>{{ userData.name }}</div>
@@ -452,7 +466,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">STT <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="number" v-model="userData.stt" name="name" class="form-control"
@@ -463,7 +477,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Tên GD <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" v-model="userData.name" name="name" class="form-control"
@@ -474,17 +488,17 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">NV SHIP <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser" 
+                                                <v-select v-model="userData.user_fee_id" :options="globalStore.listUser"
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Số tiền Rút <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
@@ -497,7 +511,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí ship <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'" v-model:value="userData.fee_ship"
@@ -508,7 +522,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí nhân viên <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'" v-model:value="userData.fee_user"
@@ -520,7 +534,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [%] <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
@@ -533,7 +547,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [vnđ] <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat :class="'form-control'"
@@ -546,10 +560,10 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Ngân hàng <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.bank_id" :options="globalStore.listBank"  
+                                                <v-select v-model="userData.bank_id" :options="globalStore.listBank"
                                                     label="shortName" :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
@@ -557,7 +571,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Số tài khoản <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" v-model="userData.bank_code" name="bank_code"
@@ -568,7 +582,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Tên GD <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" v-model="userData.bank_customer_name"
@@ -580,15 +594,15 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Ngày <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <flat-pickr v-model="userData.datetime" :config="config"/>
+                                                <flat-pickr v-model="userData.datetime" :config="config" />
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="card-header">
-                                            <div class="form-group row" >
+                                            <div class="form-group row">
                                                 <label for="name" class="col-md-4 col-form-label">Chi tiết rút tiền</label>
                                             </div>
                                         </div>
@@ -601,11 +615,14 @@
                                                 <div class="col-md-10">
                                                     <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span>
                                                         &nbsp;
-                                                        <button type="button" @click="copyText('CKRT '+userData.id+' '+userData.customer_id)"  >CKRT {{userData.id}} {{userData.customer_id}} </button>
+                                                        <button type="button"
+                                                            @click="copyText('CKRT ' + userData.id + ' ' + userData.customer_id)">CKRT
+                                                            {{ userData.id }} {{ userData.customer_id }} </button>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 text-right"> 
-                                                    <button class="fa fa-trash operation-icon text-danger" title="Xoá Thẻ KH" @click="removeItem(userData,detail)"></button>
+                                                <div class="col-md-2 text-right">
+                                                    <button class="fa fa-trash operation-icon text-danger"
+                                                        title="Xoá Thẻ KH" @click="removeItem(userData, detail)"></button>
                                                 </div>
                                             </div>
                                             <br>
@@ -614,8 +631,9 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.customer_card_id" :options="listCards"  :filterable="false"
-                                                            label="name" :reduce="card => card.id"></v-select>
+                                                        <v-select v-model="detail.customer_card_id" :options="listCards"
+                                                            :filterable="false" label="name"
+                                                            :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -625,8 +643,9 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
-                                                            label="name" :reduce="card => card.id"></v-select>
+                                                        <v-select v-model="detail.pos_id" :options="globalStore.listPos"
+                                                            :filterable="false" label="name"
+                                                            :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -655,8 +674,9 @@
                                                                 class="text-danger">(*)</span></label>
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <input  type="number" v-model="detail.lo" name="name" class="form-control"
-                                                                    placeholder="Nhập lô" maxlength="100" required />
+                                                                <input type="number" v-model="detail.lo" name="name"
+                                                                    class="form-control" placeholder="Nhập lô"
+                                                                    maxlength="100" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -669,8 +689,9 @@
                                                                 class="text-danger">(*)</span></label>
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <input type="number"  v-model="detail.bill" name="name" class="form-control"
-                                                                    placeholder="Nhập Bill" maxlength="100" required />
+                                                                <input type="number" v-model="detail.bill" name="name"
+                                                                    class="form-control" placeholder="Nhập Bill"
+                                                                    maxlength="100" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -679,7 +700,7 @@
 
                                             <hr>
                                         </div>
-                                        <div class="col-md-8" >
+                                        <div class="col-md-8">
                                             <label class="btn btn-sm btn-primary float-left add-detail" type="button "
                                                 @click="addItem()">Thêm</label>
                                         </div>
@@ -688,20 +709,22 @@
                                     <hr>
 
                                     <div class="modal-footer justify-content-between">
-                                        
-                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
                                             tiền sẽ Chuyển :<br>
-                                            <span  class="total_money_transfer">{{ formatPrice(userData.money_drawal-userData.fee_money_customer) }}</span>
+                                            <span class="total_money_transfer">{{
+                                                formatPrice(userData.money_drawal - userData.fee_money_customer) }}</span>
                                         </div>
 
-                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
                                             tiền sẽ rút :<br>
-                                            <span  class="total_money_transfer">{{ formatPrice(userData.money_drawal) }}</span>
+                                            <span class="total_money_transfer">{{ formatPrice(userData.money_drawal)
+                                            }}</span>
                                         </div>
 
-                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                            tiền cần rút :<br>{{ sumTotalDetail(userData)  }}<br>
-                                            <span  class="total_money_transfer"></span>
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
+                                            tiền cần rút :<br>{{ sumTotalDetail(userData) }}<br>
+                                            <span class="total_money_transfer"></span>
 
                                         </div>
                                     </div>
@@ -710,7 +733,8 @@
 
                                         <button type="button" class="btn btn-default CloseModalEdit"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button  v-bind:disabled="loading" type="button" class="btn btn-primary" @click="actionUpdate()">Đồng
+                                        <button v-bind:disabled="loading" type="button" class="btn btn-primary"
+                                            @click="actionUpdate()">Đồng
                                             ý</button>
 
                                     </div>
@@ -723,8 +747,7 @@
                     <!-- show Card -->
 
                     <div>
-                        <div class="modal right fade" id="modal-show"
-                            aria-hidden="true">
+                        <div class="modal right fade" id="modal-show" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content" v-if="userData">
                                     <div class="modal-header">
@@ -739,7 +762,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Khách hàng <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div>{{ userDataShow.name }}</div>
@@ -749,42 +772,43 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">STT <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input readonly type="number" v-model="userDataShow.stt" name="name" class="form-control"
-                                                    placeholder="stt" maxlength="100" required />
+                                                <input readonly type="number" v-model="userDataShow.stt" name="name"
+                                                    class="form-control" placeholder="stt" maxlength="100" required />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Tên GD <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input readonly type="text" v-model="userDataShow.name" name="name" class="form-control"
-                                                    placeholder="Nhập tên gd" maxlength="100" required />
+                                                <input readonly type="text" v-model="userDataShow.name" name="name"
+                                                    class="form-control" placeholder="Nhập tên gd" maxlength="100"
+                                                    required />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">NV SHIP <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userDataShow.user_fee_id" :options="globalStore.listUser"  
+                                                <v-select v-model="userDataShow.user_fee_id" :options="globalStore.listUser"
                                                     label="name" :reduce="customer => customer.id"></v-select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Số tiền Rút <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueNumberFormat readonly  :class="'form-control'"
+                                                <VueNumberFormat readonly :class="'form-control'"
                                                     v-model:value="userDataShow.money_drawal"
                                                     :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
@@ -794,10 +818,11 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí ship <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueNumberFormat readonly :class="'form-control'" v-model:value="userDataShow.fee_ship"
+                                                <VueNumberFormat readonly :class="'form-control'"
+                                                    v-model:value="userDataShow.fee_ship"
                                                     :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -805,10 +830,11 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí nhân viên <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <VueNumberFormat readonly :class="'form-control'" v-model:value="userDataShow.fee_user"
+                                                <VueNumberFormat readonly :class="'form-control'"
+                                                    v-model:value="userDataShow.fee_user"
                                                     :options="{ precision: 0, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
                                                 </VueNumberFormat>
                                             </div>
@@ -817,7 +843,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [%] <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly :class="'form-control'"
@@ -830,7 +856,7 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Phí KH [vnđ] <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <VueNumberFormat readonly :class="'form-control'"
@@ -843,37 +869,41 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Ngân hàng <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select disable v-model="userDataShow.bank_id" :options="globalStore.listBank"  
-                                                    label="shortName" :reduce="bank => bank.id"></v-select>
+                                                <v-select disable v-model="userDataShow.bank_id"
+                                                    :options="globalStore.listBank" label="shortName"
+                                                    :reduce="bank => bank.id"></v-select>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Số tài khoản <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <label class="btn btn-info"  @click="copyText(userDataShow.bank_code)"   > {{userDataShow.bank_code}}</label>
+                                                <label class="btn btn-info" @click="copyText(userDataShow.bank_code)">
+                                                    {{ userDataShow.bank_code }}</label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Nội dung <span
-                                                    class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <label class="btn btn-info"  type="button"  @click="copyText('CKRT '+userDataShow.id+' '+userDataShow.customer_id)"   >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </label>
+                                                <label class="btn btn-info" type="button"
+                                                    @click="copyText('CKRT ' + userDataShow.id + ' ' + userDataShow.customer_id)">CKRT
+                                                    {{ userDataShow.id }} {{ userDataShow.customer_id }} </label>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Tên chủ TK <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" readonly v-model="userDataShow.bank_customer_name"
@@ -885,15 +915,16 @@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Ngày <span
-                                                                class="text-danger">(*)</span></label>
+                                                        class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <flat-pickr v-model="userDataShow.datetime" :config="config" readonly disabled/>
+                                                <flat-pickr v-model="userDataShow.datetime" :config="config" readonly
+                                                    disabled />
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="card-header">
-                                            <div class="form-group row" >
+                                            <div class="form-group row">
                                                 <label for="name" class="col-md-4 col-form-label">Chi tiết rút tiền</label>
                                             </div>
                                         </div>
@@ -904,11 +935,14 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span> &nbsp;
-                                                        <button type="button"  @click="copyText('CKRT '+userDataShow.id+' '+userDataShow.customer_id)"   >CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </button>
+                                                    <div class="text-center">Lần: <span class="loop ">{{ loop + 1 }}</span>
+                                                        &nbsp;
+                                                        <button type="button"
+                                                            @click="copyText('CKRT ' + userDataShow.id + ' ' + userDataShow.customer_id)">CKRT
+                                                            {{ userDataShow.id }} {{ userDataShow.customer_id }} </button>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <br>
                                             <div class="form-group row">
@@ -916,8 +950,9 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select readonly disabled v-model="detail.customer_card_id" :options="listCards"  :filterable="false"
-                                                            label="name" :reduce="card => card.id"></v-select>
+                                                        <v-select readonly disabled v-model="detail.customer_card_id"
+                                                            :options="listCards" :filterable="false" label="name"
+                                                            :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -927,8 +962,9 @@
                                                         class="text-danger">(*)</span></label>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <v-select readonly disabled v-model="detail.pos_id" :options="globalStore.listPos"  :filterable="false"
-                                                            label="name" :reduce="card => card.id"></v-select>
+                                                        <v-select readonly disabled v-model="detail.pos_id"
+                                                            :options="globalStore.listPos" :filterable="false" label="name"
+                                                            :reduce="card => card.id"></v-select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -957,8 +993,9 @@
                                                                 class="text-danger">(*)</span></label>
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <input readonly type="text" v-model="detail.lo" name="name" class="form-control"
-                                                                    placeholder="Nhập lô" maxlength="100" required />
+                                                                <input readonly type="text" v-model="detail.lo" name="name"
+                                                                    class="form-control" placeholder="Nhập lô"
+                                                                    maxlength="100" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -971,8 +1008,9 @@
                                                                 class="text-danger">(*)</span></label>
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <input type="number" readonly v-model="detail.bill" name="name" class="form-control"
-                                                                    placeholder="Nhập Bill" maxlength="100" required />
+                                                                <input type="number" readonly v-model="detail.bill"
+                                                                    name="name" class="form-control" placeholder="Nhập Bill"
+                                                                    maxlength="100" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -981,38 +1019,44 @@
 
                                             <hr>
                                         </div>
-                                       
+
                                     </div>
 
                                     <hr>
 
                                     <div class="modal-footer justify-content-between">
-                                        
-                                            <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                                tiền sẽ Chuyển :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(userDataShow.money_drawal-userDataShow.fee_money_customer) }}</span>
-                                            </div>
 
-                                            <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                                tiền sẽ rút :<br>
-                                                <span  class="total_money_transfer">{{ formatPrice(userDataShow.money_drawal) }}</span>
-                                            </div>
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
+                                            tiền sẽ Chuyển :<br>
+                                            <span class="total_money_transfer">{{
+                                                formatPrice(userDataShow.money_drawal - userDataShow.fee_money_customer)
+                                            }}</span>
+                                        </div>
 
-                                            <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2" >Số
-                                                tiền cần rút :<br>{{ sumTotalDetail(userDataShow)  }}<br>
-                                                <span  class="total_money_transfer"></span>
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
+                                            tiền sẽ rút :<br>
+                                            <span class="total_money_transfer">{{ formatPrice(userDataShow.money_drawal)
+                                            }}</span>
+                                        </div>
 
-                                            </div>
+                                        <div class="btn btn-sm btn-danger float-right my-2 px-2 mx-2">Số
+                                            tiền cần rút :<br>{{ sumTotalDetail(userDataShow) }}<br>
+                                            <span class="total_money_transfer"></span>
+
+                                        </div>
                                     </div>
-                                    
+
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-success CloseModalCreate"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button type="button"  @click="copyText('CKRT '+userDataShow.id+' '+userDataShow.customer_id)">CKRT {{userDataShow.id}} {{userDataShow.customer_id}} </button>
-                                        <input id="testing-code" value='' type ='hidden'>
+                                        <button type="button"
+                                            @click="copyText('CKRT ' + userDataShow.id + ' ' + userDataShow.customer_id)">CKRT
+                                            {{ userDataShow.id }} {{ userDataShow.customer_id }} </button>
+                                        <input id="testing-code" value='' type='hidden'>
                                     </div>
                                     <div class="modal-footer justify-content-between" v-if="!userDataShow.isDone">
-                                        <button type="button" class="btn btn-primary"  @click="actionVerify(userDataShow.id)">Xác nhận GIAO DỊCH</button>
+                                        <button type="button" class="btn btn-primary"
+                                            @click="actionVerify(userDataShow.id)">Xác nhận GIAO DỊCH</button>
                                     </div>
                                 </div>
                             </div>
@@ -1053,29 +1097,29 @@ const config = ref({
 const dateTime = (value) => {
     return moment(value).utc().format("DD/MM/YYYY");
 }
-const userLogin  = JSON.parse(localStorage.getItem('user'))
+const userLogin = JSON.parse(localStorage.getItem('user'))
 const route = useRoute();
 
 const copyText = (text) => {
-        const storage = document.createElement('input');
-        storage.setAttribute('type', 'text')
-        // storage.setAttribute('value', text)
-        document.body.appendChild(storage)
-        storage.value = text;
-        storage.select();
-        storage.setSelectionRange(0, 99999);
+    const storage = document.createElement('input');
+    storage.setAttribute('type', 'text')
+    // storage.setAttribute('value', text)
+    document.body.appendChild(storage)
+    storage.value = text;
+    storage.select();
+    storage.setSelectionRange(0, 99999);
 
-        storage.focus();
-        try {
+    storage.focus();
+    try {
         var successful = document.execCommand('copy');
         var msg = successful ? 'successful' : 'unsuccessful';
         alert('Copied ' + text);
-        } catch (err) {
+    } catch (err) {
         alert('Oops, unable to copy');
-        }
-        /* unselect the range */
-        document.body.removeChild(storage);
-        window.getSelection().removeAllRanges()
+    }
+    /* unselect the range */
+    document.body.removeChild(storage);
+    window.getSelection().removeAllRanges()
 };
 
 const formatPrice = (value) => {
@@ -1123,7 +1167,7 @@ const objDefault = {
     'money_drawal': 0,
     'fee_customer': 0,
     'transfer': false,
-    'fee_money_customer':0,
+    'fee_money_customer': 0,
     'bank_id': ref(),
     'bank_code': ref(),
     'bank_customer_name': ref(),
@@ -1131,7 +1175,7 @@ const objDefault = {
     'note': '',
     'fee_ship': 0,
     'fee_user': 0,
-    'customer_id': route.query.customer_id??0,
+    'customer_id': route.query.customer_id ?? 0,
     'details': []
 }
 
@@ -1199,10 +1243,10 @@ const fetchCustomer = (query) => {
             timer.value = 0;
         }
         timer.value = setTimeout(() => {
-            useCustomerStore.fetchAllCustomers(ref({ customer_id: route.query.customer_id,query:query }).value).then(({ data }) => {
+            useCustomerStore.fetchAllCustomers(ref({ customer_id: route.query.customer_id, query: query }).value).then(({ data }) => {
                 customerSearch.value = data.customers
-                if(userDataAddNew.value.customer_id) {
-                    userDataAddNew.value.name =  (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone);
+                if (userDataAddNew.value.customer_id) {
+                    userDataAddNew.value.name = (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone);
                 }
             })
         }, 500);
@@ -1210,12 +1254,12 @@ const fetchCustomer = (query) => {
 }
 
 const fetchCustomerFirst = () => {
-    if(userDataAddNew.value.customer_id) {
-        useCustomerStore.fetchAllCustomers(ref({ customer_id: route.query.customer_id}).value).then(({ data }) => {
+    if (userDataAddNew.value.customer_id) {
+        useCustomerStore.fetchAllCustomers(ref({ customer_id: route.query.customer_id }).value).then(({ data }) => {
             customerSearch.value = data.customers
             useCardStore.fetchAllCustomerCards(ref({ search: userDataAddNew.value.customer_id }).value).then(({ data }) => {
                 listCards.value = data.customer_cards
-                userDataAddNew.value.name =  (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone)
+                userDataAddNew.value.name = (customerSearch.value.find((customer) => customer.id == userDataAddNew.value.customer_id).name_phone)
             })
 
         })
@@ -1236,90 +1280,104 @@ const fetchAll = () => {
 };
 
 const actionVerify = (verifyId) => {
-    loading.value = false;
-    useDrawalStore.verifyData(verifyId).then(response => {
-        toast.success('Xác nhận thành công');
+    if (loading.value == false) {
         loading.value = true;
-        fetchAll()
+        useDrawalStore.verifyData(verifyId).then(response => {
+            toast.success('Xác nhận thành công');
+            loading.value = false;
+            fetchAll()
 
-    }).catch(({ response }) => {
-        isPopupDelete.value = false
-        toast.error(response.data.message);
-    })
+        }).catch(({ response }) => {
+            isPopupDelete.value = false
+            toast.error(response.data.message);
+        })
+    }
 
 }
 
 const actionReDone = () => {
-    loading.value = false;
-    useDrawalStore.reDoneData(idReDone.value).then(response => {
-        idReDone.value = 0
-        toast.success('Cho phép sửa lại thành công');
+    if (loading.value == false) {
         loading.value = true;
-        $('.closeModalReDone').click()
-        fetchAll()
+        useDrawalStore.reDoneData(idReDone.value).then(response => {
+            idReDone.value = 0
+            toast.success('Cho phép sửa lại thành công');
+            loading.value = false;
+            $('.closeModalReDone').click()
+            fetchAll()
 
-    }).catch(({ response }) => {
-        isPopupDelete.value = false
-        toast.error(response.data.message);
-    })
+        }).catch(({ response }) => {
+            isPopupDelete.value = false
+            toast.error(response.data.message);
+        })
+    }
 
 }
 const actionDelete = () => {
-    loading.value = false;
-    useDrawalStore.deleteData(idDelete.value).then(response => {
-        idDelete.value = 0
-        toast.success('Xóa thành công');
+    if (loading.value == false) {
         loading.value = true;
-        $('.closeModalDelete').click()
-        fetchAll()
+        useDrawalStore.deleteData(idDelete.value).then(response => {
+            idDelete.value = 0
+            toast.success('Xóa thành công');
+            loading.value = false;
+            $('.closeModalDelete').click()
+            fetchAll()
 
-    }).catch(({ response }) => {
-        isPopupDelete.value = false
-        toast.error(response.data.message);
-    })
+        }).catch(({ response }) => {
+            isPopupDelete.value = false
+            toast.error(response.data.message);
+        })
+    }
 
 }
 
 const actionUpdate = () => {
-    loading.value = false;
-    useDrawalStore.updateData(userData.value).then(response => {
-        loading.value = true
-        toast.success(response.data.message)
-        $('.CloseModalEdit').click()
-        fetchAll()
-    }).catch(({ response }) => {
-        toast.error(response.data.message);
-    })
+    if(loading.value == false)
+    {
+        loading.value = true;
+        useDrawalStore.updateData(userData.value).then(response => {
+            loading.value = false
+            toast.success(response.data.message)
+            $('.CloseModalEdit').click()
+            fetchAll()
+        }).catch(({ response }) => {
+            loading.value = false
+            toast.error(response.data.message);
+        })
+    }
 }
 const actionCreate = () => {
-    loading.value = false;
-    useDrawalStore.addDrawal(userDataAddNew.value).then(response => {
-        loading.value = true
-        toast.success(response.data.message)
-        $('.CloseModalCreate').click()
-        fetchAll()
-    }).catch(({ response }) => {
-        toast.error(response.data.message);
-    })
+    if(loading.value == false)
+    {
+        loading.value = true;
+        useDrawalStore.addDrawal(userDataAddNew.value).then(response => {
+            loading.value = false
+            toast.success(response.data.message)
+            $('.CloseModalCreate').click()
+            fetchAll()
+        }).catch(({ response }) => {
+            loading.value = false
+            toast.error(response.data.message);
+        })
+    }
 }
 const addItem = () => {
-    userData.value.details.push({ customer_card_id: 0, money: '', lo: 0, bill:0, pos_id: '' })
+    userData.value.details.push({ customer_card_id: 0, money: '', lo: 0, bill: 0, pos_id: '' })
 }
 const addItemAddNew = () => {
-    userDataAddNew.value.details.push({ customer_card_id: 0, money: '', lo: 0, bill:0, pos_id: '' })
+    userDataAddNew.value.details.push({ customer_card_id: 0, money: '', lo: 0, bill: 0, pos_id: '' })
 }
 
-const removeItem =(obj,loop) => {
-    obj.details.splice(obj.details.indexOf(loop),1)
+const removeItem = (obj, loop) => {
+    obj.details.splice(obj.details.indexOf(loop), 1)
 }
 const sumTotalDetail = (data) => {
     let total = 0;
-    if(data.details.length > 0) {
-         data.details.forEach(element => {
+    if (data.details.length > 0) {
+        data.details.forEach(element => {
             total = total + element.money;
         });
     }
-    return formatPrice(data.money_drawal - total )
+    return formatPrice(data.money_drawal - total)
 }
 fetchAll()
 globalStore.fetchListBank()

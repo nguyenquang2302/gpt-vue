@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import User from '../pages/users/User.vue'
 import Customer from '../pages/customers/Customer.vue'
+import TeleSalesCustomer from '../pages/TeleSalesCustomer/TeleSalesCustomer.vue'
 import CustomerPantner from '../pages/customers/CustomerPantner.vue'
 import CustomerCard from '../pages/customerCard/CustomerCard.vue'
 import Drawals from '../pages/drawal/Drawal.vue'
@@ -33,6 +34,11 @@ const routes =  [
                 path:"/customer",
                 name: "Customer",
                 component: Customer
+            },
+            {
+                path:"/tele-sales-customers",
+                name: "TeleSalesCustomer",
+                component: TeleSalesCustomer
             },
             {
                 path:"/customer-cards",

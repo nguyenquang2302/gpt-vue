@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\BankLogController;
 use App\Http\Controllers\Api\BillReturnController;
 use App\Http\Controllers\Api\CommandCheckController;
 use App\Http\Controllers\Api\PartnerController;
+use App\Http\Controllers\Api\StaffCustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,3 +111,14 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
     });
     
 });
+
+Route::middleware(['auth:sanctum','is_admin:tele_sales'])->group(function () {
+    // customer
+    Route::get('/tele-sales-customers/search', [StaffCustomerController::class, 'search']);
+    Route::get('/tele-sales-customers', [StaffCustomerController::class, 'index']);
+    Route::get('/tele-sales-customers/{customer}', [StaffCustomerController::class, 'show']);
+    Route::post('/tele-sales-customers', [StaffCustomerController::class, 'store']);
+    Route::put('/tele-sales-customers/{customer}', [StaffCustomerController::class, 'update']);
+
+});
+

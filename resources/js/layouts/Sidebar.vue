@@ -516,6 +516,24 @@
         </nav>
         <!-- sidebar  -->
 
+        <!-- sidebar mod -->
+        <nav class="mt-2" v-if="userLogin.type == 'tele_sales'">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+           
+            <li class="nav-item">
+              <router-link to="/tele-sales-customers" class="nav-link">
+                <i class="nav- fas fa-user"></i>
+                <p>
+                  Khách hàng
+                  <span class="right badge badge-danger">New</span>
+                </p>
+                </router-link>
+            </li>
+
+          </ul>
+        </nav>
+        <!-- sidebar  -->
+
         <!-- sidebar ADMIN -->
         <nav class="mt-2" v-if="userLogin.type == 'manager_vip_2'">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

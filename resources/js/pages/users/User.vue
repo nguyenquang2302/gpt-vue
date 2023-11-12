@@ -65,6 +65,7 @@
                                                     <option value="staff">Staff</option>
                                                     <option value="pos">POS</option>
                                                     <option value="partner">Đối tác</option>
+                                                    <option value="tele_sales">Tele Sales</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -287,6 +288,8 @@
                                                     <option value="staff">Staff</option>
                                                     <option value="pos">POS</option>
                                                     <option value="partner">Đối tác</option>
+                                                    <option value="tele_sales">Tele Sales</option>
+
 
                                                 </select>
                                             </div>

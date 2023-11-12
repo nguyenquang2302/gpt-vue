@@ -32,7 +32,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'type' => [Rule::requiredIf(function () {
                 return ! $this->user->isMasterAdmin();
-            }), Rule::in([User::TYPE_ADMIN, User::TYPE_USER,User::TYPE_MANAGER,User::TYPE_MANAGER_VIP,User::TYPE_MOD , User::TYPE_STAFF, User::TYPE_POS,User::TYPE_MANAGER_VIP_2,User::TYPE_PARTNER])],
+            }), Rule::in([User::TYPE_ADMIN, User::TYPE_USER,User::TYPE_MANAGER,User::TYPE_MANAGER_VIP,User::TYPE_MOD , User::TYPE_STAFF, User::TYPE_POS,User::TYPE_MANAGER_VIP_2,User::TYPE_PARTNER,User::TYPE_TELE_SALES])],
             'name' => ['required', 'max:100'],
             'email' => ['required', 'max:255', 'email', Rule::unique('users')->ignore($this->user->id)],
             'roles' => ['sometimes', 'array'],

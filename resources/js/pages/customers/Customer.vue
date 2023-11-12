@@ -278,7 +278,7 @@
                                                 <label for="name" class="col-form-label">Tỉnh (*)</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select readonly disabled v-model="userData.province_id"
+                                                <v-select  v-model="userData.province_id"
                                                     :options="globalStore.listProvince" label="name"
                                                     :reduce="branch => branch.id"></v-select>
                                             </div>
@@ -288,7 +288,7 @@
                                                 <label for="name" class="col-form-label">Quận/Huyện (*)</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select readonly disabled v-model="userData.district_id"
+                                                <v-select  v-model="userData.district_id"
                                                     :options="listDistricts" label="name"
                                                     :reduce="district => district.id"></v-select>
                                             </div>
@@ -299,7 +299,7 @@
                                                 <label for="name" class="col-form-label">Phường/Xã (*)</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select readonly disabled v-model="userData.ward_id"
+                                                <v-select  v-model="userData.ward_id"
                                                     :options="listWards" label="name"
                                                     :reduce="ward => ward.id"></v-select>
                                             </div>

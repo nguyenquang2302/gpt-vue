@@ -120,5 +120,7 @@ Route::middleware(['auth:sanctum','is_admin:tele_sales'])->group(function () {
     Route::post('/tele-sales-customers', [StaffCustomerController::class, 'store']);
     Route::put('/tele-sales-customers/{customer}', [StaffCustomerController::class, 'update']);
 
+    Route::post('/schedule-customer', [StaffCustomerController::class, 'schedule']);
+
 });
 

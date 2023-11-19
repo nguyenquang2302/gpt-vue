@@ -3,6 +3,7 @@
 namespace App\Models\Customer;
 
 use App\Models\Branch\Branch;
+use App\Models\CustomerSchedule\CustomerSchedule;
 use App\Models\CustomerTransaction\CustomerTransaction;
 use App\Models\Drawal\Drawal;
 use App\Models\Users\User;
@@ -58,5 +59,10 @@ trait CustomerRelationship
         return $this->hasMany(CustomerTransaction::class);
     }
 
+
+    public function schedule()
+    {
+        return $this->hasMany(CustomerSchedule::class);
+    }
 
 }

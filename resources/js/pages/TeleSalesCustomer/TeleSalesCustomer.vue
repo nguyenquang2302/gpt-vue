@@ -39,14 +39,20 @@
                             </div>
                         </template>
 
+                        <template #item-schedule="item">
+                            <div class="operation-wrapper" v-if="item.schedule">
+                                <div>{{ (item.schedule[0].note) }}</div>
+
+                            </div>
+                        </template>
                         <template #item-operation="item">
                             <div class="operation-wrapper">
                                 <i class="fa fa-eye operation-icon" title="Chỉnh sửa" @click="askEdit(item)" data-bs-toggle="modal"
                                     data-bs-target="#modal-view"></i>
                                 <i class="fa fa-edit operation-icon" title="Chỉnh sửa" @click="askEdit(item)" data-bs-toggle="modal"
                                     data-bs-target="#modal-edit"></i>
-                                <i class="fa fa-trash operation-icon text-danger" @click="askDelete(item)" v-if="userLogin.type=='admin'"
-                                    data-bs-toggle="modal" title="Xoá KH" data-bs-target="#modal-delete"></i>
+                                    <i class="fas fa-clock operation-icon text-info" title="Hẹn qua chi nhánh" @click="askAddSchedule(item)"
+                                    data-bs-toggle="modal" data-bs-target="#modal-add-Schedule"></i>
                             </div>
                         </template>
                     </EasyDataTable>
@@ -282,7 +288,7 @@
                                                                 class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <flat-pickr :class="'from-control'" v-model="userCard.birth_day" :config="config"/>
+                                                <flat-pickr :class="'from-control'" v-model="schedule.birth_day" :config="config"/>
                                             </div>
                                         </div>
 
@@ -408,11 +414,11 @@
                     </div>
                     <!--  -->
                     <div>
-                        <div class="modal right fade" id="modal-add-customer-card" aria-hidden="true">
+                        <div class="modal right fade" id="modal-add-Schedule" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Thêm Thẻ KHÁCH HÀNG</h4>
+                                        <h4 class="modal-title">THÊM MỚI LỊCH HẸN</h4>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
                                             @click="isPopupEdit = false">
                                             <span aria-hidden="true">×</span>
@@ -426,107 +432,36 @@
                                                 <label for="name" class="col-form-label">Tên (*)</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" v-model="userCard.name" name="name"
+                                                <input type="text" v-model="schedule.name" name="name"
                                                     class="form-control" placeholder="Nhập Tên" maxlength="100" required />
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">4 số đầu (*)</label>
+                                                <label for="name" class="col-form-label">Ngày hẹn <span
+                                                                class="text-danger">(*)</span></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" v-model="userCard.start_number" name="start_number"
-                                                    class="form-control" placeholder="Nhập 4 số đầu" maxlength="100" required />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">4 số cuối (*)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <input type="text" v-model="userCard.end_number" name="end_number"
-                                                    class="form-control" placeholder="Nhập 4 số cuối" maxlength="100" required />
+                                                <flat-pickr  class="from-control" v-model="schedule.schedule"  :config="configtime"/>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Ngày sao kê</label>
+                                                <label for="name" class="col-form-label">Note (*)</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="number" v-model="userCard.day_statement" name="day_statement"
-                                                    class="form-control" placeholder="Ngày sao kê" maxlength="100" required />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Ngày Tới hạn</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <input type="number" v-model="userCard.due_date" name="due_date"
-                                                    class="form-control" placeholder="Ngày tới hạn" maxlength="100" required />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Số thẻ</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <input type="number" v-model="userCard.card_number" name="card_number"
-                                                    class="form-control" placeholder="Số thẻ" maxlength="100" required />
+                                                <textarea class="form-control" v-model="schedule.note" ></textarea>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Số tài khoản</label>
+                                                <label for="name" class="col-form-label">Chi nhánh (*)</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="number" v-model="userData.account_number" name="card_number"
-                                                    class="form-control" placeholder="Số thẻ" maxlength="100" required />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Chuyển khoản bằng</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="check-box-customize">
-                                                    <input
-                                                        class="form-check-input" v-bind:value="true"  id ="card_number_check_edit" 
-                                                        type="radio" v-model="userData.is_account">
-                                                    <label
-                                                        class="form-check-label" for="card_number_check_edit">Số thẻ</label>
-                                                </div>
-                                                <div class="check-box-customize">
-                                                    <input
-                                                        class="form-check-input" v-bind:value="false" id="account_number_check_edit"
-                                                        type="radio" v-model="userData.is_account">
-                                                    <label
-                                                        class="form-check-label" for="account_number_check_edit">Số Tài khoản</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Hạn mức</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <VueNumberFormat :class="'form-control'"
-                                                    v-model:value="userCard.currency_limit"
-                                                    :options="{ precision: 0, prefix: '', suffix: ' ', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false  }"
-                                                ></VueNumberFormat>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Ngân hàng (*)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <v-select  v-model="userCard.bank_id" :options="globalStore.listBank"
-                                                    label="shortName" :reduce="bank => bank.id"></v-select>
+                                                <v-select v-model="schedule.branch_id" :options="allBranchs" label="name"
+                                                    :reduce="branch => branch.id"></v-select>
                                             </div>
                                         </div>
 
@@ -535,7 +470,7 @@
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
                                             data-bs-dismiss="modal">Huỷ</button>
-                                        <button type="button" class="btn btn-primary" @click="actionCardCreate()">Đồng
+                                        <button type="button" class="btn btn-primary" @click="actionScheduleCreate()">Đồng
                                             ý</button>
                                     </div>
                                 </div>
@@ -556,7 +491,7 @@ import { watch, defineComponent, toRefs, reactive, ref, onMounted } from "vue"
 import type { Header, Item, ServerOptions, SortType } from "vue3-easy-data-table";
 import ContentHeader from '@/layouts/ContentHeader.vue'
 import { useTeleSalesCustomerListStore } from '@/pages/TeleSalesCustomer/useTeleSalesCustomerListStore'
-import { useCustomerCardListStore } from '@/pages/customerCard/useCustomerCardListStore'
+import { useCustomerScheduleStore } from '@/pages/TeleSalesCustomer/useCustomerScheduleStore'
 import { toast } from 'vue3-toastify';
 import { useGlobalStore } from '@/store/globalStore'
 import { useRoute } from 'vue-router';
@@ -573,11 +508,21 @@ const config = ref({
     altInput: true,
     dateFormat: 'Y-m-d',
 });
+
+const configtime = ref({
+    wrap: true, // set wrap to true only when using 'input-group'
+    altFormat: 'd/m/Y',
+    altInput: true,
+    dateFormat: 'Y-m-d',
+});
+
 const formatPrice = (value) => {
     const val = (value / 1).toFixed(0).replace(',', '.')
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 };
+import { useBranchListStore } from '@/pages/branchs/useBranchListStore'
 
+const useBranchs = useBranchListStore()
 const userLogin  = JSON.parse(localStorage.getItem('user'))
 const type = route.query.type;
 const headers: Header[] = [
@@ -586,6 +531,7 @@ const headers: Header[] = [
     { text: "Tên", value: "name" },
     { text: "Số dư", value: "money", sortable: true },
     { text: "Người tạo", value: "user", sortable: true },
+    { text: "Hẹn", value: "schedule", sortable: true },
     { text: "Operation", value: "operation" },
 ];
 
@@ -595,7 +541,9 @@ const formatDate = (date) => {
 }
 
 const items = ref([])
-const allBranchs = ref([])
+
+
+
 const serverOptions = ref<ServerOptions>({
     page: 1,
     rowsPerPage: 5,
@@ -625,38 +573,37 @@ const idEdit = ref(0);
 const userData = ref({ ...objDefault })
 const userDataAddNew = ref({ ...objDefault })
 
-const userCard = ref({
-    'name': '',
-    'start_number': '',
-    'end_number': '',
-    'day_statement': 0,
-    'due_date': 0,
-    'card_number': '',
-    'currency_limit': '',
-    'customer_id': '',
-    'bank_id': '',
-    'note': '',
-    'birth_day': '',
-    'account_number':'',
-    'is_account':false,
-    active: true,
+const schedule = ref({
 })
 
 const useStore = useTeleSalesCustomerListStore()
-const useCardStore = useCustomerCardListStore()
+const customerScheduleStore = useCustomerScheduleStore()
 const globalStore = useGlobalStore()
 const searchValue = ref( {
     isChecked:'',
     search:''
 })
+
 const showDetail = dataInfo => {
     userData.value = dataInfo
 }
 const provinceId = ref('')
+const allBranchs = ref([])
 
 const askDelete = dataInfo => {
     idDelete.value = dataInfo.id
 }
+
+const fetchAllBranch = () => {
+    loading.value = true;
+    useBranchs.fetchAllBranchs().then(({ data }) => {
+        loading.value = false;
+        allBranchs.value = data.branchs
+    }).catch(error => {
+        toast.error(error.message);
+    })
+};
+fetchAllBranch()
 
 const askEdit = dataInfo => {
     isPopupEdit.value = true
@@ -669,9 +616,9 @@ const askEdit = dataInfo => {
     // userData.value = dataInfo
 }
 
-const askAddCard = dataInfo => {
+const askAddSchedule = dataInfo => {
     userData.value = dataInfo;
-    userCard.value.customer_id = dataInfo.id
+    schedule.value.customer_id = dataInfo.id
 }
 
 const fetchAll = () => {
@@ -738,9 +685,9 @@ const actionCreate = () => {
     })
 }
 
-const actionCardCreate = () => {
+const actionScheduleCreate = () => {
     loading.value = false;
-    useCardStore.addCustomerCard(userCard.value).then(response => {
+    customerScheduleStore.addSchedule(schedule.value).then(response => {
         loading.value = true
         toast.success(response.data.msg)
         jquery('.CloseModalCreate').click()

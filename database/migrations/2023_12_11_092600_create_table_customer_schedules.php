@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customer_schedule', function (Blueprint $table) {
+        Schema::create('customer_schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->string('name')->nullable();
+            $table->text('note')->nullable();
+            $table->unsignedBigInteger('branch_id');
             $table->timestamp('schedule')->nullable()->default(null);
+            $table->unsignedTinyInteger('active')->nullable()->default(0);
             $table->timestamps();
             $table->softDeletes();
             

@@ -41,7 +41,7 @@
 
                         <template #item-schedule="item">
                             <div class="operation-wrapper" v-if="item.schedule">
-                                <div>{{ (item.schedule[0].note) }}</div>
+                                <div v-if="item.schedule[0]">{{ (item.schedule[0].note) }}</div>
 
                             </div>
                         </template>

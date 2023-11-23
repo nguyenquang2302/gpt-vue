@@ -90,9 +90,41 @@
                                                     class="form-control" placeholder="Nhập SĐT" maxlength="100" required />
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">CMND/CCCD (*)</label>
+                                                <label for="name" class="col-form-label">Tình Trạng</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select v-model="userDataAddNew.status_type" class="form-control">
+                                                    <option value="1">Khách có nhu cầu</option>
+                                                    <option value="2">Khách chưa có nhu cầu</option>
+                                                    <option value="3">Khách không nghe máy</option>
+                                                    <option value="4">Khách không có thẻ</option>
+                                                    <option value="10">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Nguồn khách hàng</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select v-model="userDataAddNew.source_type" class="form-control">
+                                                    <option value="1">Facebook</option>
+                                                    <option value="2">Website</option>
+                                                    <option value="3">Tự kiếm</option>
+                                                    <option value="4">Giới thiệu</option>
+                                                    <option value="10">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">CMND/CCCD</label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" v-model="userDataAddNew.cmnd" name="cmnd"
@@ -102,57 +134,15 @@
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Tỉnh (*)</label>
+                                                <label for="name" class="col-form-label">Ghi chú</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select   v-model="userDataAddNew.province_id"
-                                                    :options="globalStore.listProvince" label="name"
-                                                    :reduce="branch => branch.id"></v-select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Quận/Huyện (*)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <v-select   v-model="userDataAddNew.district_id"
-                                                    :options="listDistricts" label="name"
-                                                    :reduce="district => district.id">
-                                                </v-select>
+                                                <textarea type="text" v-model="userDataAddNew.note" 
+                                                    class="form-control"></textarea>
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Phường/Xã (*)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <v-select v-model="userDataAddNew.ward_id"
-                                                    :options="listWards" label="name"
-                                                    :reduce="ward => ward.id"></v-select>
-                                            </div>
-                                        </div>
 
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Địa chỉ (*)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <input type="text" v-model="userDataAddNew.address" name="address"
-                                                    class="form-control" placeholder="Nhập địa chỉ" maxlength="100" required />
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">BirthDay <span
-                                                                class="text-danger">(*)</span></label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <flat-pickr  :class="'from-control'" v-model="userDataAddNew.birth_day"/>
-                                            </div>
-                                        </div>
-                                        
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default CloseModalCreate"
@@ -242,55 +232,44 @@
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Tỉnh (*)</label>
+                                                <label for="name" class="col-form-label">Tình Trạng</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select  v-model="userData.province_id"
-                                                    :options="globalStore.listProvince" label="name"
-                                                    :reduce="branch => branch.id"></v-select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Quận/Huyện (*)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <v-select  v-model="userData.district_id"
-                                                    :options="listDistricts" label="name"
-                                                    :reduce="district => district.id"></v-select>
+                                                <select v-model="userData.status_type" class="form-control">
+                                                    <option value="1">Khách có nhu cầu</option>
+                                                    <option value="2">Khách chưa có nhu cầu</option>
+                                                    <option value="3">Khách không nghe máy</option>
+                                                    <option value="4">Khách không có thẻ</option>
+                                                    <option value="10">Khác</option>
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Phường/Xã (*)</label>
+                                                <label for="name" class="col-form-label">Nguồn khách hàng</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select  v-model="userData.ward_id"
-                                                    :options="listWards" label="name"
-                                                    :reduce="ward => ward.id"></v-select>
+                                                <select v-model="userData.source_type" class="form-control">
+                                                    <option value="1">Facebook</option>
+                                                    <option value="2">Website</option>
+                                                    <option value="3">Tự kiếm</option>
+                                                    <option value="4">Giới thiệu</option>
+                                                    <option value="10">Khác</option>
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Địa chỉ (*)</label>
+                                                <label for="name" class="col-form-label">Ghi chú</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" v-model="userData.address" name="address"
-                                                    class="form-control" placeholder="Nhập địa chỉ" maxlength="100" required />
+                                                <textarea type="text" v-model="userData.note" 
+                                                    class="form-control"></textarea>
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Ngày <span
-                                                                class="text-danger">(*)</span></label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <flat-pickr :class="'from-control'" v-model="schedule.birth_day" :config="config"/>
-                                            </div>
-                                        </div>
 
                                     </div>
                                     <div class="modal-footer justify-content-between">
@@ -350,56 +329,41 @@
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Tỉnh (*)</label>
+                                                <label for="name" class="col-form-label">Tình Trạng</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.province_id"
-                                                    :options="globalStore.listProvince" label="name"
-                                                    :reduce="branch => branch.id"></v-select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Quận/Huyện (*)</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <v-select v-model="userData.district_id"
-                                                    :options="listDistricts" label="name"
-                                                    :reduce="district => district.id"></v-select>
+                                                <select readonly v-model="userData.status_type" class="form-control">
+                                                    <option value="1">Khách có nhu cầu</option>
+                                                    <option value="2">Khách chưa có nhu cầu</option>
+                                                    <option value="3">Khách không nghe máy</option>
+                                                    <option value="4">Khách không có thẻ</option>
+                                                    <option value="10">Khác</option>
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Phường/Xã (*)</label>
+                                                <label for="name" class="col-form-label">Nguồn khách hàng</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <v-select v-model="userData.ward_id"
-                                                    :options="listWards" label="name"
-                                                    :reduce="ward => ward.id"></v-select>
+                                                <select readonly v-model="userData.source_type" class="form-control">
+                                                    <option value="1">Facebook</option>
+                                                    <option value="2">Website</option>
+                                                    <option value="3">Tự kiếm</option>
+                                                    <option value="4">Giới thiệu</option>
+                                                    <option value="10">Khác</option>
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Địa chỉ (*)</label>
+                                                <label for="name" class="col-form-label">Ghi chú</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input readonly type="text" v-model="userData.address" name="address"
-                                                    class="form-control" placeholder="Nhập địa chỉ" maxlength="100" required />
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-4">
-                                                <label for="name" class="col-form-label">Phí mong muốn <span class="text-danger">(*)</span></label>
-                                            </div>
-                                            <div class="col-md-8">
-
-                                                <VueNumberFormat :class="'form-control'"
-                                                    v-model:value="userData.fee_customer"
-                                                    :options="{ precision: 2, prefix: '', suffix: '', decimal: '.', thousand: ',', acceptNegative: false, isInteger: false }">
-                                                </VueNumberFormat>
+                                                <textarea type="text" readonly v-model="userData.note" 
+                                                    class="form-control"></textarea>
                                             </div>
                                         </div>
 
@@ -673,6 +637,16 @@ const actionUpdate = () => {
         toast.error(response.data.message);
     })
 }
+const clearCreate = () => {
+    userDataAddNew.value.name= '',
+    userDataAddNew.value.province_id = '',
+    userDataAddNew.value.district_id = '',
+    userDataAddNew.value.ward_id = '',
+    userDataAddNew.value.phone = '',
+    userDataAddNew.value.address = '',
+    userDataAddNew.value.cmnd = '',
+    userDataAddNew.value.active =  true
+}
 const actionCreate = () => {
     loading.value = false;
     useStore.addCustomer(userDataAddNew.value).then(response => {
@@ -680,6 +654,8 @@ const actionCreate = () => {
         toast.success(response.data.msg)
         jquery('.CloseModalCreate').click()
         fetchAll()
+        clearCreate();
+
     }).catch(({ response }) => {
         toast.error(response.data.message);
     })

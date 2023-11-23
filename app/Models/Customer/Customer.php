@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     protected $table = "customers";
-    use 
+    use
         SoftDeletes,
         CustomerAttribute,
         CustomerMethod,
@@ -55,7 +55,10 @@ class Customer extends Model
         'last_transaction_time',
         'branch_id',
         'type',
-        'fee_customer'
+        'fee_customer',
+        'status_type',
+        'source_type',
+        'note'
     ];
 
     /**
@@ -63,8 +66,7 @@ class Customer extends Model
      *
      * @var array
      */
-    protected $hidden = [
-    ];
+    protected $hidden = [];
 
     /**
      * @var array

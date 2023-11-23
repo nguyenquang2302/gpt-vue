@@ -42,6 +42,9 @@ class StoreCustomerRequest extends FormRequest
             'ward_id' => ['sometimes'],
             'type' => ['sometimes'],
             'fee_customer' => ['sometimes'],
+            'status_type' => ['sometimes'],
+            'source_type' => ['sometimes'],
+            'note' => ['sometimes'],
         ];
     }
 

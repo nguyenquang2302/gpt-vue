@@ -58,7 +58,11 @@ class CustomerService extends BaseService
     public function store(array $data = []): Customer
     {
         DB::beginTransaction();
-        $birth_day  = Carbon::parse(($data['birth_day']));
+        if(isset($data['birth_day'])) {
+            $birth_day  = Carbon::parse(($data['birth_day']));
+        } else {
+            $birth_day = null;
+        }
         try {
             $customer = $this->createCustomer([
                 'name' => $data['name'],
@@ -74,7 +78,10 @@ class CustomerService extends BaseService
                 'type' => $data['type']?? null,
                 'active' => 1,//isset($data['active']) && $data['active'] === '1',
                 'user_id' => Auth::user()->id,
-                'fee_customer'=> $data['fee_customer']??0
+                'fee_customer'=> $data['fee_customer']??0,
+                'status_type' => $data['status_type']??null,
+                'source_type' => $data['source_type']??null,
+                'note' => $data['note']??null
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -114,6 +121,9 @@ class CustomerService extends BaseService
                 'district_id' => $data['district_id'],
                 'ward_id' => $data['ward_id'],
                 'active' => 1,//isset($data['active']) && $data['active'] === '1',
+                'status_type' => $data['status_type']??null,
+                'source_type' => $data['source_type']??null,
+                'note' => $data['note']??null
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -300,7 +310,10 @@ class CustomerService extends BaseService
             'active' => isset($data['active']) && $data['active'] == '1',
             'branch_id' => Auth::user()->branch_id,
             'type' => $data['type']??1,
-            'fee_customer'=> $data['fee_customer']??0
+            'fee_customer'=> $data['fee_customer']??0,
+            'status_type' => $data['status_type']??null,
+            'source_type' => $data['source_type']??null,
+            'note' => $data['note']??null
         ]);
     }
 }

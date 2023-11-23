@@ -765,6 +765,18 @@ const actionUpdate = () => {
         toast.error(response.data.message);
     })
 }
+
+const clearCreate = () => {
+    userDataAddNew.value.name= '',
+    userDataAddNew.value.province_id = '',
+    userDataAddNew.value.district_id = '',
+    userDataAddNew.value.ward_id = '',
+    userDataAddNew.value.phone = '',
+    userDataAddNew.value.address = '',
+    userDataAddNew.value.cmnd = '',
+    userDataAddNew.value.active =  true
+}
+
 const actionCreate = () => {
     loading.value = false;
     useStore.addCustomer(userDataAddNew.value).then(response => {
@@ -772,6 +784,7 @@ const actionCreate = () => {
         toast.success(response.data.msg)
         jquery('.CloseModalCreate').click()
         fetchAll()
+        clearCreate();
     }).catch(({ response }) => {
         toast.error(response.data.message);
     })

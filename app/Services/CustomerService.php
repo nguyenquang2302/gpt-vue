@@ -79,8 +79,8 @@ class CustomerService extends BaseService
                 'active' => 1,//isset($data['active']) && $data['active'] === '1',
                 'user_id' => Auth::user()->id,
                 'fee_customer'=> $data['fee_customer']??0,
-                'status_type' => $data['status_type']??null,
-                'source_type' => $data['source_type']??null,
+                'status_type' => $data['status_type']??1,
+                'source_type' => $data['source_type']??1,
                 'note' => $data['note']??null
             ]);
         } catch (Exception $e) {

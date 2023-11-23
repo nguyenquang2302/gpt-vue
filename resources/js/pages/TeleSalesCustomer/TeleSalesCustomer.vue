@@ -251,10 +251,11 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <select v-model="userData.source_type" class="form-control">
-                                                    <option value="1">Facebook</option>
+                                                    <option value="1">Khách tự qua</option>
                                                     <option value="2">Website</option>
                                                     <option value="3">Tự kiếm</option>
                                                     <option value="4">Giới thiệu</option>
+                                                    <option value="5">Facebook</option>
                                                     <option value="10">Khác</option>
                                                 </select>
                                             </div>
@@ -348,10 +349,12 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <select readonly v-model="userData.source_type" class="form-control">
-                                                    <option value="1">Facebook</option>
+                                                    <option value="1">Khách tự qua</option>
                                                     <option value="2">Website</option>
                                                     <option value="3">Tự kiếm</option>
                                                     <option value="4">Giới thiệu</option>
+                                                    <option value="5">Facebook</option>
+
                                                     <option value="10">Khác</option>
                                                 </select>
                                             </div>

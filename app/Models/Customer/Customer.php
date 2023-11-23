@@ -58,7 +58,8 @@ class Customer extends Model
         'fee_customer',
         'status_type',
         'source_type',
-        'note'
+        'customer_type',
+        'note',
     ];
 
     /**

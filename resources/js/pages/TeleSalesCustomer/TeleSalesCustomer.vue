@@ -124,6 +124,20 @@
 
                                         <div class="form-group row">
                                             <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Loại khách hàng</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select v-model="userData.customer_type" class="form-control">
+                                                    <option value="1">Đáo Hạn/Rút tiền</option>
+                                                    <option value="2">Siêu Thị</option>
+                                                    <option value="3">Siêu Thị + Đáo Hạn/Rút tiền</option>
+                                                    <option value="10">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
                                                 <label for="name" class="col-form-label">CMND/CCCD</label>
                                             </div>
                                             <div class="col-md-8">
@@ -261,6 +275,22 @@
                                             </div>
                                         </div>
 
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Loại khách hàng</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select v-model="userData.customer_type" class="form-control">
+                                                    <option value="1">Đáo Hạn/Rút tiền</option>
+                                                    <option value="2">Siêu Thị</option>
+                                                    <option value="3">Siêu Thị + Đáo Hạn/Rút tiền</option>
+                                                    <option value="10">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <label for="name" class="col-form-label">Ghi chú</label>
@@ -355,6 +385,20 @@
                                                     <option value="4">Giới thiệu</option>
                                                     <option value="5">Facebook</option>
 
+                                                    <option value="10">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <label for="name" class="col-form-label">Loại khách hàng</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select readonly v-model="userData.customer_type" class="form-control">
+                                                    <option value="1">Đáo Hạn/Rút tiền</option>
+                                                    <option value="2">Siêu Thị</option>
+                                                    <option value="3">Siêu Thị + Đáo Hạn/Rút tiền</option>
                                                     <option value="10">Khác</option>
                                                 </select>
                                             </div>

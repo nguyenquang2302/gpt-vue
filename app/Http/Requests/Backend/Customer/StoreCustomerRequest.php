@@ -44,7 +44,9 @@ class StoreCustomerRequest extends FormRequest
             'fee_customer' => ['sometimes'],
             'status_type' => ['sometimes'],
             'source_type' => ['sometimes'],
+            'customer_type' => ['sometimes'],
             'note' => ['sometimes'],
+            
         ];
     }
 

@@ -114,16 +114,17 @@ class CustomerService extends BaseService
                 'active' => $data['active'],
                 'cmnd' => $data['cmnd'],
                 'phone' => $data['phone'],
-                'address' => $data['address'],
-                'birth_day' => $birth_day,
-                'note' => $data['note'],
-                'province_id' => $data['province_id'],
-                'district_id' => $data['district_id'],
-                'ward_id' => $data['ward_id'],
+                'address' => $data['address']??$customer->address,
+                'birth_day' => $birth_day??$customer->birth_day,
+                'province_id' => $data['province_id']??$customer->province_id,
+                'district_id' => $data['district_id']??$customer->district_id,
+                'ward_id' => $data['ward_id']??$customer->ward_id,
                 'active' => 1,//isset($data['active']) && $data['active'] === '1',
-                'status_type' => $data['status_type']??null,
-                'source_type' => $data['source_type']??null,
-                'note' => $data['note']??null
+                'status_type' => $data['status_type']??$customer->status_type,
+                'source_type' => $data['source_type']??$customer->source_type,
+                'customer_type' => $data['customer_type']??$customer->customer_type,
+                'note' => $data['note']??$customer->note,
+
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -313,6 +314,7 @@ class CustomerService extends BaseService
             'fee_customer'=> $data['fee_customer']??0,
             'status_type' => $data['status_type']??null,
             'source_type' => $data['source_type']??null,
+            'customer_type' => $data['customer_type']??null,
             'note' => $data['note']??null
         ]);
     }

@@ -22,7 +22,7 @@ trait PosAttribute
     public function getUrlQRAttribute() 
     {
 
-        return 'https://img.vietqr.io/image/'.env('MB_POS_BACK_BANK_ID').'-'.env('MB_POS_ACCOUNT_ID').'-'.env('MB_POS_BACK_TEAMPLATE').'?addInfo=PU '.$this->user->posName.'&accountName='.$this->user->name;
+        return 'https://img.vietqr.io/image/'.env('MB_POS_BACK_BANK_ID').'-'.env('MB_POS_ACCOUNT_ID').'-'.env('MB_POS_BACK_TEAMPLATE').'?addInfo=PU '.$this->userBelongto->posName.'&accountName='.$this->userBelongto->name;
         
     }
    

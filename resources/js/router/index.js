@@ -13,6 +13,7 @@ import Globals from '../pages/global/Globals.vue'
 import GlobalDetails from '../pages/global/GlobalDetails.vue'
 import DashboardPos from '../pages/dashboardPos/DashboardPos.vue'
 import Historys from '../pages/history/History.vue'
+import Pos from '../pages/pos/Pos.vue'
 
 import TransactionPartner from '../pages/partner/Partner.vue'
 
@@ -24,6 +25,11 @@ const routes =  [
         path: "/",
         component: Home,
         children :[
+            {
+                path:"/pos",
+                name: "Pos",
+                component: Pos
+            },
             {
                 path:"/user",
                 name: "User",

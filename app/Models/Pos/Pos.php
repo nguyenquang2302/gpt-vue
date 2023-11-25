@@ -78,7 +78,8 @@ class Pos extends Model
      * @var array
      */
     protected $appends = [
-        'caculator_limit'
+        'caculator_limit',
+        'urlQR'
     ];
     /**
      * @var string[]

@@ -18,5 +18,12 @@ trait PosAttribute
         $money_with_drawal = WithdrawalDetail::whereDate('created_at', Carbon::today())->sum('money');
         return $this->currency_limit - $money_drawal - $money_with_drawal;
     }
+
+    public function getUrlQRAttribute() 
+    {
+
+        return 'https://img.vietqr.io/image/'.env('MB_POS_BACK_BANK_ID').'-'.env('MB_POS_ACCOUNT_ID').'-'.env('MB_POS_BACK_TEAMPLATE').'?addInfo='.$this->user->posName.'&accountName='.$this->user->name;
+        
+    }
    
 }

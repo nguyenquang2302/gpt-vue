@@ -2,12 +2,12 @@
 
 namespace App\Models\Pos;
 
-use App\Domains\Auth\Models\User;
 use App\Models\Bank\Bank;
 use App\Models\Drawal\Drawal;
 use App\Models\DrawalDetail\DrawalDetail;
 use App\Models\PosBack\PosBack;
 use App\Models\PosConsignment\PosConsignment;
+use App\Models\Users\User;
 use App\Models\WithdrawalDetail\WithdrawalDetail;
 
 /**

@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\BankLogController;
 use App\Http\Controllers\Api\BillReturnController;
 use App\Http\Controllers\Api\CommandCheckController;
 use App\Http\Controllers\Api\PartnerController;
+use App\Http\Controllers\Api\PosController;
 use App\Http\Controllers\Api\StaffCustomerController;
 
 /*
@@ -72,6 +73,8 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
         // global
         
         Route::get('list-pos', [ApiGlobalController::class, 'listPos']);
+        Route::get('/pos', [PosController::class, 'index']);
+        Route::get('/pos/{pos}', [PosController::class, 'show']);
 
         Route::apiResource('customers', CustomerController::class)->except(['index','store','show']);
         Route::patch('/users/password/change/{user}', [UserPasswordController::class, 'update']);

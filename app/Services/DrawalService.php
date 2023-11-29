@@ -226,7 +226,8 @@ class DrawalService extends BaseService
                 'bank_code' => $data['bank_code'],
                 'bank_customer_name' => stripVN($data['bank_customer_name']),
                 'datetime' => Carbon::parse(($data['datetime'])),
-                'stt' => $data['stt']
+                'stt' => $data['stt'],
+                'bank_id' => $data['bank_id']
 
             ]);
             if (Auth::user()->checkRole(['admin', 'manager', 'mod', 'staff'])) {

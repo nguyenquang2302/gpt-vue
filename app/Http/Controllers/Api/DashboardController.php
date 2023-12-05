@@ -108,7 +108,7 @@ class DashboardController
             $data['sl'] ++;
             $data['money'] += $d->profit;
             $d->drawal->stt = $d->drawal->stt??0;
-            $key =  $k.'_'.str_replace('_','',$d->pos_id.$d->lo.$d->bill);
+            $key =  rand(11,88).'_'.$k.'_'.str_replace('_','',$d->pos_id.$d->lo.$d->bill);
             $array[$key]['pos_name'] = $d->pos->name;
             $array[$key]['stt'] = $d->drawal->stt;
             $array[$key]['id'] = $d->id;
@@ -145,7 +145,7 @@ class DashboardController
             $data['sl'] ++;
             $data['money'] += $d->profit;
             $d->withdrawal->stt = $d->withdrawal->stt??0;
-            $key =  $k.'_'.str_replace('_','',$d->pos_id.$d->lo.$d->bill);
+            $key =  rand(11,88).'_'.$k.'_'.str_replace('_','',$d->pos_id.$d->lo.$d->bill);
             
             $array[$key]['id'] = $d->id;
             $array[$key]['bill_return'] = $d->bill_return;

@@ -165,7 +165,7 @@ class DashboardController
             $array[$key]['fee_bank_money'] =  $d->fee_bank*$d->money_drawal/100;
             $array[$key]['fee_customer_money'] = $d->withdrawal->fee_customer*$d->money_drawal/100;
             $data['total_pos_back'] +=$d->money_back;
-            $data['total_money'] +=$d->money;
+            $data['total_money'] +=$d->money_drawal;
             $data['total_fee_ship'] +=$d->fee_ship;
             $data['total_fee_customer'] +=$d->fee_customer;
             $data['total_profit'] +=$d->profit;

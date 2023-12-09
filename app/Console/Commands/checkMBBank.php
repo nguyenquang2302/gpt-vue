@@ -257,7 +257,8 @@ class checkMBBank extends Command
                                             $detail = explode(' ', $description[0]);
                                             if ($customer = Customer::find($detail[2])) {
                                                 $bankLogs->isChecked = true;
-                                                $drawal = Drawal::find($detail[1]);
+                                                $drawal = Drawal::where('id',$detail[1])->where('isDone',1)->first();
+
                                                 if ($drawal) {
                                                     $bankLogs->content = $description[0];
                                                     $bankLogs->save();

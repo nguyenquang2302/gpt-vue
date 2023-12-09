@@ -2,6 +2,7 @@
 
 namespace App\Models\Users\Traits\Attribute;
 
+use App\Models\Branch\Branch;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -71,5 +72,9 @@ trait UserAttribute
     public function getMoneyLastAttribute()
     {
         return ($this->fundTransaction()->first()?$this->fundTransaction()->orderBy('id','desc')->first()->money_after : '0'); 
+    }
+
+    public function getBranchNameAttribute() {
+        return Branch::where('id',$this->branch_id)->first()->name;
     }
 }

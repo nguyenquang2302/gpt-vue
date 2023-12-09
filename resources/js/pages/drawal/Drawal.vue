@@ -21,6 +21,14 @@
                                 <i class="fa fa-plus"></i> Thêm</button>
                         </div>
                     </div>
+                    <div class="card-header-actions flex">
+                                <button class="btn btn-info" :class="{ 'btn-danger': typeData == 1 }" @click="setTypeData(1)">
+                                    Giao dịch Tạo</button>
+                                <button class="btn btn-info" :class="{ 'btn-danger': typeData == 2 }" @click="setTypeData(2)">
+                                    Tất cả giao dịch của chi nhánh</button>
+                                <button class="btn btn-info" :class="{ 'btn-danger': typeData == 3 }" @click="setTypeData(3)">
+                                    Tất cả giao dịch của hệ thống</button>
+                            </div>
                 </div>
                 <div class="card-body">
 
@@ -1197,11 +1205,16 @@ const useDrawalStore = useDrawalListStore()
 
 const useCustomerStore = useCustomerListStore()
 const customerSearch = ref()
-
+const typeData = ref(1)
 const globalStore = useGlobalStore()
 const searchValue = ref()
 const showDetail = dataInfo => {
     userData.value = dataInfo
+}
+
+const setTypeData = (value) => {
+    typeData.value = value
+    fetchAll()
 }
 
 const listCards = ref()
@@ -1266,9 +1279,10 @@ const fetchCustomerFirst = () => {
     }
 }
 
+
 const fetchAll = () => {
     loading.value = true;
-    useDrawalStore.fetchDrawals(serverOptions.value, searchValue.value, route.query.customer_id).then(({ data }) => {
+    useDrawalStore.fetchDrawals(serverOptions.value, searchValue.value, route.query.customer_id,typeData.value).then(({ data }) => {
         serverItemsLength.value = data.drawals.total
         loading.value = false;
         items.value = data.drawals.data

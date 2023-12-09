@@ -29,6 +29,11 @@ trait UserRelationship
     {
         return $this->belongsToMany(Branch::class,'users_branchs');
     }
+    public function branch()
+    {
+        return Branch::where('id',$this->branch_id)->first();
+    }
+
 
     public function fundTransaction() {
         return $this->hasMany(FundTransaction::class);

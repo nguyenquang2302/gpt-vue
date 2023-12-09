@@ -14,6 +14,11 @@
                                             class="fas fa-search"></i></button>
                                 </div>
                             </div>
+                        <div class="card-header-actions flex">
+                            <button class="btn btn-info" :class="{'btn-danger': typeData == 1}" @click="setTypeData(1)"> Giao dịch Tạo</button>
+                            <button class="btn btn-info"  :class="{'btn-danger': typeData == 2}" @click="setTypeData(2)" > Tất cả giao dịch của chi nhánh</button>
+                            <button class="btn btn-info"  :class="{'btn-danger':typeData == 3}" @click="setTypeData(3)" > Tất cả giao dịch của hệ thống</button>
+                        </div>
                         </div>
                         <div class="text-right col-md-6">
                             <button class="card-header-action" data-bs-toggle="modal" data-bs-target="#modal-add-new">
@@ -1205,7 +1210,7 @@ const userDataAddNew = ref({ ...objDefault })
 userDataAddNew.value.customer_id = parseInt(route.query.customer_id ?? 0);
 const useCardStore = useCustomerCardListStore()
 const useWithDrawalStore = useWithDrawalListStore()
-
+const typeData = ref(1);
 const useCustomerStore = useCustomerListStore()
 const customerSearch = ref()
 
@@ -1231,6 +1236,10 @@ const caculator = (data,flag) => {
     }
 }
 
+const setTypeData = (value) => {
+    typeData.value = value
+    fetchAll()
+}
 const askDelete = dataInfo => {
     idDelete.value = dataInfo.id
 }
@@ -1297,7 +1306,7 @@ const fetchCustomerFirst = (query) => {
 
 const fetchAll = () => {
     loading.value = true;
-    useWithDrawalStore.fetchWithDrawals(serverOptions.value, searchValue.value, route.query.customer_id).then(({ data }) => {
+    useWithDrawalStore.fetchWithDrawals(serverOptions.value, searchValue.value, route.query.customer_id,typeData.value).then(({ data }) => {
         serverItemsLength.value = data.withdrawals.total
         loading.value = false;
         items.value = data.withdrawals.data

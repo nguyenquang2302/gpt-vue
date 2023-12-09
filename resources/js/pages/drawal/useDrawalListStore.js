@@ -5,9 +5,10 @@ import axios from '@/plugins/axios'
 export const useDrawalListStore = defineStore('DrawalListStore', {
   actions: {
     // 👉 Fetch drawals data
-    fetchDrawals(params,searchValue,customer_id) { 
+    fetchDrawals(params,searchValue,customer_id,typeData) { 
       params.search = searchValue
       params.customer_id = customer_id
+      params.typeData = typeData
         return axios.get('/drawals', { params }) },
 
     // 👉 Add Drawal

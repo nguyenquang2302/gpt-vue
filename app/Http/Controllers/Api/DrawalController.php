@@ -50,13 +50,25 @@ class DrawalController
         $page = $request->input('page'); 
         $sortBy = $request->get('sortBy','id');
         $sortType = $request->get('sortType','desc');
-        $customers = Drawal::query()->with('customer');
+        $drawals = Drawal::query()->with('customer');
+        $user = auth()->user();
+        if($typeDate = $request->get('typeData')) 
+        {
+            if((int)$typeDate === 1) {
+                $drawals->where('user_id',$user->id);
+            }
+            if((int)$typeDate === 2) {
+                $drawals->where('branch_id',$user->branch_id);
+            }
+            
+
+        }
         if($customerId) {
-            $customers->where('customer_id',$customerId);
+            $drawals->where('customer_id',$customerId);
         }
 
         return response([
-            'drawals' =>  $customers->with('user')->with('userBelongto')->when($request->input('search'), function ($query, $search) {
+            'drawals' =>  $drawals->with('user')->with('userBelongto')->when($request->input('search'), function ($query, $search) {
                 $query->where('name', 'like', '%' . $search . '%');
             })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
         ], Response::HTTP_OK);

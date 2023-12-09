@@ -49,6 +49,18 @@ class WithdrawalController
         $sortBy = $request->get('sortBy','id');
         $sortType = $request->get('sortType','desc');
         $withdrawals = Withdrawal::query()->with('customer');
+        $user = auth()->user();
+        if($typeDate = $request->get('typeData')) 
+        {
+            if((int)$typeDate === 1) {
+                $withdrawals->where('user_id',$user->id);
+            }
+            if((int)$typeDate === 2) {
+                $withdrawals->where('branch_id',$user->branch_id);
+            }
+            
+
+        }
         if($customerId) {
             $withdrawals->where('customer_id',$customerId);
         }

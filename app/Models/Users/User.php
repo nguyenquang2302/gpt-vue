@@ -129,7 +129,8 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'avatar',
-        'money_last'
+        'money_last',
+        'branch_name'
     ];
 
     /**

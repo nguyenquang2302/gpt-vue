@@ -75,6 +75,7 @@ trait UserAttribute
     }
 
     public function getBranchNameAttribute() {
-        return Branch::where('id',$this->branch_id)->first()->name;
+        $branch = Branch::where('id',$this->branch_id)->first();
+        return $branch?$branch->name:'Chưa chọn Chi nhánh';
     }
 }

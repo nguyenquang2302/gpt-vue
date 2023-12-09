@@ -406,7 +406,7 @@ class checkMBBank extends Command
                             }
                         }
                     }
-                } else if (preg_match('/POSUSER\s[A-Z]{1,}/', $data['description'], $description) || preg_match('/POSUSER\s[a-zA-Z0-9]{1,}/', $data['description'], $description1)) {
+                } else if (preg_match('/PU\s[A-Z]{1,}/', $data['description'], $description) || preg_match('/PU\s[a-zA-Z0-9]{1,}/', $data['description'], $description1)) {
                     if (!$description && $description1) {
                         $description = $description1;
                     }

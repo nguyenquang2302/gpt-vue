@@ -45,6 +45,8 @@ class posBackCheck extends Command
      */
     public function handle()
     {
+        $PosConsignments = PosConsignment::get();
+        dd($PosConsignments);
             // $time_check_pos_back = settings()->get('time_check_pos_back', 0);
             // if ($time_check_pos_back) {
             //     $time_check_pos_back_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_pos_back);
@@ -71,10 +73,8 @@ class posBackCheck extends Command
                 ]);
                 DB::beginTransaction();
                 $PosConsignments = PosConsignment::get();
-                dd($PosConsignments);
                 foreach($PosConsignments as $PosConsignment)
                 {
-                    var_dump($PosConsignment->id);
                     if ((int)$PosConsignment->getMoneyBack() == (int)$PosConsignment->getTotalMoney()) {
                         $PosConsignment->isDone = 1;
                     }

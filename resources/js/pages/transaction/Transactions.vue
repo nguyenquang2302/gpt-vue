@@ -63,14 +63,14 @@
                                     </div>
                                     <div class="col-md-2">
                                         <v-select  v-model="BranchSelected" :options="allBranchs" label="name"
-                                            :reduce="branch => branch.id"></v-select>
+                                            :reduce="branch => branch.id" @option:selected="fetchAll()" ></v-select>
                                     </div>
                                     <div class="col-md-1">
                                         <label for="name" class="col-form-label">POS</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <v-select v-model="PosSelected" :options="useGlobal.posLists" label="name"
-                                            :reduce="pos => pos.id"></v-select>
+                                        <v-select  :options="useGlobal.posLists" label="name"
+                                            :reduce="pos => pos.id" @option:selected="fetchAll()" ></v-select>
                                     </div>
                                 </div>
                                 </div>
@@ -241,8 +241,8 @@ const times = ref({ '0': '', '1': '', '2': '' })
 const hideForm = ref(false)
 const items = ref([])
 const allBranchs = ref([])
-const BranchSelected = ref(0);
-const PosSelected = ref(0);
+const BranchSelected = ref();
+const PosSelected = ref();
 
 const loading = ref(false)
 const useStore = useTransactionListStore()
@@ -261,7 +261,7 @@ const fetchAll = () => {
     times.value['to'] = to.value
     times.value['pos_id'] = PosSelected.value
     times.value['branch_id'] = BranchSelected.value
-    
+
     useStore.fetchTransactions(times.value).then(({ data }) => {
         loading.value = false;
         items.value = data.data
@@ -283,7 +283,9 @@ const actionUpdate = () => {
         toast.error(response.data.message);
     })
 }
-
+const showA = () => {
+    console.log('1a')
+}
 const fetchAllBranch = () => {
     loading.value = true;
     useBranchs.fetchAllBranchs().then(({ data }) => {

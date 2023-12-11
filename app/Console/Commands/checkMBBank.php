@@ -71,7 +71,7 @@ class checkMBBank extends Command
         $now = Carbon::now();
         $caculator_minutes = $time_check_mb_carbon->diffInMinutes($now);
 
-        if ($caculator_minutes >= 4) {
+        if ($caculator_minutes >= 1) {
 
             settings()->set([
                 'time_check_mb' => Carbon::now()
@@ -85,7 +85,7 @@ class checkMBBank extends Command
                     $user->last_login_at = Carbon::now();
                     $user->save();
                     $time = [
-                        "from" => Carbon::now()->subDays(4)->format('d/m/Y'),
+                        "from" => Carbon::now()->subDays(2)->format('d/m/Y'),
                         "to" => Carbon::now()->format('d/m/Y'),
                     ];
                     $response = Http::post(self::transaction_url, [

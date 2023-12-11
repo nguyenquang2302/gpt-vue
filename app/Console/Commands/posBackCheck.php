@@ -71,6 +71,7 @@ class posBackCheck extends Command
                 ]);
                 DB::beginTransaction();
                 $PosConsignments = PosConsignment::get();
+                dd($PosConsignments);
                 foreach($PosConsignments as $PosConsignment)
                 {
                     var_dump($PosConsignment->id);

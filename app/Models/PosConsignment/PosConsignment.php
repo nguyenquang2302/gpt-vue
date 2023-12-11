@@ -16,12 +16,12 @@ class PosConsignment extends Model
 {
     protected $table = "pos_consignments";
     use 
-        SoftDeletes,
+        // SoftDeletes,
         PosConsignmentAttribute,
         PosConsignmentMethod,
 
-        PosConsignmentRelationship,
-        PosConsignmentScope;
+        PosConsignmentRelationship;
+        // PosConsignmentScope;
 
 
     /**

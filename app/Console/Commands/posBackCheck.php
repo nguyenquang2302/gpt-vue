@@ -45,18 +45,21 @@ class posBackCheck extends Command
      */
     public function handle()
     {
-            $time_check_pos_back = settings()->get('time_check_pos_back', 0);
-            if ($time_check_pos_back) {
-                $time_check_pos_back_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_pos_back);
-            } else {
-                $time_check_pos_back_carbon = Carbon::now()->subHour(5);
-            }
-            $now = Carbon::now();
-            $caculator_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
-            $activitiposBack = settings()->get('activitiposBack',false);
-            if(!$activitiposBack ) {
-                return;
-            }
+            // $time_check_pos_back = settings()->get('time_check_pos_back', 0);
+            // if ($time_check_pos_back) {
+            //     $time_check_pos_back_carbon = Carbon::createFromFormat('Y-m-d H:i:s', $time_check_pos_back);
+            // } else {
+            //     $time_check_pos_back_carbon = Carbon::now()->subHour(5);
+            // }
+            // $now = Carbon::now();
+            // $caculator_minutes = $time_check_pos_back_carbon->diffInMinutes($now);
+            // $activitiposBack = settings()->get('activitiposBack',false);
+            // if(!$activitiposBack ) {
+            //     return;
+            // }
+
+
+            $caculator_minutes = 10;
 
             if ($caculator_minutes >= 0) {
                 settings()->set([

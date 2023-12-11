@@ -76,6 +76,7 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
         
         Route::get('list-pos', [ApiGlobalController::class, 'listPos']);
         Route::get('/pos', [PosController::class, 'index']);
+        Route::get('/pos_lists', [PosController::class, 'pos_lists']);
         Route::get('/pos/{pos}', [PosController::class, 'show']);
 
         Route::apiResource('customers', CustomerController::class)->except(['index','store','show']);

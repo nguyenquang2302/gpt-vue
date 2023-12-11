@@ -59,6 +59,16 @@ class PosController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function pos_lists(Request $request)
+    {
+
+        return response()->json(Pos::all(), Response::HTTP_OK);
+
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $rowsPerPage = $request->input('rowsPerPage'); 

@@ -12,7 +12,8 @@ export const useGlobalStore = defineStore('globalListStore', {
     listBank: [],
     listProvince: [],
     listPos: [],
-    fundCategories: []
+    fundCategories: [],
+    posLists:[]
   }),
 
   getters: {
@@ -160,5 +161,16 @@ export const useGlobalStore = defineStore('globalListStore', {
           .catch(error => reject(error))
       })
     },
+
+    fetchListPos() {
+      return new Promise((resolve, reject) => {
+        axios.get(`/pos_lists`)
+          .then(response => {
+            this.posLists = response.data
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+    }
   }
 })

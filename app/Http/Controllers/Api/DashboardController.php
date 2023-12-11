@@ -80,14 +80,39 @@ class DashboardController
             $data['from'] =  $from = Carbon::now();
             $data['to'] =  $to = Carbon::now();
         }
+        $pos_id = $request->get('pos_id',0);
+        $branch_id = $request->get('branch_id',0);
+
         $detail1 =  DrawalDetail::whereHas('drawal', function (Builder $q1) use ($active, $from, $to) {
             $q1->where('isDone', $active)
                 ->whereBetween('datetime', [$from->startOfDay(), $to->endOfDay()]);
-        })->get();
+        });
+
+        if($pos_id) {
+            $detail1->where('pos_id',$pos_id);
+        }
+        if($branch_id) {
+            $detail1->where('branch_id',$branch_id);
+        }
+
+
         $detail2 =  WithdrawalDetail::whereHas('withdrawal', function (Builder $q1) use ($active, $from, $to) {
             $q1->where('isDone', $active)
                 ->whereBetween('datetime', [$from->startOfDay(), $to->endOfDay()]);
-        })->get();
+        });
+
+        if($pos_id) {
+            $detail1->where('pos_id',$pos_id);
+            $detail2->where('pos_id',$pos_id);
+        }
+        if($branch_id) {
+            $detail1->where('branch_id',$branch_id);
+            $detail2->where('branch_id',$branch_id);
+        }
+        $detail1->get();
+        $detail2->get();
+
+
         $array = [];
         $data['money'] = 0;
         $data['sl'] = 0;

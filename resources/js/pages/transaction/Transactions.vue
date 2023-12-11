@@ -56,6 +56,24 @@
                                         </div>
                                 </div>
                                 <br>
+                                <div class="modal-body">
+                                <div class="form-group row">
+                                    <div class="col-md-1">
+                                        <label for="name" class="col-form-label">Chi nhánh</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <v-select  v-model="BranchSelected" :options="allBranchs" label="name"
+                                            :reduce="branch => branch.id"></v-select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="name" class="col-form-label">POS</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <v-select v-model="PosSelected" :options="useGlobal.posLists" label="name"
+                                            :reduce="pos => pos.id"></v-select>
+                                    </div>
+                                </div>
+                                </div>
 
                                 <table id="example2" class="table table-bordered table-striped table-responsive">
                                     <thead>
@@ -193,6 +211,7 @@ import moment from "moment";
 import DataTable from 'datatables.net-vue3';
 import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
+import { useBranchListStore } from '@/pages/branchs/useBranchListStore'
 
 const from = ref()
 const to = ref()
@@ -221,9 +240,15 @@ const billReturn = dataInfo => {
 const times = ref({ '0': '', '1': '', '2': '' })
 const hideForm = ref(false)
 const items = ref([])
+const allBranchs = ref([])
+const BranchSelected = ref(0);
+const PosSelected = ref(0);
 
 const loading = ref(false)
 const useStore = useTransactionListStore()
+const useBranchs = useBranchListStore()
+const useGlobal = useGlobalStore()
+
 const dataBillReturn = ref({})
 const setTimes = (time) => {
     times.value[0] = '';
@@ -232,9 +257,11 @@ const setTimes = (time) => {
     fetchAll()
 };
 const fetchAll = () => {
-    loading.value = true;
     times.value['from'] = from.value
     times.value['to'] = to.value
+    times.value['pos_id'] = PosSelected.value
+    times.value['branch_id'] = BranchSelected.value
+    
     useStore.fetchTransactions(times.value).then(({ data }) => {
         loading.value = false;
         items.value = data.data
@@ -257,5 +284,16 @@ const actionUpdate = () => {
     })
 }
 
+const fetchAllBranch = () => {
+    loading.value = true;
+    useBranchs.fetchAllBranchs().then(({ data }) => {
+        loading.value = false;
+        allBranchs.value = data.branchs
+    }).catch(error => {
+        toast.error(error.message);
+    })
+};
+fetchAllBranch()
+useGlobal.fetchListPos()
 
 </script>

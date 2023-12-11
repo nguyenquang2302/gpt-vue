@@ -65,7 +65,7 @@ class BankLogsCheck extends Command
         }
         $now = Carbon::now();
         $caculator_minutes = $time_check_bank_log_carbon->diffInMinutes($now);
-        if ($caculator_minutes >= 4) {
+        if ($caculator_minutes >= 1) {
             settings()->set([
                 'time_check_bank_log' => Carbon::now()
             ]);

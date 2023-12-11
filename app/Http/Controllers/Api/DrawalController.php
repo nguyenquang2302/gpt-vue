@@ -109,7 +109,7 @@ class DrawalController
      */
     public function update(UpdateDrawalRequest $request, Drawal $drawal)
     {
-        if (auth()->user()->id == $withdrawal->user_id || auth()->user()->type == 'admin') {
+        if (auth()->user()->id == $drawal->user_id || auth()->user()->type == 'admin') {
 
             if ($drawal->isDone) {
 

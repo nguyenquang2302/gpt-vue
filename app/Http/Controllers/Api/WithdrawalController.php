@@ -42,33 +42,30 @@ class WithdrawalController
      */
     public function index(Request $request)
     {
-        
-        $customerId= $request->query('customer_id', null);
-        $rowsPerPage = $request->input('rowsPerPage'); 
-        $page = $request->input('page'); 
-        $sortBy = $request->get('sortBy','id');
-        $sortType = $request->get('sortType','desc');
+
+        $customerId = $request->query('customer_id', null);
+        $rowsPerPage = $request->input('rowsPerPage');
+        $page = $request->input('page');
+        $sortBy = $request->get('sortBy', 'id');
+        $sortType = $request->get('sortType', 'desc');
         $withdrawals = Withdrawal::query()->with('customer');
         $user = auth()->user();
-        if($typeDate = $request->get('typeData')) 
-        {
-            if((int)$typeDate === 1) {
-                $withdrawals->where('user_id',$user->id);
+        if ($typeDate = $request->get('typeData')) {
+            if ((int)$typeDate === 1) {
+                $withdrawals->where('user_id', $user->id);
             }
-            if((int)$typeDate === 2) {
-                $withdrawals->where('branch_id',$user->branch_id);
+            if ((int)$typeDate === 2) {
+                $withdrawals->where('branch_id', $user->branch_id);
             }
-            
-
         }
-        if($customerId) {
-            $withdrawals->where('customer_id',$customerId);
+        if ($customerId) {
+            $withdrawals->where('customer_id', $customerId);
         }
 
         return response([
             'withdrawals' =>  $withdrawals->with('user')->with('userBelongto')->when($request->input('search'), function ($query, $search) {
                 $query->where('name', 'like', '%' . $search . '%');
-            })->orderBy($sortBy,$sortType)->paginate($rowsPerPage),
+            })->orderBy($sortBy, $sortType)->paginate($rowsPerPage),
         ], Response::HTTP_OK);
     }
 
@@ -112,20 +109,31 @@ class WithdrawalController
      */
     public function update(UpdateWithdrawalRequest $request, Withdrawal $withdrawal)
     {
-        if($withdrawal->isDone) {
+        if(auth()->user()->id == $withdrawal->user_id || auth()->user()->type =='admin1') {
+        
+            if ($withdrawal->isDone) {
+
+                return response([
+                    'result' =>  true,
+                    'withdrawal' =>  $withdrawal,
+                    'message' => ' Giao dịch đã xác nhận không thể  chỉnh sửa'
+                ], Response::HTTP_FOUND);
+            }
+
+            $this->withdrawalService->update($withdrawal, $request->validated());
 
             return response([
+                'result' =>  true,
                 'withdrawal' =>  $withdrawal,
-                'message' => ' Giao dịch đã xác nhận không thể  chỉnh sửa'
-            ], Response::HTTP_FOUND);
-        }
+                'message' => 'Cập nhật thành công'
+            ], Response::HTTP_OK);
         
-        $this->withdrawalService->update($withdrawal, $request->validated());
-
-        return response([
-            'withdrawal' =>  $withdrawal,
-            'message' => 'Cập nhật thành công'
-        ], Response::HTTP_OK);
+        } else {
+            return response([
+                'result' =>  false,
+                'message' => 'Bạn không có quyền sửa giao dịch này !'
+            ], Response::HTTP_FORBIDDEN);
+        }
     }
 
     /**
@@ -172,10 +180,10 @@ class WithdrawalController
         ], Response::HTTP_OK);
     }
 
-    
+
     public function verify(Withdrawal $withdrawal)
     {
-        if($withdrawal->isDone) {
+        if ($withdrawal->isDone) {
 
             return response([
                 'withdrawal' =>  $withdrawal,
@@ -184,10 +192,31 @@ class WithdrawalController
         }
 
         $this->withdrawalService->verify($withdrawal, true);
-        
+
         return response([
             'withdrawal' =>  $withdrawal,
             'message' => 'Cập nhật thành công'
         ], Response::HTTP_OK);
+    }
+
+    /**
+     * @param  Drawal  $drawal
+     * @return mixed
+     */
+    public function receive(Withdrawal $withdrawal)
+    {
+        if ($withdrawal->isDone) {
+            return response([
+                'result' =>  false,
+                'message' => 'Giao dịch đã xác nhận không thể chỉnh sửa'
+            ], Response::HTTP_OK);
+        } else {
+            $withdrawal->user_id = auth()->user()->id;
+            $withdrawal->save();
+            return response([
+                'result' =>  true,
+                'message' => 'Bạn đã nhận xử lý giao dịch !!!',
+            ], Response::HTTP_OK);
+        }
     }
 }

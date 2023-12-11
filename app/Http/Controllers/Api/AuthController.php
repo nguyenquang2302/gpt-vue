@@ -15,17 +15,23 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user) {
             return response([
-                'message' => 'This User does not exist'
+                'message' => 'Tài khoản không tồn tại'
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-            $access_token = $user->createToken('authToken');
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
-                'user' => $user->toArray(),
-                'access_token' => $access_token->plainTextToken
-            ], Response::HTTP_OK);
+                'message' => 'Mật khẩu không đúng vui lòng thử lại'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $access_token = $user->createToken('authToken');
+        return response([
+            'user' => $user->toArray(),
+            'access_token' => $access_token->plainTextToken
+        ], Response::HTTP_OK);
 
         return response([
             'message' => 'This User does not exist'

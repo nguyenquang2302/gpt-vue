@@ -64,10 +64,12 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
     Route::get('/transaction-partner', [PartnerController::class, 'partner'])->name('partner'); 
 
 });
+
 Route::middleware(['auth:sanctum','is_admin:admin,manager,manager_vip'])->group(function () {
     Route::post('/activitiPosback', [CommandCheckController::class, 'activitiPosback']);
     Route::post('/bill-return', [BillReturnController::class, 'billReturn']);
 });
+
 Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manager_vip_2,staff'])->group(function () {
     Route::group(['middleware', ['json.force']], function() {
         // global
@@ -90,17 +92,20 @@ Route::middleware(['auth:sanctum','is_admin:admin,mod,manager,manager_vip,manage
 
         // drawal
         Route::post('/drawals/reDone/{drawal}', [DrawalController::class, 'reDone'])->name('reDone');
+        Route::post('/drawals/receive/{drawal}', [DrawalController::class, 'receive'])->name('receive');
+
         Route::post('/drawals/verify/{drawal}', [DrawalController::class, 'verify'])->name('verify');
         Route::apiResource('drawals', DrawalController::class);
         
-        // drawal
+        // withdrawal
         Route::post('/withdrawals/reDone/{withdrawal}', [WithdrawalController::class, 'reDone'])->name('reDone');
         Route::post('/withdrawals/verify/{withdrawal}', [WithdrawalController::class, 'verify'])->name('verify');
+        Route::post('/withdrawals/receive/{withdrawal}', [WithdrawalController::class, 'receive'])->name('receive');
+
+
         Route::apiResource('withdrawals', WithdrawalController::class);
         // History
         Route::apiResource('/history', BankLogController::class);
-
-        
         // ok
 
         Route::get('/transactions', [DashboardController::class, 'transaction'])->name('transactions');

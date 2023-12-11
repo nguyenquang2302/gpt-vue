@@ -51,6 +51,13 @@ export const useWithDrawalListStore = defineStore('WithDrawalListStore', {
           .catch(error => reject(error))
       })
     },
+    receiveData(id) {
+      return new Promise((resolve, reject) => {
+        axios.post(`/withdrawals/receive/${id}`)
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    },
     verifyData(id) {
       return new Promise((resolve, reject) => {
         axios.post(`/withdrawals/verify/${id}`)

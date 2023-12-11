@@ -66,16 +66,17 @@
 
                         <template #item-operation="item">
                             <div class="operation-wrapper">
-                                <i class="fa fa-eye operation-icon" title="Chỉnh sửa" @click="askShow(item)"
+                                <i class="fa fa-eye operation-icon" title="Xem GD" @click="askShow(item)"
                                     data-bs-toggle="modal" data-bs-target="#modal-show"></i>
-
-                                <i class="fa fa-edit operation-icon" title="Chỉnh sửa" v-if="!item.isDone"
+                                <i class="fa fa-edit operation-icon" title="Chỉnh sửa" v-if="(!item.isDone &&(userLogin.type =='admin' || item.user_id == userLogin.id))"
                                     @click="askEdit(item)" data-bs-toggle="modal" data-bs-target="#modal-edit"></i>
                                 <i class="fa fa-trash operation-icon text-danger"
                                     v-if="!item.isDone && userLogin.type == 'admin'" @click="askDelete(item)"
-                                    data-bs-toggle="modal" title="Xoá Thẻ KH" data-bs-target="#modal-delete"></i>
-                                <i class="fas fa-sync operation-icon text-danger" v-if="item.isDone" @click="asReDone(item)"
+                                    data-bs-toggle="modal" title="Xoá giao dịch" data-bs-target="#modal-delete"></i>
+                                <i class="fas fa-sync operation-icon text-danger" v-if="item.isDone && userLogin.type == 'admin'" @click="asReDone(item)"
                                     data-bs-toggle="modal" title="Cho phép sửa/xoá" data-bs-target="#modal-reDone"></i>
+                                <i class="fa fa-bolt operation-icon text-warning" v-if="!item.isDone && item.user_id != userLogin.id " @click="asReceive(item)"
+                                    data-bs-toggle="modal" title="Nhận xử lý" data-bs-target="#modal-Receive"></i>
                             </div>
                         </template>
                     </EasyDataTable>
@@ -442,6 +443,37 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- receive -->
+
+                    <div>
+                        <div class="modal fade" id="modal-Receive" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Cho phép sửa lại </h4>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row text-center">
+                                            <p> Bạn muốn nhận xử lý giao dịch<br> ID : {{ idReceive }} </p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default closeModalReceive"
+                                            data-bs-dismiss="modal">Huỷ</button>
+                                        <button v-bind:disabled="loading" type="button" class="btn btn-primary"
+                                            @click="actionReceive()">Đồng
+                                            ý</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- end receive -->
                     <!-- Edit Card -->
 
                     <div>
@@ -1062,8 +1094,8 @@
                                             {{ userDataShow.id }} {{ userDataShow.customer_id }} </button>
                                         <input id="testing-code" value='' type='hidden'>
                                     </div>
-                                    <div class="modal-footer justify-content-between" v-if="!userDataShow.isDone">
-                                        <button type="button" class="btn btn-primary"
+                                    <div class="modal-footer justify-content-between" v-if="(!userDataShow.isDone  && (userLogin.type =='admin' || userDataShow.user_id == userLogin.id))">
+                                        <button type="button" class="btn btn-primary" 
                                             @click="actionVerify(userDataShow.id)">Xác nhận GIAO DỊCH</button>
                                     </div>
                                 </div>
@@ -1193,6 +1225,7 @@ const reRender = ref(0);
 const isPopupDelete = ref(false);
 const idDelete = ref(0);
 const idReDone = ref(0);
+const idReceive = ref(0);
 const isPopupEdit = ref(false);
 const idEdit = ref(0);
 const idShow = ref(0);
@@ -1224,6 +1257,9 @@ const askDelete = dataInfo => {
 }
 const asReDone = dataInfo => {
     idReDone.value = dataInfo.id
+}
+const asReceive = dataInfo => {
+    idReceive.value = dataInfo.id
 }
 const askEdit = dataInfo => {
     isPopupEdit.value = true
@@ -1326,6 +1362,31 @@ const actionReDone = () => {
     }
 
 }
+
+
+const actionReceive = () => {
+    if (loading.value == false) {
+        loading.value = true;
+        useDrawalStore.receiveData(idReceive.value).then(response => {
+            if(response.data.result) {
+                idReceive.value = 0
+                toast.success(response.data.message);
+                loading.value = false;
+                $('.closeModalReceive').click()
+                fetchAll()
+            } else {
+                toast.error(response.data.message);
+            }
+            
+
+        }).catch(({ response }) => {
+            isPopupDelete.value = false
+            toast.error(response.data.message);
+        })
+    }
+
+}
+
 const actionDelete = () => {
     if (loading.value == false) {
         loading.value = true;
@@ -1349,10 +1410,14 @@ const actionUpdate = () => {
     {
         loading.value = true;
         useDrawalStore.updateData(userData.value).then(response => {
-            loading.value = false
-            toast.success(response.data.message)
-            $('.CloseModalEdit').click()
-            fetchAll()
+            if(response.data.result) {
+                toast.success(response.data.message);
+                loading.value = false;
+                $('.CloseModalEdit').click()
+                fetchAll()
+            } else {
+                toast.error(response.data.message);
+            }
         }).catch(({ response }) => {
             loading.value = false
             toast.error(response.data.message);

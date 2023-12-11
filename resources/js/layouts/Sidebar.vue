@@ -14,6 +14,13 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="info">
+            <a href="#" class="d-block">{{  userLogin.name }}</a>
+          </div>
+          
+        </div>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        
+          <div class="info">
             <a href="#" class="d-block">CHI NHÁNH: {{  userLogin.branch_name }}</a>
           </div>
         </div>
@@ -177,7 +184,7 @@
                     d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
                 </svg>
                 <p>
-                  POS
+                  POS&nbsp;
                   <span class="right badge badge-danger"></span>
                 </p>
                 </router-link>
@@ -323,7 +330,7 @@
                     d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
                 </svg>
                 <p>
-                  POS
+                  POS &nbsp;
                   <span class="right badge badge-danger"></span>
                 </p>
                 </router-link>

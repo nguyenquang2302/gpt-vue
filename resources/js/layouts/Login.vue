@@ -2,13 +2,13 @@
    <div class="login-page">
     <div class="login-box" bis_skin_checked="1">
       <div class="login-logo" bis_skin_checked="1">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="/login"><b>Admin</b>GPT</a>
       </div>
 
       <div class="card" bis_skin_checked="1">
         <div class="card-body login-card-body" bis_skin_checked="1">
-          <p class="login-box-msg">Sign in to start your session</p>
-          <form action="../../index3.html" method="post">
+          <p class="login-box-msg">Đăng nhập vào trang quản trị</p>
+          <form action="/" method="post">
             <div class="input-group mb-3" bis_skin_checked="1">
               <input type="email" class="form-control" placeholder="Email" v-model="loginData.email">
               <div class="input-group-append" bis_skin_checked="1">
@@ -41,12 +41,7 @@
 
             </div>
           </form>
-          <p class="mb-1">
-            <a href="#">I forgot my password</a>
-          </p>
-          <p class="mb-0">
-            <a href="#" class="text-center">Register a new membership</a>
-          </p>
+       
         </div>
 
       </div>
@@ -74,7 +69,7 @@ const login = () => {
       localStorage.setItem('accessToken', response.data.access_token);
       router.push('/');
     }).catch(error => {
-      toast.error(error)
+      toast.error(error.response.data.message)
     })
 }
 </script>

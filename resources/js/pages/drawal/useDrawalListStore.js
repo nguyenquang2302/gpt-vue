@@ -51,6 +51,14 @@ export const useDrawalListStore = defineStore('DrawalListStore', {
           .catch(error => reject(error))
       })
     },
+    receiveData(id) {
+      return new Promise((resolve, reject) => {
+        axios.post(`/drawals/receive/${id}`)
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    },
+
     verifyData(id) {
       return new Promise((resolve, reject) => {
         axios.post(`/drawals/verify/${id}`)

@@ -6,6 +6,7 @@ use App\Models\Bank\Bank;
 use App\Models\Branch\Branch;
 use App\Models\FundCategory\FundCategory;
 use App\Models\Pos\Pos;
+use App\Models\PosConsignment\PosConsignment;
 use Carbon\Carbon;
 use Exception;
 use HoangPhi\VietnamMap\Models\Province;
@@ -166,6 +167,9 @@ class CommandCheckController
     }
 
     public  function activitiPosback() {
+
+        $PosConsignments = PosConsignment::get();
+        dd($PosConsignments);
         settings()->set([
             'activitiposBack' => true,
         ]);

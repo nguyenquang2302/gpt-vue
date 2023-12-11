@@ -46,16 +46,16 @@ export const useGlobalStore = defineStore('globalListStore', {
     },
 
      // 👉 fetch list customer
-     fetchListPos() {
-      return new Promise((resolve, reject) => {
-        axios.get(`/list-pos`)
-          .then(response => {
-            this.listPos = response.data
-            resolve(response)
-          })
-          .catch(error => reject(error))
-      })
-    },
+    //  fetchListPos() {
+    //   return new Promise((resolve, reject) => {
+    //     axios.get(`/list-pos`)
+    //       .then(response => {
+    //         this.listPos = response.data
+    //         resolve(response)
+    //       })
+    //       .catch(error => reject(error))
+    //   })
+    // },
 
     // 👉 fetch list customer
     fetchListCustomer() {
@@ -167,6 +167,8 @@ export const useGlobalStore = defineStore('globalListStore', {
         axios.get(`/pos_lists`)
           .then(response => {
             this.posLists = response.data
+            this.listPos = response.data
+
             resolve(response)
           })
           .catch(error => reject(error))

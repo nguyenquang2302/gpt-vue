@@ -63,14 +63,14 @@
                                     </div>
                                     <div class="col-md-2">
                                         <v-select  v-model="BranchSelected" :options="allBranchs" label="name"
-                                            :reduce="branch => branch.id" @option:selected="fetchAll()" ></v-select>
+                                            :reduce="branch => branch.id" @option:selected="branchSelected()" ></v-select>
                                     </div>
                                     <div class="col-md-1">
                                         <label for="name" class="col-form-label">POS</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <v-select  :options="useGlobal.posLists" label="name"
-                                            :reduce="pos => pos.id" @option:selected="fetchAll()" ></v-select>
+                                        <v-select v-model="PosSelected" :options="useGlobal.posLists" label="name"
+                                            :reduce="pos => pos.id" @option:selected="branchSelected()" ></v-select>
                                     </div>
                                 </div>
                                 </div>
@@ -283,9 +283,10 @@ const actionUpdate = () => {
         toast.error(response.data.message);
     })
 }
-const showA = () => {
-    console.log('1a')
+const branchSelected = () => {
+    fetchAll()
 }
+
 const fetchAllBranch = () => {
     loading.value = true;
     useBranchs.fetchAllBranchs().then(({ data }) => {

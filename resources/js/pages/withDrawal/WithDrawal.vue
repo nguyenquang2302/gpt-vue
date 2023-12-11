@@ -434,7 +434,7 @@
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Cho phép sửa lại </h4>
+                                        <h4 class="modal-title">Nhận giao dịch </h4>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -1201,7 +1201,7 @@ const headers: Header[] = [
     { text: "Số tiền rút", value: "money_withdrawal" },
     { text: "Phí KH(%)", value: "fee_customer" },
     { text: "Shipto", value: "user_belongto.name" },
-    { text: "Người tạo", value: "user.name" },
+    { text: "Người xử lý", value: "user.name" },
     { text: "Operation", value: "operation" },
 ];
 

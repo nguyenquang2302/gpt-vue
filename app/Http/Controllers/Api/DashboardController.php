@@ -102,15 +102,15 @@ class DashboardController
         });
 
         if($pos_id) {
-            $detail1->where('pos_id',$pos_id);
-            $detail2->where('pos_id',$pos_id);
+            $detail1 = $detail1->where('pos_id',$pos_id);
+            $detail2 = $detail2->where('pos_id',$pos_id);
         }
         if($branch_id) {
-            $detail1->where('branch_id',$branch_id);
-            $detail2->where('branch_id',$branch_id);
+            $detail1 = $detail1->where('branch_id',$branch_id);
+            $detail2 = $detail2->where('branch_id',$branch_id);
         }
-        $detail1->get();
-        $detail2->get();
+        $detail1 = $detail1->get();
+        $detail2 = $detail2->get();
 
 
         $array = [];

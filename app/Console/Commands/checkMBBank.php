@@ -85,7 +85,7 @@ class checkMBBank extends Command
                     $user->last_login_at = Carbon::now();
                     $user->save();
                     $time = [
-                        "from" => Carbon::now()->subDays(1)->format('d/m/Y'),
+                        "from" => Carbon::now()->subDays(4)->format('d/m/Y'),
                         "to" => Carbon::now()->format('d/m/Y'),
                     ];
                     $response = Http::post(self::transaction_url, [

@@ -70,8 +70,7 @@ class posBackCheck extends Command
                     'activitiposBack' => false
                 ]);
                 DB::beginTransaction();
-                $PosConsignments = PosConsignment::get();
-                dd($PosConsignments);
+                $PosConsignments = PosConsignment::all();
                 foreach($PosConsignments as $PosConsignment)
                 {
                     var_dump($PosConsignment->id);

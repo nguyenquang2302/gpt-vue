@@ -42,37 +42,39 @@
                                 <br>
                                 <div class="row customize-row" v-show="hideForm" bis_skin_checked="1">
                                     <div class="col-md-4">
-                                            <div class="form-group" >
-                                                <flat-pickr v-model="from" :config="config"/>
-                                            </div>
+                                        <div class="form-group">
+                                            <flat-pickr v-model="from" :config="config" />
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group" >
-                                                <flat-pickr v-model="to" :config="config"/>
-                                            </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <flat-pickr v-model="to" :config="config" />
                                         </div>
-                                        <div class="col-md-2">
-                                            <button class="btn btn-sm btn-primary" @click="fetchAll()" type="submit">Lọc</button>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-sm btn-primary" @click="fetchAll()"
+                                            type="submit">Lọc</button>
+                                    </div>
                                 </div>
                                 <br>
                                 <div class="modal-body">
-                                <div class="form-group row">
-                                    <div class="col-md-1">
-                                        <label for="name" class="col-form-label">Chi nhánh</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-1">
+                                            <label for="name" class="col-form-label">Chi nhánh</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <v-select v-model="BranchSelected" :options="allBranchs" label="name"
+                                                :reduce="branch => branch.id"
+                                                @option:selected="branchSelected()"></v-select>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for="name" class="col-form-label">POS</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <v-select v-model="PosSelected" :options="useGlobal.posLists" label="name"
+                                                :reduce="pos => pos.id" @option:selected="branchSelected()"></v-select>
+                                        </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <v-select  v-model="BranchSelected" :options="allBranchs" label="name"
-                                            :reduce="branch => branch.id" @option:selected="branchSelected()" ></v-select>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label for="name" class="col-form-label">POS</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <v-select v-model="PosSelected" :options="useGlobal.posLists" label="name"
-                                            :reduce="pos => pos.id" @option:selected="branchSelected()" ></v-select>
-                                    </div>
-                                </div>
                                 </div>
 
                                 <table id="example2" class="table table-bordered table-striped table-responsive">
@@ -151,8 +153,8 @@
                                     </div>
                                 </div>
 
-<hr>
-                                 <table id="example2" class="table table-bordered table-striped table-responsive">
+                                <hr>
+                                <table id="example2" class="table table-bordered table-striped table-responsive">
                                     <div>Giao dịch rút tiền [SHIP]</div>
                                     <thead>
                                         <tr>
@@ -232,7 +234,8 @@
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default closeModalReDone"
                                                         data-bs-dismiss="modal">Huỷ</button>
-                                                    <button  v-bind:disabled="loading"  @click="actionUpdate()" type="button" class="btn btn-primary">Đồng
+                                                    <button v-bind:disabled="loading" @click="actionUpdate()" type="button"
+                                                        class="btn btn-primary">Đồng
                                                         ý</button>
                                                 </div>
                                             </div>

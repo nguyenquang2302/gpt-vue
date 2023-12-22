@@ -195,8 +195,8 @@
                                     <tbody>
                                         <tr v-for="(tran) in items.withDrawals">
                                             <td>{{ tran.id }}</td>
-                                            <td v-if="tran.user_fee_belongto">{{ tran.user_fee_belongto.email }}</td>
-                                            <td v-else>{{ 'Chưa Nhập' }}</td>
+                                            <td v-if="tran.user_fee_belongto != null">{{ tran.user_fee_belongto.email }}</td>
+                                            <td v-if="tran.user_fee_belongto == null">{{ 'Chưa Nhập' }}</td>
                                             <td>{{ formatPrice(tran.fee_ship) }}</td>
                                             <td>{{ formatPrice(tran.fee_user) }}</td>
                                             <td>{{ formatPrice(tran.money_drawal) }}</td>

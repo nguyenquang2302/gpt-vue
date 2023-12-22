@@ -21,6 +21,12 @@ trait DrawalRelationship
     {
         return $this->belongsTo(User::class);
     }
+
+    public function userFeeBelongto()
+    {
+        return $this->belongsTo(User::class, 'user_fee_id', 'id');
+    }
+    
     public function userBelongto()
     {
         return $this->belongsTo(User::class, 'user_id_belongto', 'id');
@@ -46,6 +52,7 @@ trait DrawalRelationship
         return $this->hasMany(DrawalDetail::class,'drawal_id','id');
     }
 
+    
     public function branch()
     {
         return $this->belongsTo(Branch::class);

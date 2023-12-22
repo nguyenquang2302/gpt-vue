@@ -150,6 +150,57 @@
                                         </div>
                                     </div>
                                 </div>
+
+<hr>
+                                 <table id="example2" class="table table-bordered table-striped table-responsive">
+                                    <div>Giao dịch rút tiền [SHIP]</div>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Người ship</th>
+                                            <th scope="col">Số tiền ship</th>
+                                            <th scope="col">Số tiền ship NV</th>
+                                            <th scope="col">Số tiền giao dịch</th>
+                                            <th scope="col">Thời gian</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(tran) in items.drawals">
+                                            <td>{{ tran.id }}</td>
+                                            <td>{{ tran.user_fee_belongto.email }}</td>
+                                            <td>{{ formatPrice(tran.fee_ship) }}</td>
+                                            <td>{{ formatPrice(tran.fee_user) }}</td>
+                                            <td>{{ formatPrice(tran.money_drawal) }}</td>
+                                            <td>{{ formatDate(tran.created_at) }}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                                <table id="example2" class="table table-bordered table-striped table-responsive">
+                                    <div>Giao dịch đáo hạn [SHIP]</div>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Người ship</th>
+                                            <th scope="col">Số tiền ship</th>
+                                            <th scope="col">Số tiền ship NV</th>
+                                            <th scope="col">Số tiền giao dịch</th>
+                                            <th scope="col">Thời gian</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(tran) in items.withDrawals">
+                                            <td>{{ tran.id }}</td>
+                                            <td>{{ tran.user_fee_belongto.email }}</td>
+                                            <td>{{ formatPrice(tran.fee_ship) }}</td>
+                                            <td>{{ formatPrice(tran.fee_user) }}</td>
+                                            <td>{{ formatPrice(tran.money_drawal) }}</td>
+                                            <td>{{ formatDate(tran.created_at) }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <!-- Check -->
                                 <div>
                                     <div class="modal fade" id="modal-reDone" aria-hidden="true">

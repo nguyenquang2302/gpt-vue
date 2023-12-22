@@ -201,6 +201,9 @@ class DashboardController
         ksort($array);
         $data['lists'] = $array;
         // dd($array);
+
+        $data['drawals']= $drawals = Drawal::where('fee_ship','>',0)->with('userFeeBelongto')->whereBetween('datetime', [$from->startOfDay(), $to->endOfDay()])->get();
+        $data['withDrawals']=  $withDrawals = Withdrawal::where('fee_ship','>',0)->with('userFeeBelongto')->whereBetween('datetime', [$from->startOfDay(), $to->endOfDay()])->get();
         return response([
             'data' =>  $data,
             'message' => 'Danh sách thành công'

@@ -245,7 +245,7 @@ class BankLogsCheck extends Command
                                         if ($customer = Customer::find($detail[2])) {
                                             $bankLogs->isChecked = true;
                                             $drawal = Drawal::where('id',$detail[1])->where('isDone',1)->first();
-                                            if ($drawal) {
+                                            if ($drawal|| !$drawal) {
                                                 $bankLogs->content = $description[0];
                                                 $bankLogs->save();
                                                 $customerTransaction = new CustomerTransaction;

@@ -4,8 +4,8 @@ import router from '@/router'
 const axiosIns = axios.create({
   // You can add your headers here
   // ================================
-  // baseURL: 'http://gpt.x/api',
-  baseURL: 'https://hotrothe.vn/api/',
+  baseURL: 'http://gpt.x/api',
+  // baseURL: 'https://hotrothe.vn/api/',
   // timeout: 10000,
   // headers: {'X-Custom-Header': 'foobar'}
 })
